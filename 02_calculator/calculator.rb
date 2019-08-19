@@ -15,3 +15,13 @@ def sum array
 
   return sum
 end
+
+def multiply ( first_number, *more_numbers )
+  product = first_number
+
+  more_numbers.each do |number|
+    product *= number
+  end
+
+  return product
+end
