@@ -25,3 +25,8 @@ def multiply ( first_number, *more_numbers )
 
   return product
 end
+
+def power ( first_number, second_number )
+  return first_number**second_number
+end
+
