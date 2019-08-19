@@ -89,8 +89,10 @@ describe "multiply" do
   
 end
 
-describe "#power" do
-  it "raises one number to the power of another number"
+describe "power" do
+  it "raises one number to the power of another number" do
+    expect(power(5,6)).to eq(15625)
+  end
 end
 
 # http://en.wikipedia.org/wiki/Factorial
