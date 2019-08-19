@@ -30,3 +30,14 @@ def power ( first_number, second_number )
   return first_number**second_number
 end
 
+def factorial number
+  return 1 if number == 0
+  product = 1
+
+  while number >= 1 do
+    product *= number
+    number -= 1
+  end
+  
+  return product
+end
