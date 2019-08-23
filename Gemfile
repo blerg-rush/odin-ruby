@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'paperclip'
+gem 'pg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,7 +55,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
