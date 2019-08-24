@@ -7,14 +7,14 @@ def cipher( string, offset )
       next
     end
 
-    upcase = character == character.upcase #Will need to convert back if it is
+    is_upcase = character == character.upcase #Will need to convert back if it is
     index = alphabet.find_index( character.downcase )
-    new_character = alphabet[( index + offset ) % 26 ]
+    shifted_character = alphabet[( index + offset ) % 26 ]
 
-    if upcase
-      encrypted_string << new_character.upcase
+    if is_upcase
+      encrypted_string << shifted_character.upcase
     else
-      encrypted_string << new_character
+      encrypted_string << shifted_character
     end
   end
   return encrypted_string
