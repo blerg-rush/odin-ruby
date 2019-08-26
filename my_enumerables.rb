@@ -43,4 +43,8 @@ module Enumerable
     end
     !new_array.empty?
   end
+
+  def my_none?
+    !my_any?
+  end
 end
