@@ -47,4 +47,16 @@ module Enumerable
   def my_none?
     !my_any?
   end
+
+  def my_count
+    number = 0
+    my_each do |value|
+      if block_given?
+        number += 1 if yield(value)
+      else
+        number += 1
+      end
+    end
+    number
+  end
 end
