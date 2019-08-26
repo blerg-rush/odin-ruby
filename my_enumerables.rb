@@ -35,4 +35,12 @@ module Enumerable
     end
     self == new_array
   end
+
+  def my_any?
+    new_array = []
+    my_each do |value|
+      new_array << value if yield(value)
+    end
+    !new_array.empty?
+  end
 end
