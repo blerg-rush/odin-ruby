@@ -10,6 +10,8 @@ require "sinatra/reloader"
 get "/" do
   guess = params["guess"].to_i
   message = check_guess(guess)
+  cheat_message = "#{message}<br><br>CHEAT MODE: The number is #{@@number}"
+  message = cheat_message if params["cheat"] == "true"
   erb :index, locals: { number: @@number, message: message, color: @@color }
 end
 
