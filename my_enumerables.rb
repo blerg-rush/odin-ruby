@@ -67,4 +67,17 @@ module Enumerable
     end
     new_array
   end
+
+  # This is ugly. Fix it later.
+  def my_inject(initial = nil)
+    number = 0
+    my_each_with_index do |value, i|
+      number = if i.zero?
+                 initial.nil? ? value : yield(initial, value)
+               else
+                 yield(number, value)
+               end
+    end
+    number
+  end
 end
