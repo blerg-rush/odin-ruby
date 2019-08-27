@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
 def cipher(string, offset)
   alphabet = ("a".."z").to_a
+  offset = offset.to_i
   encrypted_string = ""
   string.each_char do |character|
-    if character =~ /\W/
+    if character =~ /[^A-z]/
       encrypted_string << character
       next
     end
