@@ -2,13 +2,13 @@
   <head>
   </head>
   <body>
-    <form>
+    <form action="/" method="post">
       <label for="string">Text to encode?</label>
       <input type="text" name="string" />
       <label for="offset">Numerical key?</label>
       <input type="number" name="offset" />
       <input type="submit" value="Submit" />
     </form>
-    <%= message %>
+    <%= @message %>
   </body>
 </html>
