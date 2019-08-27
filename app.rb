@@ -7,7 +7,7 @@ require "./caesar_cipher"
 enable :sessions
 
 get "/" do
-  @message = session[:message]
+  @message = session.delete[:message]
   erb :index
 end
 
