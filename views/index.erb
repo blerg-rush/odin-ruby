@@ -9,6 +9,8 @@
       <input type="number" name="offset" />
       <input type="submit" value="Submit" />
     </form>
-    <%= @message %>
+    <% if @message %>
+      <p><%= @message %></p>
+    <% end %>
   </body>
 </html>
