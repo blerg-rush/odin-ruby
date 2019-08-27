@@ -10,6 +10,8 @@ require "sinatra/reloader"
 get "/" do
   guess = params["guess"].to_i
   message = check_guess(guess)
+  cheat_message = "#{message}<br><br>CHEAT MODE: The number is #{@@number}"
+  message = cheat_message if params["cheat"] == "true"
   erb :index, locals: { number: @@number, message: message, color: @@color }
 end
 
@@ -79,7 +81,7 @@ def lose
   @@color = "crimson"
   reset
   "You lose<br><br>
-    The SECRET NUMBER was #{old_number}<br><br>
+    The SECRET NUMBER is #{old_number}<br><br>
     Thinking of a new number—try again!"
 end
 
