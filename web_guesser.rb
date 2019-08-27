@@ -5,6 +5,7 @@ require "sinatra/reloader"
 
 @@number = rand(1..100)
 @@color = "red"
+@@guesses = 5
 
 get "/" do
   guess = params["guess"].to_i
@@ -36,25 +37,56 @@ end
 
 def way_too_high
   @@color = "red"
-  "Way too high!"
+  use_guess("Way too high!")
 end
 
 def way_too_low
   @@color = "red"
-  "Way too low!"
+  use_guess("Way too low!")
 end
 
 def too_high
   @@color = "tomato"
-  "Too high!"
+  use_guess("Too high!")
 end
 
 def too_low
   @@color = "tomato"
-  "Too low!"
+  use_guess("Too low!")
 end
 
 def correct_guess
   @@color = "lightgreen"
-  "You got it!\n\nThe SECRET NUMBER is #{@@number}"
+  win
+end
+
+def use_guess(result)
+  @@guesses -= 1
+  if @@guesses.zero?
+    lose
+  else
+    "#{result} You have #{@@guesses} guesses left."
+  end
+end
+
+def reset
+  @@number = rand(1..100)
+  @@guesses = 5
+end
+
+def lose
+  old_number = @@number
+  @@color = "crimson"
+  reset
+  "You lose<br><br>
+    The SECRET NUMBER was #{old_number}<br><br>
+    Thinking of a new number—try again!"
+end
+
+def win
+  old_number = @@number
+  reset
+  "You got it!<br><br>
+    The SECRET NUMBER is #{old_number}<br><br>
+    Thinking of a new number—try again!"
 end
