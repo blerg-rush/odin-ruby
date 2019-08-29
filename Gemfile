@@ -22,9 +22,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'uglifier', '~> 3.2.0'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails', '~> 4.3.1'
+gem 'uglifier', '~> 3.2.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
