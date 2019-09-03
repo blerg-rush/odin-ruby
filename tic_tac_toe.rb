@@ -56,11 +56,9 @@ class Board
   end
 
   def win?(glyph)
-    return true if horizontal_line?(glyph) ||
-                   vertical_line?(glyph)   ||
-                   diagonal_line?(glyph)
-
-    false
+    horizontal_line?(glyph) ||
+      vertical_line?(glyph) ||
+      diagonal_line?(glyph)
   end
 
   private
