@@ -108,4 +108,20 @@ class Game
     @player_x = Player.new(gets.chomp, "X") if glyph == "X"
     @player_o = Player.new(gets.chomp, "O") if glyph == "O"
   end
+
+  private
+
+  attr_writer :player_x, :player_y
+
+  def coin_toss
+    rand(2) == 1 ? "X" : "O"
+  end
+
+  def first
+    if @last_winner.nil?
+      coin_toss == "X" ? "X" : "O"
+    else
+      @last_winner == "X" ? "O" : "X"
+    end
+  end
 end
