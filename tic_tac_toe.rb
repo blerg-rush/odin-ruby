@@ -40,5 +40,42 @@ class Board
     end
     full
   end
-end
 
+  def win?(glyph)
+    return true if horizontal_line?(glyph) ||
+                   vertical_line?(glyph)   ||
+                   diagonal_line?(glyph)
+
+    false
+  end
+
+  private
+
+  def horizontal_line?(glyph)
+    line = false
+    state.each do |board_row|
+      line = true if board_row.all? { |board_space| board_space == glyph }
+    end
+    line
+  end
+
+  def vertical_line?(glyph)
+    line = false
+    state.transpose.each do |board_row|
+      line = true if board_row.all? { |board_space| board_space == glyph }
+    end
+    line
+  end
+
+  def diagonal_line?(glyph)
+    return true if state[0][0] == glyph &&
+                   state[1][1] == glyph &&
+                   state[2][2] == glyph
+
+    return true if state[0][2] == glyph &&
+                   state[1][1] == glyph &&
+                   state[2][0] == glyph
+
+    false
+  end
+end
