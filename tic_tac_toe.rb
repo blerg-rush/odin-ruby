@@ -102,4 +102,10 @@ class Game
     @last_winner = last_winner
     @board = Board.new
   end
+
+  def create_player(name, glyph)
+    puts "Who will play as #{glyph}?"
+    @player_x = Player.new(gets.chomp, "X") if glyph == "X"
+    @player_o = Player.new(gets.chomp, "O") if glyph == "O"
+  end
 end
