@@ -11,7 +11,7 @@ class Player
   end
 end
 
-# Contains methods for creating, setting squares, and checking state
+# Contains methods for creating, setting spaces, and checking state
 class Board
   attr_reader :state
 
@@ -21,16 +21,24 @@ class Board
               ["", "", ""]].freeze
   end
 
-  def get_square(row, column)
+  def get_space(row, column)
     state[row - 1][column - 1]
   rescue StandardError
     puts "#{row},#{column} is not a valid space!"
   end
 
-  def set_square(row, column, glyph) # glyph = X or O, depending on player 
-    @state[row - 1][column - 1] = glyph
-  rescue StandardError
-    puts "#{row},#{column} is not a valid space!"
+  # returns false if it fails
+  def set_space(row, column, glyph)
+    success = false
+    unless state[row - 1][column - 1] == ""
+      begin
+        @state[row - 1][column - 1] = glyph
+        success = true
+      rescue StandardError
+        puts "#{row},#{column} is not a valid space!"
+      end
+    end
+    success
   end
 
   def full?
@@ -79,3 +87,4 @@ class Board
     false
   end
 end
+
