@@ -13,12 +13,18 @@ end
 
 # Contains methods for creating, setting spaces, and checking state
 class Board
-  attr_reader :state
-
   def initialize
     @state = [["", "", ""],
               ["", "", ""],
               ["", "", ""]].freeze
+  end
+
+  def state
+    state_string = ""
+    @state.each do |row|
+      state_string += row.join + "\n"
+    end
+    state_string
   end
 
   def get_space(row, column)
@@ -88,3 +94,12 @@ class Board
   end
 end
 
+# Contains methods and variables related to the game flow
+class Game
+  def initialize(player_x = "", player_o = "", last_winner = nil)
+    @player_x = Player.new(player_x, "X")
+    @player_o = Player.new(player_o, "O")
+    @last_winner = last_winner
+    @board = Board.new
+  end
+end
