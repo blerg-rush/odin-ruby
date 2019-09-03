@@ -32,4 +32,13 @@ class Board
   rescue StandardError
     puts "#{row},#{column} is not a valid space!"
   end
+
+  def full?
+    full = true
+    state.each do |board_row|
+      full = false if board_row.any? { |board_space| board_space == "" }
+    end
+    full
+  end
 end
+
