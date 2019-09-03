@@ -101,10 +101,8 @@ class Game
     @board = Board.new
   end
 
-  def create_player(name, glyph)
-    puts "Who will play as #{glyph}?"
-    @player_x = Player.new(gets.chomp, "X") if glyph == "X"
-    @player_o = Player.new(gets.chomp, "O") if glyph == "O"
+  def play
+    setup if last_winner.nil?
   end
 
   private
@@ -125,6 +123,17 @@ class Game
 
   def display_board
     puts @board.state
+  end
+
+  def create_player(glyph)
+    puts "Who will play as #{glyph}?"
+    @player_x = Player.new(gets.chomp, "X") if glyph == "X"
+    @player_o = Player.new(gets.chomp, "O") if glyph == "O"
+  end
+
+  def setup
+    create_player("X")
+    create_player("Y")
   end
 
 end
