@@ -124,4 +124,9 @@ class Game
       @last_winner == "X" ? "O" : "X"
     end
   end
+
+  def display_board
+    puts @board.state
+  end
+
 end
