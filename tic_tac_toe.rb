@@ -3,11 +3,11 @@
 # Universal Player methods
 class Player
   attr_accessor :name
-  attr_reader :piece
+  attr_reader :glyph
 
-  def initialize(name, piece)
+  def initialize(name, glyph)
     self.name = name
-    @piece = piece
+    @glyph = glyph
   end
 end
 
@@ -34,7 +34,9 @@ class Board
   end
 
   # returns false if it fails
-  def set_space(row, column, glyph)
+  def set_space(space, glyph)
+    row = space[0]
+    column = space[1]
     success = false
     unless state[row - 1][column - 1] == ""
       begin
@@ -103,6 +105,10 @@ class Game
 
   def play
     setup if last_winner.nil?
+    @current_player = first
+    puts "#{@current_player} goes first!"
+    turn(@current_player) until @board.full? || @board.win?
+    end_game
   end
 
   private
@@ -134,6 +140,23 @@ class Game
   def setup
     create_player("X")
     create_player("Y")
+  end
+
+  def turn(player)
+    display_board
+    success = false
+    until success
+      begin
+        puts "Where would #{player} like to place
+          their #{player.glyph}? (row,column)"
+        space = gets.chomp.split(",")
+      rescue StandardError
+        puts "Invalid input."
+      end
+      success = @board.set_space(space, player.glyph)
+    end
+    @current_player = @player_x if player == @player_y
+    @current_player = @player_y if player == @player_x
   end
 
 end
