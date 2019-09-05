@@ -3,4 +3,5 @@ class Post < ApplicationRecord
   validates :url, presence: true
   belongs_to :user
   validates :user, presence: true
+  has_many :comments, dependent: :destroy
 end
