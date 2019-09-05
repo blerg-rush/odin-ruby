@@ -1,0 +1,9 @@
+<%= form_with model: @user do |f| %>
+  <%= label_tag(:username, "Username") %>  
+  <%= f.text_field :username %>
+  <%= label_tag(:email, "Email") %>
+  <%= f.email_field :email %>
+  <%= label_tag(:password, "Password") %>
+  <%= f.password_field :password %>
+  <%= f.submit "Edit" %>
+<% end %>

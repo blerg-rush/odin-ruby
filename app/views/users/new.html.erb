@@ -1,4 +1,4 @@
-<form action="/users" method="post" accept-charset="UTF-8">
+<!-- <form action="/users" method="post" accept-charset="UTF-8">
   <label for="username">Username</label>
   <input type="text" name="user[username]">
   <label for="email">Email</label>
@@ -7,4 +7,25 @@
   <input type="password" name="user[password]">
   <input type="submit" name="commit" value="Submit">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" >
-</form>
+</form> -->
+
+<!-- <%= form_with(url: users_path, method: :post) do %>
+  <%= label_tag(:username, "Username") %>
+  <%= text_field_tag(:username) %>
+  <%= label_tag(:email, "Email") %>
+  <%= email_field_tag(:email) %>
+  <%= label_tag(:password, "Password") %>
+  <%= password_field_tag(:password) %>
+  <%= submit_tag("Submit") %>
+<% end %> -->
+
+<%= form_with model: @user do |f| %>
+  <%= label_tag(:username, "Username") %>  
+  <%= f.text_field :username, placeholder: "Your username" %>
+  <%= label_tag(:email, "Email") %>
+  <%= f.email_field :email, placeholder: "Your email" %>
+  <%= label_tag(:password, "Password") %>
+  <%= f.password_field :password %>
+  <%= f.submit "Create" %>
+<% end %>
+
