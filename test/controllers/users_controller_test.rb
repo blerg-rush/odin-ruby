@@ -28,14 +28,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     login_as(@other_user)
     get edit_user_path(@user)
     assert flash.empty?
-    assert_refirected_to root_url
+    assert_redirected_to root_url
   end
 
   test "Should redirect update when logged in as wrong user" do
     login_as(@other_user)
     patch user_path(@user), params: { user: { name: @user.name,
                                               email: @user.email } }
-    assert flash_empty?
+    assert flash.empty?
     assert_redirected_to root_url
   end
 end
