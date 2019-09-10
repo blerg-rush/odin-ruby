@@ -14,13 +14,23 @@ class UsersController < ApplicationController
       flash[:success] = "Account successfully created!"
       redirect_to @user
     else
-      flash.now[:danger] = "Bad user credentials"
+#     flash.now[:danger] = "Invalid user credentials"
       render :new
     end
   end
 
   def edit
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      # successfully update
+    else
+#     flash.now[:danger] = "Invalid user credentials"
+      render :edit
+    end
   end
 
   private
