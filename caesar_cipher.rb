@@ -5,7 +5,7 @@ def cipher(string, offset)
   offset = offset.to_i
   encrypted_array = []
   string.each_char do |character|
-    if character =~ /[^A-z]/
+    if character =~ /[^a-zA-Z]/
       encrypted_array << character
       next
     end
