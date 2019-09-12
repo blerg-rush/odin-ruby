@@ -24,4 +24,33 @@ class MasterMindTest < Minitest::Test
       assert(@game.code.min >= 1)
     end
   end
+
+  describe "guess" do
+    before do
+      @game = Game.new
+    end
+
+    it "returns the correct number of perfect numbers" do
+      @game.code = %w[1 6 5 2]
+      assert_equal "PP", @game.guess(1122)
+      assert_equal "P", @game.guess(2222)
+      assert_equal "PPP", @game.guess(4652)
+      assert_equal "PPPP", @game.guess(1652)
+      assert_equal "", @game.guess(3333)
+    end
+
+    it "returns the correct number of present but misplaced numbers" do
+      @game.code = %w[6 5 4 2]
+      assert_equal "MMM", @game.guess(2651)
+      assert_equal "M", @game.guess(1134)
+      assert_equal "", @game.guess(1111)
+      assert_equal "MMMM", @game.guess(2456)
+    end
+
+    it "returns the proper mix of perfect and misplaced numbers" do
+      @game.code = %w[2 6 4 6]
+      assert_equal "PPM", @game.guess(2266)
+      assert_equal "PMM", @game.guess(2464)
+    end
+  end
 end
