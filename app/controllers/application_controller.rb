@@ -22,6 +22,14 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by(remember_digest: remember_digest)
   end
 
+  # Before filter
+  def logged_in
+    return if logged_in?
+
+    flash[:warning] = "Woah, woah! What's the password?"
+    redirect_to login_path
+  end
+
   private
 
     def logged_in?
