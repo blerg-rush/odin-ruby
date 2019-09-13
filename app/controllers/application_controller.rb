@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
   end
 
   def logout
+    user = current_user
     cookies.delete :remember_token
+    user.update_attribute(:remember_digest, nil)
     @current_user = nil
   end
 
