@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :posts, dependent: :destroy
   before_create :remember
 
   def self.new_token
