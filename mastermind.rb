@@ -49,7 +49,7 @@ class Game
   end
 
   def win?(guess)
-
+    guess == @code.join.to_i
   end
 end
 

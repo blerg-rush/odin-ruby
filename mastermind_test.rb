@@ -32,8 +32,8 @@ class MasterMindTest < Minitest::Test
 
     it "returns the correct number of perfect digits" do
       @game.code = %w[3 4 5 6]
-      @guess = %w[2 4 5 1]
-      assert_equal "PP", @game.perfect_digits(@guess, @game.code)
+      guess = %w[2 4 5 1]
+      assert_equal "PP", @game.perfect_digits(guess, @game.code)
     end
   end
 
@@ -44,8 +44,8 @@ class MasterMindTest < Minitest::Test
 
     it "returns the correct number of misplaced digits" do
       @game.code = %w[1 2 5 4]
-      @guess = %w[2 2 5 5]
-      assert_equal "MM", @game.misplaced_digits(@guess, @game.code)
+      guess = %w[2 2 5 5]
+      assert_equal "MM", @game.misplaced_digits(guess, @game.code)
     end
   end
 
@@ -76,6 +76,24 @@ class MasterMindTest < Minitest::Test
       assert_equal "PPM", @game.try(2266)
       assert_equal "PMM", @game.try(2464)
       assert_equal "", @game.try(1111)
+    end
+  end
+
+  describe "win?" do
+    before do
+      @game = Game.new
+    end
+
+    it "returns true if guess is correct" do
+      @game.code = %w[5 2 4 1]
+      guess = 5241
+      assert @game.win?(guess)
+    end
+
+    it "returns false if guess is incorrect" do
+      @game.code = %w[5 5 1 1]
+      guess = 1155
+      refute @game.win?(guess)
     end
   end
 end
