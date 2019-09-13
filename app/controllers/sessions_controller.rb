@@ -15,5 +15,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    logout
+    flash[:success] = "Remember, first rule about the clubhouse . . ."
+    redirect_to root_url
   end
 end

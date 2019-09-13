@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
     @current_user = user
   end
 
+  def logout
+    cookies.delete :remember_token
+    @current_user = nil
+  end
+
   def current_user
     remember_digest = User.digest(cookies.permanent[:remember_token])
     @current_user ||= User.find_by(remember_digest: remember_digest)
@@ -20,6 +25,4 @@ class ApplicationController < ActionController::Base
     def logged_in?
       !current_user.nil?
     end
-
-
 end
