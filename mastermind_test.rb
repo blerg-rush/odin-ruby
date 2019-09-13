@@ -96,4 +96,22 @@ class MasterMindTest < Minitest::Test
       refute @game.win?(guess)
     end
   end
+
+  describe "over?" do
+    before do
+      @game = Game.new
+    end
+
+    it "returns true if current turn >= total turns" do
+      @game.turns = 12
+      turn = 12
+      assert @game.over?(turn)
+    end
+
+    it "returns false if current turn < total turns" do
+      @game.turns = 12
+      turn = 11
+      refute @game.over?(turn)
+    end
+  end
 end

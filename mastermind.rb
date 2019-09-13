@@ -1,10 +1,10 @@
 class Game
-  attr_accessor :spaces, :digits, :rounds, :code
+  attr_accessor :spaces, :digits, :turns, :code
 
-  def initialize(digits = 6, spaces = 4, rounds = 12)
+  def initialize(digits = 6, spaces = 4, turns = 12)
     @digits = digits
     @spaces = spaces
-    @rounds = rounds
+    @turns = turns
     @code = []
   end
 
@@ -50,6 +50,10 @@ class Game
 
   def win?(guess)
     guess == @code.join.to_i
+  end
+
+  def over?(turn)
+    turn >= @turns
   end
 end
 
