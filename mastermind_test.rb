@@ -37,6 +37,18 @@ class MasterMindTest < Minitest::Test
     end
   end
 
+  describe "misplaced digits" do
+    before do
+      @game = Game.new
+    end
+
+    it "returns the correct number of misplaced digits" do
+      @game.code = %w[1 2 5 4]
+      @guess = %w[2 2 5 5]
+      assert_equal "MM", @game.misplaced_digits(@guess, @game.code)
+    end
+  end
+
   describe "guess" do
     before do
       @game = Game.new
