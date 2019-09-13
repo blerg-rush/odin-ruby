@@ -15,26 +15,33 @@ class Game
   end
 
   def guess(number)
-    guess_digits = number.to_s.split("")
+    digits = number.to_s.split("")
+    unmatched = @code.dup
     result = []
-    code_left = @code.dup
-    # Perfect match
-    guess_digits.each_with_index do |digit, index|
-      next if digit != code_left[index]
+    result << perfect_digits(digits, unmatched)
+    result << misplaced_digits(digits, unmatched)
+    result.join
+  end
+
+  def perfect_digits(guess, code)
+    result = []
+    guess.each_with_index do |digit, index|
+      next if digit != code[index]
 
       result << "P"
-      guess_digits[index] = nil
-      code_left[index] = nil
+      code[index] = nil
     end
-    guess_digits = guess_digits.compact
-    code_left = code_left.compact
-    # Midplaced match
-    guess_digits.each do |digit|
-      code_left.each_index do |index|
-        next if digit != code_left[index]
+    result.join
+  end
+
+  def misplaced_digits(guess, code)
+    result = []
+    guess.each do |digit|
+      code.each_index do |index|
+        next if digit != code[index]
 
         result << "M"
-        code_left[index] = nil
+        code[index] = nil
         break
       end
     end
