@@ -50,7 +50,9 @@ class Game
   end
 
   def win?(guess)
-    guess == @code.join.to_s
+    p guess
+    p @code.join
+    guess == @code.join
   end
 
   def over?(turn)
@@ -98,9 +100,9 @@ class MasterMind
     guess = @guess
     turn = @turn
     puts "I've chosen my sequence of numbers!".center(@width, " ")
-    until @game.win?(guess) || @game.over?(@turn)
+    until @game.win?(guess) || @game.over?(turn)
       turn += 1
-      puts "This is your last shot!" if @turn == @game.turns
+      puts "This is your last shot!" if turn == @game.turns
       puts
       puts "What is your #{ORDINAL[turn - 1]} guess?".center(@width, " ")
       puts
@@ -111,10 +113,10 @@ class MasterMind
       puts "Not a single correct number. No hint for you!".center(@width, " ") if answer == ""
       puts "Here is your hint: #{answer}".center(@width, " ") if answer != ""
       puts
-      if @game.win?(@guess)
-        puts "Good lord, you've got it! It was indeed #{@game.code}!"
+      if @game.win?(guess)
+        puts "Good lord, you've got it! It was indeed #{@game.code.join}!"
       elsif @game.over?(turn)
-        puts "I'm afraid you're out of guesses. The answer was #{@game.code}!"
+        puts "I'm afraid you're out of guesses. The answer was #{@game.code.join}!"
           .center(@width, " ")
       end
     end
@@ -123,12 +125,20 @@ class MasterMind
   def start
     introduction
     play
+    reset
   end
 
   def reset
+    puts
+    puts "Would you like to play again? (y/n)".center(@width, " ")
+    puts
+    response = gets.chomp.downcase
+    return puts "Farewell!" if response != "y"
+
     @game = Game.new
     @guess = nil
     @turn = 0
+    play
   end
 
   # puts
@@ -141,5 +151,5 @@ class MasterMind
   # puts
 end
 
-# game = MasterMind.new
-# game.start
+game = MasterMind.new
+game.start
