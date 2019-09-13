@@ -141,5 +141,5 @@ class MasterMind
   # puts
 end
 
-game = MasterMind.new
-game.start
+# game = MasterMind.new
+# game.start

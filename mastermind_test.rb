@@ -18,13 +18,13 @@ class MasterMindTest < Minitest::Test
       @game.digits = 9
       @game.spaces = 1000
       @game.randomize
-      assert(@game.code.max <= 9)
-      assert(@game.code.min >= 1)
+      assert(@game.code.max.to_i <= 9)
+      assert(@game.code.min.to_i >= 1)
     end
 
-    if "creates an array of single-digit strings" do
+    it "creates an array of single-digit strings" do
       @game.randomize
-      assert(@game.code[0] is_a? string)
+      assert(@game.code[0].is_a?(String))
     end
   end
 
