@@ -32,11 +32,11 @@ class MasterMindTest < Minitest::Test
 
     it "returns the correct number of perfect numbers" do
       @game.code = %w[1 6 5 2]
-      assert_equal "PP", @game.guess(1122)
-      assert_equal "P", @game.guess(2222)
-      assert_equal "PPP", @game.guess(4652)
-      assert_equal "PPPP", @game.guess(1652)
-      assert_equal "", @game.guess(3333)
+      assert_equal "PP", @game.guess(1122).to_s
+      assert_equal "P", @game.guess(2222).to_s
+      assert_equal "PPP", @game.guess(4652).to_s
+      assert_equal "PPPP", @game.guess(1652).to_s
+      assert_equal "", @game.guess(3333).to_s
     end
 
     it "returns the correct number of present but misplaced numbers" do
