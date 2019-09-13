@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     @post.save
     flash[:success] = "Heh. That's a good one."
-    redirect_to root_path
+    redirect_to posts_index_path
   end
 
   def index
