@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
     <%= link_to "Members Only", root_path, class: "navbar-brand" %>
+    <%= button_to "New post", posts_new_path, method: :get, class: "btn btn-outline-primary" if logged_in? %>
     <ul class="navbar-nav ml-auto">
       <% if logged_in? %>
         <li class="nav-item">
