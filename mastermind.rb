@@ -1,3 +1,4 @@
+# Internal game logic
 class Game
   attr_accessor :spaces, :digits, :turns, :code
 
@@ -10,14 +11,13 @@ class Game
 
   def randomize
     @spaces.times do
-      @code << rand(1..@digits)
+      @code << rand(1..@digits).to_s
     end
   end
 
   def try(guess)
     digits = guess.split("")
     unmatched = @code.dup
-    p "debug code: " + unmatched.inspect
     result = []
     result << perfect_digits(digits, unmatched)
     result << misplaced_digits(digits, unmatched)
@@ -25,7 +25,6 @@ class Game
   end
 
   def perfect_digits(guess, code)
-    puts "Perfect: " + guess.inspect
     result = []
     guess.each_with_index do |digit, index|
       next if digit != code[index]
@@ -37,7 +36,6 @@ class Game
   end
 
   def misplaced_digits(guess, code)
-    puts "Mistplaced: " + guess.inspect
     result = []
     guess.each do |digit|
       code.each_index do |index|
@@ -60,10 +58,11 @@ class Game
   end
 end
 
+# Game interface
 class MasterMind
   ORDINAL = %w[first second third fourth fifth sixth seventh eighth ninth
-    tenth eleventh twelfth thirteenth fourteenth fifteenth
-    sixteenth seventeenth eighteenth nineteenth twentieth]
+               tenth eleventh twelfth thirteenth fourteenth fifteenth
+               sixteenth seventeenth eighteenth nineteenth twentieth].freeze
 
   def initialize
     @width = 80
