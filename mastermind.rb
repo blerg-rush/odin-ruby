@@ -5,17 +5,17 @@ class Game
     @digits = digits
     @spaces = spaces
     @rounds = rounds
+    @code = []
   end
 
   def randomize
-    @code = []
     @spaces.times do
       @code << rand(1..@digits)
     end
   end
 
-  def guess(number)
-    digits = number.to_s.split("")
+  def try(guess)
+    digits = guess.to_s.split("")
     unmatched = @code.dup
     result = []
     result << perfect_digits(digits, unmatched)
@@ -47,4 +47,9 @@ class Game
     end
     result.join
   end
+
+  def win?(guess)
+
+  end
 end
+

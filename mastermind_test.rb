@@ -56,25 +56,26 @@ class MasterMindTest < Minitest::Test
 
     it "returns the correct number of perfect digits" do
       @game.code = %w[1 6 5 2]
-      assert_equal "PP", @game.guess(1122).to_s
-      assert_equal "P", @game.guess(2222).to_s
-      assert_equal "PPP", @game.guess(4652).to_s
-      assert_equal "PPPP", @game.guess(1652).to_s
-      assert_equal "", @game.guess(3333).to_s
+      assert_equal "PP", @game.try(1122).to_s
+      assert_equal "P", @game.try(2222).to_s
+      assert_equal "PPP", @game.try(4652).to_s
+      assert_equal "PPPP", @game.try(1652).to_s
+      assert_equal "", @game.try(3333).to_s
     end
 
     it "returns the correct number of present but misplaced digits" do
       @game.code = %w[6 5 4 2]
-      assert_equal "MMM", @game.guess(2651)
-      assert_equal "M", @game.guess(1134)
-      assert_equal "", @game.guess(1111)
-      assert_equal "MMMM", @game.guess(2456)
+      assert_equal "MMM", @game.try(2651)
+      assert_equal "M", @game.try(1134)
+      assert_equal "", @game.try(1111)
+      assert_equal "MMMM", @game.try(2456)
     end
 
     it "returns the correct number of perfect and misplaced digits" do
       @game.code = %w[2 6 4 6]
-      assert_equal "PPM", @game.guess(2266)
-      assert_equal "PMM", @game.guess(2464)
+      assert_equal "PPM", @game.try(2266)
+      assert_equal "PMM", @game.try(2464)
+      assert_equal "", @game.try(1111)
     end
   end
 end
