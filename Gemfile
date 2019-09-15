@@ -31,6 +31,8 @@ gem 'jquery-rails', '~> 4.3.1'
 gem 'rails-controller-testing'
 gem 'uglifier', '~> 3.2.0'
 gem 'will_paginate'
+gem 'carrierwave', '~> 1.2.2'
+gem 'mini_magick'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -58,6 +60,10 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+end
+
+group :production do
+  gem 'fog'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
