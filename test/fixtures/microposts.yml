@@ -2,20 +2,27 @@
 
 one:
   content: "Man, this sammich is good."
-  user: "one"
+  user: example
   created_at: <%= 10.minutes.ago %>
 
 tau_manifesto:
   content: "Check out the @tauday site by @mhartl: http://tauday.com"
-  user: "one"
+  user: example
   created_at: <%= 3.years.ago %>
 
 cat_video:
   content: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
-  user: "one"
+  user: example
   created_at: <%= 2.hours.ago %>
 
 most_recent:
   content: "Writing a short test"
-  user: "one"
+  user: example
   created_at: <%= Time.zone.now %>
+
+<% 30.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 42.days.ago %>
+  user: example
+<% end %>
