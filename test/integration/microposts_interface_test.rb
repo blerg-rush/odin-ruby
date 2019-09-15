@@ -13,6 +13,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select "a", text: "view my profile", count: 1
     assert_match ActionController::Base.helpers.pluralize(@user.microposts.count,
                                                           "micropost"), response.body
+    assert_select "input[type=file]"
     # Invalid sumission
     assert_no_difference "Micropost.count" do
       post microposts_path, params: { micropost: { content: "" } }
@@ -20,9 +21,12 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select "div#error_explanation"
     # Valid submission
     content = "This post is really super"
+    picture = fixture_file_upload("test/fixtures/files/image.png", "image/png")
     assert_difference "Micropost.count" do
-      post microposts_path, params: { micropost: { content: content } }
+      post microposts_path, params: { micropost: { content: content, picture: picture } }
     end
+    micropost = assigns(:micropost)
+    assert micropost.picture?
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
