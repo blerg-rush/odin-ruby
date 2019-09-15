@@ -24,3 +24,23 @@ micropost_<%= n %>:
   created_at: <%= 42.days.ago %>
   user: example
 <% end %>
+
+two:
+  content: "I'm the other user!"
+  created_at: <%= 2.years.ago %>
+  user: other
+
+three:
+  content: "I'm another user!"
+  created_at: <%= 3.days.ago %>
+  user: another
+
+four:
+  content: "I'm fourth!"
+  created_at: <%= 10.minutes.ago %>
+  user: fourth
+
+five:
+  content: "It's me again: other!"
+  created_at: <%= 4.hours.ago %>
+  user: other
