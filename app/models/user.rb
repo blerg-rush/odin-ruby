@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  attr_accessor :remember_token
   validates :name, presence: true, uniqueness: { case_sensitive: false },
                    format: { without: /\s/ }
   validates :password, presence: true
