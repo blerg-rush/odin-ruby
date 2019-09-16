@@ -4,15 +4,23 @@
         <li class="nav-item active">
           <%= link_to 'Home <span class="sr-only"></span>'.html_safe, "#", class: "nav-link" %>
         </li>
-        <li class="nav-item"><%= link_to " Events", "#", class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to " Users", "#", class: "nav-link" %></li>
+        <% if logged_in? %>
+          <li class="nav-item"><%= link_to " Events", "#", class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to " Users", "#", class: "nav-link" %></li>
+        <% end%>
       </ul>
       <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item">
-          <%= link_to '<i class="fas fa-user"></i> Sign Up'.html_safe, signup_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to '<i class="fas fa-sign-in-alt"></i> Login'.html_safe, login_path, class: "nav-link" %>
-        </li>
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to '<i class="fas fa-sign-out-alt"></i> Sign Out'.html_safe, logout_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to '<i class="fas fa-user"></i> Sign Up'.html_safe, signup_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to '<i class="fas fa-sign-in-alt"></i> Login'.html_safe, login_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul> 
     </nav>

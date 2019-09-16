@@ -21,6 +21,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(params[:name])
+    @hosting = @user.hosted_events
+    @invitations = @user.invitations
   end
 
   private

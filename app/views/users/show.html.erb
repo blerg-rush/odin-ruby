@@ -1,2 +1,6 @@
 <% provide(:title, "Profile") %>
-<%= @user.name %>
+<h1><%= @user.name %></h1>
+<h3>Events you're hosting</h3>
+<%= render @hosting %>
+<h3>Invitations</h3>
+<%= render @invitations %>
