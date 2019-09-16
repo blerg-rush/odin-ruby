@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       login(@user)
       redirect_to @user
     else
-      flash.now[:danger] = "Username invalid or already taken"
+      flash.now[:danger] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
