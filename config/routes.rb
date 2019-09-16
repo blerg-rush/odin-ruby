@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'static#home'
   get 'users/new'
   get 'users/create'
   get 'users/show'
