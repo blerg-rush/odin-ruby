@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'events/new'
+  get 'events/create'
+  get 'events/show'
   root 'static#home'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
