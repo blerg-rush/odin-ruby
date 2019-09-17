@@ -1,9 +1,8 @@
 class InvitationsController < ApplicationController
-  # wrap_parameters :invitation, include: %i[attendee_id event_id status]
-
   def new
-    @invitation = Invitation.new
-    #@event = 
+    @event = Event.find_by(id: params[:format])
+    @users = User.where.not(id: @event.attendees.ids).where.not(id: @event.host.id)
+    @invitation = Invitation.new(event: @event)
   end
 
   def create

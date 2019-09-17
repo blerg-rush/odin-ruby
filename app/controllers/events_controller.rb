@@ -22,7 +22,12 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @current_user = current_user
-    @invitation = Invitation.find_or_create_by(event: @event, attendee: @current_user)
+
+    @invitation = if @event.host?(@current_user)
+                    Invitation.new
+                  else
+                    Invitation.find_or_create_by(event: @event, attendee: @current_user)
+                  end
   end
 
   private

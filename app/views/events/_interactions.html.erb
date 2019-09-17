@@ -1,5 +1,5 @@
     <% if @event.host?(@current_user) %>
-      <%= button_to "Invite somebody!", new_invitation_path(@event.id), method: :get, class: "btn btn-outline-primary" %>
+      <%= button_to "Invite somebody!", invitations_new_path(@event.id), method: :get, class: "btn btn-outline-primary" %>
     <% elsif @event.not_invited?(@current_user) %>
       <%= form_with model: @invitation, url: invitations_path, method: :post, local: true do |f| %>
         <%= f.hidden_field :attendee_id, value: @current_user.id %>
