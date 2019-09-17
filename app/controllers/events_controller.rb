@@ -1,4 +1,8 @@
 class EventsController < ApplicationController
+  def index
+    @events = Event.all.paginate(page: params[:page])
+  end
+
   def new
     @event = Event.new
   end
@@ -17,6 +21,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @user = current_user
   end
 
   private

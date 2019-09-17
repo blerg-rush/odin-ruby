@@ -1,2 +1,31 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<% provide(:title, "Event details") %>
+<h1><%= @event.title %></h1>
+<div class="row">
+  <aside class="col-md-4">
+    <strong>Host:</strong> <%= @event.host.name %></br>
+    <strong>When:</strong> <%= @event.date %></br>
+    <strong>Attendees:</strong>
+  </aside>
+  <div class="col-md-8">
+    <% if @user != @event.host  %>
+      Not the host!
+    <% end %>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @event.invitations.each do |invitation| %>
+      <tr>
+        <td scope="col"><%= invitation.user.name %></td>
+        <td scope="col"><%= invitation.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
