@@ -1,22 +1,22 @@
-    <% if @user == @event.host %>
+    <% if @event.host?(@current_user) %>
       <%= button_to "Invite somebody!", new_invitation_path(@event.id), method: :get, class: "btn btn-outline-primary" %>
-    <% elsif !@event.attendees.include?(@user) %>
+    <% elsif @event.not_invited?(@current_user) %>
       <%= form_with model: @invitation, url: invitations_path, method: :post, local: true do |f| %>
-        <%= hidden_field_tag :attendee_id, @user.id %>
-        <%= hidden_field_tag :event_id, @event.id %>
-        <%= hidden_field_tag :status, "accepted" %>
+        <%= f.hidden_field :attendee_id, value: @current_user.id %>
+        <%= f.hidden_field :event_id, value: @event.id %>
+        <%= f.hidden_field :status, value: "accepted" %>
         <%= f.submit "Attend this event!", class: "btn btn-outline-success" %>
       <% end %>
-    <% elsif @event.invitations.find_by(attendee_id: @user.id).status == "pending" %>
+    <% elsif @event.invitation_pending?(@current_user) %>
       <span class="badge badge-info">You've been invited!</span><br>
       <div class="btn-group">
-        <%= button_to "I'm going!", "#", class: "btn btn-outline-success" %>
-        <%= button_to "I'm not going", "#", class: "btn btn-outline-danger" %>
+        <%= button_to "I'm going!", invitations_accept_path(@invitation), class: "btn btn-outline-success" %>
+        <%= button_to "I'm not going", invitations_decline_path(@invitation), class: "btn btn-outline-danger" %>
       </div>
-    <% elsif @event.invitations.find_by(attendee_id: @user.id).status == "declined" %>
+    <% elsif @event.invitation_declined?(@current_user) %>
       <span class="badge badge-secondary">You've declined</span><br>
-      <%= button_to "I changed my mind!", "#", class: "btn btn-outline-success" %>
-    <% else %>
+      <%= button_to "I changed my mind!", invitations_accept_path(@invitation), class: "btn btn-outline-success" %>
+    <% elsif @event.invitation_accepted?(@current_user) %>
       <span class="badge badge-primary">You're going!</span>
-      <%= button_to "I changed my mind...", "#", class: "btn btn-outline-danger" %>
+      <%= button_to "I changed my mind...", invitations_decline_path(@invitation), class: "btn btn-outline-danger" %>
     <% end %>
