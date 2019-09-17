@@ -34,3 +34,12 @@ end
                             status: "accepted").save
   end
 end
+
+100.times do
+  user = User.order('RANDOM()').first
+  event = user.hosted_events.order('RANDOM()').first
+  invitee = User.order('RANDOM()').first
+  unless user == invitee || event.attendees.include?(invitee)
+    event.invitations.build(attendee_id: invitee.id).save
+  end
+end
