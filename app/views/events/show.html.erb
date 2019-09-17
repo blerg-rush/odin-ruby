@@ -6,29 +6,8 @@
     <strong>When:</strong> <%= @event.date %><br>
     <strong>Attendees:</strong>
   </aside>
-  <div class="col-md-8">
-    <% if @user == @event.host %>
-      <%= button_to "Invite somebody!", new_invitation_path(@event.id), method: :get, class: "btn btn-outline-primary" %>
-    <% elsif !@event.attendees.include?(@user) %>
-      <%= form_with model: @invitation, url: invitations_path, method: :post, local: true do |f| %>
-        <%= hidden_field_tag :attendee_id, @user.id %>
-        <%= hidden_field_tag :event_id, @event.id %>
-        <%= hidden_field_tag :status, "accepted" %>
-        <%= f.submit "Attend this event!", class: "btn btn-outline-success" %>
-      <% end %>
-    <% elsif @event.invitations.find_by(attendee_id: @user.id).status == "pending" %>
-      <span class="badge badge-info">You've been invited!</span><br>
-      <div class="btn-group">
-        <%= button_to "I'm going!", "#", class: "btn btn-outline-success" %>
-        <%= button_to "I'm not going", "#", class: "btn btn-outline-danger" %>
-      </div>
-    <% elsif @event.invitations.find_by(attendee_id: @user.id).status == "declined" %>
-      <span class="badge badge-secondary">You've declined</span><br>
-      <%= button_to "I changed my mind!", "#", class: "btn btn-outline-success" %>
-    <% else %>
-      <span class="badge badge-primary">You're going!</span>
-      <%= button_to "I changed my mind...", "#", class: "btn btn-outline-danger" %>
-    <% end %>
+  <div class="col-md-9">
+    <%= render "interactions" %>
   </div>
 </div>
 <table class="table">
