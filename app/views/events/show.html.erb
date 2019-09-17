@@ -29,7 +29,7 @@
   <tbody>
     <% @event.invitations.each do |invitation| %>
       <tr>
-        <td scope="col"><%= invitation.user.name %></td>
+        <td scope="col"><%= invitation.attendee.name %></td>
         <td scope="col"><%= invitation.status %></td>
       </tr>
     <% end %>
