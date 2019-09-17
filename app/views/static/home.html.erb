@@ -1,1 +1,15 @@
 <% provide(:title, "Invitr") %>
+<div class="jumbotron">
+  <% if logged_in? %>
+    <h1 class="display-4">Welcome back, <%= current_user.name %>!</h1>
+    <p class="lead">We're looking forward to your next event!</p>
+  <% else%>
+    <h1 class="display-4">Welcome to Invitr!</h1>
+    <p class="lead">It's like Meetup, only not!</p>
+    <hr class="my-4">
+    <p>Sign up to create events or see what's happening. No email address required! </p>
+    <p class="lead">
+      <%= button_to "Sign Up", signup_path, method: :get, class: "btn btn-primary btn-lg" %>
+    </p>
+  <% end %>
+</div>
