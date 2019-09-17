@@ -2,13 +2,20 @@
 <h1><%= @event.title %></h1>
 <div class="row">
   <aside class="col-md-4">
-    <strong>Host:</strong> <%= @event.host.name %></br>
-    <strong>When:</strong> <%= @event.date %></br>
+    <strong>Host:</strong> <%= @event.host.name %><br>
+    <strong>When:</strong> <%= @event.date %><br>
     <strong>Attendees:</strong>
   </aside>
   <div class="col-md-8">
-    <% if @user != @event.host  %>
-      Not the host!
+    <% if @user == @event.host %>
+      <%= button_to "Invite somebody!", new_invitation_path(@event.id), method: :get, class: "btn btn-outline-primary" %>
+    <% else %>
+      <%= form_with model: @invitation, url: invitations_path, local: true do |f| %>
+        <%= hidden_field_tag :attendee_id, @user.id %>
+        <%= hidden_field_tag :event_id, @event.id %>
+        <%= hidden_field_tag :status, "accepted" %>
+        <%= f.submit "Attend this event!", class: "btn btn-outline-success" %>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -28,4 +35,3 @@
     <% end %>
   </tbody>
 </table>
-

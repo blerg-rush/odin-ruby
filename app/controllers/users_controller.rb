@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(params[:name])
+    @user = params[:id].nil? ? current_user : User.find(params[:id])
     @hosting = @user.hosted_events
     @invitations = @user.invitations
   end

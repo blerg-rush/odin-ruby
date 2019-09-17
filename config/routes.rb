@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'invitations/new'
+  get 'invitations/create'
   get 'events/new'
   get 'events/create'
   get 'events/show'
@@ -11,4 +13,5 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   resources :users
   resources :events
+  resources :invitations
 end
