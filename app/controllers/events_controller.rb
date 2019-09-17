@@ -8,8 +8,8 @@ class EventsController < ApplicationController
   end
 
   def create
-    user = current_user
-    @event = user.hosted_events.build(event_params)
+    @current_user = current_user
+    @event = @current_user.hosted_events.build(event_params)
     if @event.save
       flash[:success] = "Event created"
       redirect_to @event
@@ -21,8 +21,8 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @user = current_user
-    @invitation = Invitation.new
+    @current_user = current_user
+    @invitation = Invitation.find_or_create_by(event: @event, attendee: @current_user)
   end
 
   private

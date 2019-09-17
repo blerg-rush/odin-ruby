@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'invitations/new'
   get 'invitations/create'
+  post 'invitations/accept/:id', to: 'invitations#accept', as: 'invitations/accept/'
+  post 'invitations/decline/:id', to: 'invitations#decline', as: 'invitations/decline/'
   get 'events/new'
   get 'events/create'
   get 'events/show'
