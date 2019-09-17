@@ -14,9 +14,9 @@
         <%= button_to "I'm not going", invitations_decline_path(@invitation), class: "btn btn-outline-danger" %>
       </div>
     <% elsif @event.invitation_declined?(@current_user) %>
-      <span class="badge badge-secondary">You've declined</span><br>
+      <span class="badge badge-danger">You've declined</span><br>
       <%= button_to "I changed my mind!", invitations_accept_path(@invitation), class: "btn btn-outline-success" %>
     <% elsif @event.invitation_accepted?(@current_user) %>
-      <span class="badge badge-primary">You're going!</span>
+      <span class="badge badge-success">You're going!</span>
       <%= button_to "I changed my mind...", invitations_decline_path(@invitation), class: "btn btn-outline-danger" %>
     <% end %>

@@ -26,7 +26,8 @@ class EventsController < ApplicationController
     @invitation = if @event.host?(@current_user)
                     Invitation.new
                   else
-                    Invitation.find_or_create_by(event: @event, attendee: @current_user)
+                    Invitation.find_or_initialize_by(event: @event,
+                                                     attendee: @current_user)
                   end
   end
 

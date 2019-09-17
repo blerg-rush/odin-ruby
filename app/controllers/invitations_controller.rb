@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(invitation_params)
     if @invitation.save
-      flash[:success] = "Tell your friends!"
+      flash[:success] = "Invitation sent!"
       @event = @invitation.event
       redirect_to @event
     else
