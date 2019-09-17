@@ -2,7 +2,7 @@
       <%= link_to "Invitr", root_path, class: "navbar-brand" %>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <%= link_to 'Home <span class="sr-only"></span>'.html_safe, "#", class: "nav-link" %>
+          <%= link_to 'Home <span class="sr-only"></span>'.html_safe, root_path, class: "nav-link" %>
         </li>
         <% if logged_in? %>
           <li class="nav-item"><%= link_to " My Profile", profile_path, class: "nav-link" %></li>
