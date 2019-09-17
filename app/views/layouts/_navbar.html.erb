@@ -5,8 +5,9 @@
           <%= link_to 'Home <span class="sr-only"></span>'.html_safe, "#", class: "nav-link" %>
         </li>
         <% if logged_in? %>
+          <li class="nav-item"><%= link_to " My Profile", profile_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to " Events", "#", class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to " Users", "#", class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to " Users", users_path, class: "nav-link" %></li>
         <% end%>
       </ul>
       <ul class="nav navbar-nav ml-auto">
