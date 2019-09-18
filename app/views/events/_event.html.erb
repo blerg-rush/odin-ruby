@@ -1,10 +1,11 @@
 <div class="card">
   <div class="card-header">
-    <h5 class="mb-0">
+    <span class="mb-0">
       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-<%= event.id %>">
         <%= event.title %>
       </button>
-    </h5>
+      in <%= distance_of_time_in_words(Time.now, event.date) %>
+    </span>
   </div>
   <div id="collapse-<%= event.id %>" class="collapse" data-parent="#accordion">
     <div class="card-body">

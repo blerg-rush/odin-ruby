@@ -3,35 +3,32 @@
 <div class="row">
   <aside class="col-md-3">
     <strong>Host:</strong> <%= @event.host.name %><br>
-    <strong>When:</strong> <%= @event.date %><br>
+    <strong>When:</strong> <%= @event.date %><br><br>
     <strong>Attendees:</strong>
   </aside>
   <div class="col-md-9">
     <%= render "interactions" %>
   </div>
 </div>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @event.invitations.each do |invitation| %>
+<div class="row">
+  <table class="table">
+    <thead>
       <tr>
-        <td scope="col"><%= invitation.attendee.name %></td>
-        <td scope="col">
-          <% case invitation.status %>
-          <% when "pending" %>
-            <span class="badge badge-secondary"><%= invitation.status %></span>
-          <% when "accepted" %>
-            <span class="badge badge-success"><%= invitation.status %></span>
-          <% when "declined" %>
-            <span class="badge badge-danger"><%= invitation.status %></span>
-          <% end %>
-        </td>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @event.invitations.each do |invitation| %>
+        <tr>
+          <td scope="col">
+            <%= link_to invitation.attendee.name, invitation.attendee %>
+          </td>
+          <td scope="col">
+            <%= render partial: "shared/invitation_status", locals: { invitation: invitation } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

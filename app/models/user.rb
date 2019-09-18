@@ -8,6 +8,14 @@ class User < ApplicationRecord
                            dependent: :destroy
   has_many :invitations, foreign_key: "attendee_id", dependent: :destroy
 
+  def upcoming_events
+    hosted_events.where("events.date > ?", Time.zone.now)
+  end
+
+  def past_events
+    hosted_events.where("events.date <= ?", Time.zone.now).reverse_order
+  end
+
   def self.new_token
     SecureRandom.urlsafe_base64
   end
