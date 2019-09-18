@@ -10,9 +10,15 @@ This is an event-sharing app to demonstrate basic Active Record associations.
 bundle install
 ```
 
-2. install [Postgres on your system](https://www.alanvardy.com/posts/7)
-3. Edit your database.yml to get the database connected
-4. Create and migrate your database
+2. Update Yarn packages
+
+```bash
+yarn install --check-files
+```
+
+3. Install Postgres 
+4. Edit config/database.yml to connect to the database
+5. Create and migrate your database
 
 ```bash
 rails db:create
@@ -21,7 +27,7 @@ rails db:migrate
 
 _Optional, to play around with pre-generated user and event data:_
 
-_5. Add a .env file in the root and add a username and password_
+_6. Add a .env file in the root and add a username and password_
 
 ```bash
 # .env
@@ -29,7 +35,7 @@ _5. Add a .env file in the root and add a username and password_
 TEST_PASS=password
 ```
 
-_6. Seed the database_
+_7. Seed the database_
 
 ```bash
 rails db:seed
