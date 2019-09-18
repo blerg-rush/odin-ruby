@@ -102,7 +102,7 @@ class UserTest < ActiveSupport::TestCase
     another = users(:another)
     # Posts from followed user
     another.microposts.each do |post_following|
-      assert example.feed.incluide?(post_following)
+      assert example.feed.include?(post_following)
     end
     # Posts from self
     example.microposts.each do |post_self|
