@@ -41,7 +41,7 @@ rails db:seed
 rails s
 ```
 
-_Note:_ To prevent the development server from re-packaging assets every time a page is loaded, you can install Foreman and run an instance of the Foreman server in a bash instance from the root directory:
+_Note:_ To prevent the development server from re-packaging assets every time a page is loaded, you can install Foreman and run an the Foreman server in a bash instance from the root directory:
 
 ```bash
 gem install foreman
