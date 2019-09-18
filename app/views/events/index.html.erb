@@ -1,7 +1,26 @@
 <% provide(:title, "Events") %>
 <h1>Events</h1>
 <%= button_to "Create new event", new_event_path, method: :get, class: "btn btn-outline-primary" %>
-
-<div id="accordion">
-  <%= render @events %>
-</div>
+<br>
+<div class="row">
+  <aside class="col-md-6">
+    <h3>Upcoming events</h3>
+    <% if @upcoming_events.empty? %>
+      <%= render "events/none" %>
+    <% else %>
+      <div id="accordion">
+        <%= render @upcoming_events %>
+      </div>
+    <% end %>
+  </aside>
+  <div class="col-md-6">
+    <h3>Past events</h3>
+    <% if @past_events.empty? %>
+      <%= render "events/none" %>
+    <% else %>
+      <div id="accordion">
+        <%= render @past_events %>
+      </div>
+    <% end %>
+  </div>
+</div><br>

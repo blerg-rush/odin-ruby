@@ -3,16 +3,10 @@ class Event < ApplicationRecord
   has_many :invitations, dependent: :destroy
   has_many :attendees, through: :invitations
   default_scope { order(:date) }
+  scope :upcoming, -> { where("events.date > ?", Time.zone.now) }
+  scope :past,     -> { where("events.date <= ?", Time.zone.now).reverse_order }
   validates :title, presence: true
   validates :date, presence: true
-
-  def upcoming_events
-    hosted_events.where("events.date > ?", Time.zone.now)
-  end
-
-  def past_events
-    hosted_events.where("events.date <= ?", Time.zone.now).reverse_order
-  end
 
   def invitation_pending?(user)
     invitations.find_by(attendee_id: user.id).status == "pending" && 
