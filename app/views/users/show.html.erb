@@ -33,7 +33,7 @@
   </thead>
   <tbody>
     <% @user.invitations.each do |invitation| %>
-      <%= unless invitation.event.past? %>
+      <% unless invitation.event.past? %>
         <tr>
           <td scope="col">
             <%= link_to invitation.event.title, invitation.event %>
