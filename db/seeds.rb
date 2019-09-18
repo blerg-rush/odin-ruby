@@ -11,15 +11,15 @@ user.hosted_events.build(title: "Invitr Anniversary Party!",
 user.hosted_events.build(title: "UnBirthday Party",
                          date: (rand(1...365).days.from_now)).save
 
-10.times do
+15.times do
   name = Faker::Games::Witcher.character.gsub(/\s+/, "")
   password = ENV['TEST_PASS']
   user = User.create(name: name,
                      password: password,
                      password_confirmation: password)
-  3.times do
+  2.times do
     title = "#{Faker::Games::Witcher.location} #{Faker::Verb.base}"
-    date = rand(1..100).days.from_now
+    date = rand(-30..100).days.from_now
     user.hosted_events.build(title: title,
                               date: date).save
   end
