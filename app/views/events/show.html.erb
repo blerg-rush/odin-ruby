@@ -2,7 +2,7 @@
 <h1><%= @event.title %></h1>
 <div class="row">
   <aside class="col-md-3">
-    <strong>Host:</strong> <%= @event.host.name %><br>
+    <strong>Host:</strong> <%= link_to @event.host.name, @event.host %><br>
     <strong>When:</strong> <%= @event.date %><br><br>
     <strong>Attendees:</strong>
   </aside>
