@@ -1,5 +1,5 @@
 {
-  "name": "private_events",
+  "name": "invitr",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
