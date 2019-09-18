@@ -33,17 +33,19 @@
   </thead>
   <tbody>
     <% @user.invitations.each do |invitation| %>
-      <tr>
-        <td scope="col">
-          <%= link_to invitation.event.title, invitation.event %>
-        </td>
-        <td scope="col">
-          in <%= distance_of_time_in_words(Time.now, invitation.event.date) %>
-        </td>
-        <td scope="col">
-          <%= render partial: "shared/invitation_status", locals: { invitation: invitation } %>
-        </td>
-      </tr>
+      <%= unless invitation.event.past? %>
+        <tr>
+          <td scope="col">
+            <%= link_to invitation.event.title, invitation.event %>
+          </td>
+          <td scope="col">
+            in <%= distance_of_time_in_words(Time.now, invitation.event.date) %>
+          </td>
+          <td scope="col">
+            <%= render partial: "shared/invitation_status", locals: { invitation: invitation } %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
