@@ -82,7 +82,7 @@ class User < ApplicationRecord
   end
 
   # Unfollows a user
-  def follow(other_user)
+  def unfollow(other_user)
     following.delete(other_user)
   end
 
