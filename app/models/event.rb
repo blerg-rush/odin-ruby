@@ -34,4 +34,8 @@ class Event < ApplicationRecord
   def not_host?(user)
     user != host
   end
+
+  def past?
+    Event.past.include?(self)
+  end
 end
