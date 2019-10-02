@@ -1,5 +1,6 @@
 class FlightsController < ApplicationController
   def index
+    @flights = Flight.all
     @flight = Flight.new
   end
 
