@@ -3,6 +3,12 @@ class FlightsController < ApplicationController
   end
 
   def show
+    if Flight.exists? id: flight_params[:id]
+      @flight = Flight.find(flight_params[:id])
+    else
+      flash[:info] = 'Sorry, that flight does not exist'
+      redirect_to root_path
+    end
   end
 
   def new
@@ -19,4 +25,10 @@ class FlightsController < ApplicationController
 
   def destroy
   end
+
+  private
+
+    def flight_params
+      params.require(:flight).permit(:id, :from_id, :to_id)
+    end
 end
