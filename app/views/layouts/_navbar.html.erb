@@ -2,4 +2,9 @@
   <%= link_to "#", class: "navbar-brand" do %>
     Flyby <i class="fas fa-plane"></i>
   <% end %>
+  <div class='ml-auto'>
+  <%= form_with model: @flight, url: flights_show_path, method: 'get', local: 'true', class: 'form-inline my-2 my-lg-0' do |f| %>
+    <%= f.text_field :id, class: 'form-control mr-sm-2', placeholder: 'flight number' %>
+    <%= f.submit 'Find', class: 'btn btn-outline-primary my-2 my-sm-0' %>
+  <% end %>
 </nav>
