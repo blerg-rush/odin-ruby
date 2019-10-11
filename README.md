@@ -27,7 +27,7 @@ rails db:migrate
 
 _Optional, to play around with pre-generated user and event data:_
 
-_6. Add a .env file in the root and add a username and password_
+_6. Add a .env file in the root and add a password for seed users_
 
 ```bash
 # .env
