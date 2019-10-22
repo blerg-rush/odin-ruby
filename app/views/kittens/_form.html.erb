@@ -1,6 +1,6 @@
 <%= form_with model: @kitten, local: true do |f| %>
   <%= f.text_field :name, placeholder: 'Name' %>
-  <%= f.number_field :age, placeholder: 'Age',
+  <%= f.number_field :age, placeholder: 'Age (months)',
                            class: 'number-input' %>
   <%= f.number_field :cuteness, in: 1..11, 
                                 placeholder: 'Cuteness (1-11)',
