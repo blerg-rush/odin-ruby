@@ -5,11 +5,17 @@
       <li>
         Name: <%= kitten.name %>,
         Age: <%= kitten.age %>,
-        Cuteness: <%= kitten.cuteness %>
-        Softness: <%= kitten.softness %>
+        Cuteness: <%= kitten.cuteness %>,
+        Softness: <%= kitten.softness %><br>
+        <%= link_to 'edit', edit_kitten_path(kitten) %> |
+        <%= link_to 'destroy', kitten_path(kitten), method: :delete,
+                               data: { confirm: 'Really? 😢'} %>
       </li>
     <% end %>
   <% else %>
     <p>no kittens... &#128546</p>
   <% end %>
 </ul>
+<%= link_to new_kitten_path do %>
+  <%= button_tag 'Add kitten', type: 'button' %>
+<% end %>
