@@ -1,1 +1,8 @@
 <%= render partial: 'form' %>
+<br>
+<%= link_to 'destroy', kitten_path(@kitten), method: :delete,
+                        data: { confirm: 'Really? 😢'} %>
+<br><br>
+<%= link_to root_path do %>
+  <%= button_tag 'Back to kittens!', type: 'button' %>
+<% end %>
