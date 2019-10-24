@@ -1,0 +1,4 @@
+<%= form_with url: static_path, method: :get do |f| %>
+  <%= f.text_field :user_id, placeholder: 'User ID' %>
+  <%= f.submit 'Get Photos' %>
+<% end %>
