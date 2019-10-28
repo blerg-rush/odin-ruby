@@ -97,7 +97,16 @@ class AI
 
     # Only makes sure to not repeat guesses
     def basic_guess
-    
+      guess = ""
+      loop do
+        guess = ""
+        @game.spaces.times do
+          guess += rand(1..@game.digits).to_s
+        end
+        break unless @guesses.key? guess
+      end
+      @guesses[guess] = nil
+      guess
     end
 
     # Tries numbers that could be perfect digits
