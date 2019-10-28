@@ -69,7 +69,8 @@ end
 
 # Computer player logic
 class AI
-  def initialize(style = :basic)
+  def initialize(game, style = :basic)
+    @game = game
     @guesses = {}
     @style = style
   end
@@ -95,7 +96,9 @@ class AI
   private
 
     # Only makes sure to not repeat guesses
-    def basic_guess; end
+    def basic_guess
+    
+    end
 
     # Tries numbers that could be perfect digits
     def educated_guess; end
