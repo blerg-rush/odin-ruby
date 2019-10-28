@@ -97,7 +97,7 @@ class MasterMind
     puts "".center(@width, " ")
   end
 
-  def play
+  def play_guesser
     @game.randomize
     guess = @guess
     puts "I've chosen my sequence of numbers!".center(@width, " ")
@@ -127,7 +127,7 @@ class MasterMind
 
   def start
     introduction
-    play
+    play_guesser
     reset
   end
 
@@ -141,7 +141,7 @@ class MasterMind
     @game = Game.new
     @guess = nil
     @turn = 0
-    play
+    play_guesser
   end
 
   def invalid
@@ -153,5 +153,5 @@ class MasterMind
 
 end
 
-# game = MasterMind.new
-# game.start
+game = MasterMind.new
+game.start
