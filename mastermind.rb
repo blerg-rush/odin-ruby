@@ -136,11 +136,27 @@ class MasterMind
   end
 
   def play_picker
+    game.assign pick_sequence
+    say "Wish me luck!"
+    puts
+    until @game.win?(@guess) || @game.over?(@turn)
+      @turn += 1
+
+      # Guess
+
+      # Respond (and check for cheating)
+
+      # End message
+
+    end
+  end
+
+  def pick_sequence
     until @game.valid?(@game.code)
       print_errors if @errors.any?
       puts
-      say "What sequence of numbers will you set?"
-      @game.assign gets.chomp
+      say "What sequence of numbers will you set? (I won't peek!)"
+      gets.chomp
     end
   end
 
