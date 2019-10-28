@@ -125,6 +125,12 @@ class MasterMind
     end
   end
 
+  def play_picker
+    until @game.valid?(@game.code)
+      puts "What sequence of numbers will you set?".center(@width, " ")
+    end
+  end
+
   def start
     introduction
     play_guesser
