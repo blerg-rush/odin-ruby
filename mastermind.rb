@@ -163,6 +163,12 @@ class MasterMind
     @turn -= 1
   end
 
+  def print_errors
+    @errors.each do |error|
+      puts error
+    end
+    @errors.clear
+  end
 end
 
 game = MasterMind.new
