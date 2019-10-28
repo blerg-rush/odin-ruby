@@ -15,6 +15,10 @@ class Game
     end
   end
 
+  def assign(code)
+    @code = code.split("")
+  end
+
   def try(guess)
     digits = guess.split("")
     unmatched = @code.dup
