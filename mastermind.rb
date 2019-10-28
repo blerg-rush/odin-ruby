@@ -15,8 +15,8 @@ class Game
     end
   end
 
-  def assign(code)
-    @code = code.split("")
+  def assign(sequence)
+    @code = sequence.split("")
   end
 
   def try(guess)
@@ -63,7 +63,7 @@ class Game
   end
 
   def valid?(guess)
-    guess.length == code.length && guess.split("").max.to_i.between?(1, @digits)
+    guess.length == @spaces && guess.split("").max.to_i.between?(1, @digits)
   end
 end
 
@@ -188,18 +188,25 @@ class MasterMind
   end
 
   def play_picker
-    game.assign pick_sequence
+    @game.assign pick_sequence
     say "Wish me luck!"
     puts
     until @game.win?(@guess) || @game.over?(@turn)
       @turn += 1
-
       # Guess
+      say "My #{ORDINAL[@turn - 1]} guess is #{@ai.guess}."
+      puts
 
       # Respond (and check for cheating)
+      puts "(hint?)"
+      @ai.record(gets.chomp)
 
       # End message
-
+      if @game.win?(@guess)
+        say "Ahhah! The all-powerful computer wins again!"
+      elsif @game.over?(@turn)
+        say "Well, dang. You win!"
+      end
     end
   end
 
@@ -208,14 +215,21 @@ class MasterMind
       print_errors if @errors.any?
       puts
       say "What sequence of numbers will you set? (I won't peek!)"
-      gets.chomp
+      @game.code = gets.chomp
+      @errors << invalid_input unless @game.valid?(@game.code)
     end
+    @game.code
   end
 
   def start
     introduction
     play_guesser
     reset
+  end
+
+  def start_ai
+    @ai = AI.new(@game)
+    play_picker
   end
 
   def reset
@@ -252,4 +266,4 @@ class MasterMind
 end
 
 game = MasterMind.new
-game.start
+game.start_ai
