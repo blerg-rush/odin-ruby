@@ -73,6 +73,33 @@ class AI
     @guesses = {}
     @style = style
   end
+
+  def guess
+    case @style
+    when :basic
+      basic_guess
+    when :educated
+      educated_guess
+    when :intelligent
+      intelligent_guess
+    when :perfect
+      perfect_guess
+    end
+  end
+
+  private
+
+    # Only makes sure to not repeat guesses
+    def basic_guess; end
+
+    # Tries numbers that could be perfect digits
+    def educated_guess; end
+
+    # Incorporates imperfect digits
+    def intelligent_guess; end
+
+    # Uses perfect strategy
+    def perfect_guess; end
 end
 
 # Game interface
