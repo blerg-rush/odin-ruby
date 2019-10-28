@@ -24,7 +24,7 @@ class Game
     unmatched = @code.dup
     result = []
     result << perfect_digits(digits, unmatched)
-    result << misplaced_digits(digits, unmatched)
+    result << misplaced_digits(digits.compact, unmatched.compact)
     result.join
   end
 
@@ -35,6 +35,7 @@ class Game
 
       result << "P"
       code[index] = nil
+      guess[index] = nil
     end
     result.join
   end
@@ -174,5 +175,5 @@ class MasterMind
   end
 end
 
-game = MasterMind.new
-game.start
+# game = MasterMind.new
+# game.start
