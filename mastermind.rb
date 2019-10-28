@@ -67,6 +67,14 @@ class Game
   end
 end
 
+# Computer player logic
+class AI
+  def initialize(style = :basic)
+    @guesses = {}
+    @style = style
+  end
+end
+
 # Game interface
 class MasterMind
   ORDINAL = %w[first second third fourth fifth sixth seventh eighth ninth
