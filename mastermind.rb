@@ -158,11 +158,10 @@ class MasterMind
     play_guesser
   end
 
-  def invalid
-    puts
-    puts "#{@game.spaces} numbers exactly from 1 to #{@game.digits}, please"
-      .center(@width, " ")
+  def invalid_input
     @turn -= 1
+    "#{@game.spaces} numbers exactly from 1 to #{@game.digits}, please"
+      .center(@width, " ")
   end
 
   def print_errors
