@@ -84,51 +84,54 @@ class MasterMind
 
   def introduction
     puts
-    puts "Welcome to MasterMind!".center(@width, " ")
+    say "Welcome to MasterMind!"
     puts
-    puts "I'm going to choose a #{@game.spaces}-number sequence and you".center(@width, " ")
-    puts "have #{@game.turns} turns to guess what that sequence is.".center(@width, " ")
+    say "I'm going to choose a #{@game.spaces}-number sequence and you"
+    say "have #{@game.turns} turns to guess what that sequence is."
     puts
-    puts "Each number will be between 1 and #{@game.digits}".center(@width, " ")
+    say "Each number will be between 1 and #{@game.digits}"
     puts
-    puts "I'll give you a hint if any of your numbers are correct:".center(@width," ")
-    puts "1. For every number that's in the correct position, I'll give you a 'P'".center(@width, " ")
-    puts "2. For every correct number in the wrong position, I'll give you an 'M'".center(@width, " ")
+    say "I'll give you a hint if any of your numbers are correct:"
+    say "1. For every number that's in the correct position, I'll give you a 'P'"
+    say "2. For every correct number in the wrong position, I'll give you an 'M'"
     puts
-    puts "Just remember: P = perfect. M = misplaced.".center(@width, " ")
+    say "Just remember: P = perfect. M = misplaced."
     puts
-    puts "The same number may appear more than once, and each number in your".center(@width, " ")
-    puts "guess is worth one hint. My hints will not tell you anything about".center(@width, " ")
-    puts "the order of the numbers. For that, you'll have to use your head!".center(@width, " ")
-    puts "".center(@width, " ")
+    say "The same number may appear more than once, and each number in your"
+    say "guess is worth one hint. My hints will not tell you anything about"
+    say "the order of the numbers. For that, you'll have to use your head!"
+    puts
   end
 
   def play_guesser
     @game.randomize
-    puts "I've chosen my sequence of numbers!".center(@width, " ")
+    say "I've chosen my sequence of numbers!"
     until @game.win?(@guess) || @game.over?(@turn)
       @turn += 1
-      puts "This is your last shot!".center(@width, " ") if @turn == @game.turns
+      say "This is your last shot!" if @turn == @game.turns
       puts
-      puts "What is your #{ORDINAL[@turn - 1]} guess?".center(@width, " ")
+      say "What is your #{ORDINAL[@turn - 1]} guess?"
       puts
       @guess = ""
-      until @game.valid?(@guess)
-        print_errors if @errors.any?
-        @guess = gets.chomp
-        @errors << invalid_input unless @game.valid?(@guess)
-      end
+      player_guess
       answer = @game.try(@guess)
       puts
-      puts "Not a single correct number. No hint for you!".center(@width, " ") if answer == ""
-      puts "Here is your hint: #{answer}".center(@width, " ") if answer != ""
+      say "Not a single correct number. No hint for you!" if answer == ""
+      say "Here is your hint: #{answer}" if answer != ""
       puts
       if @game.win?(@guess)
-        puts "Good lord, you've got it! It was indeed #{@game.code.join}!"
+        say "Good lord, you've got it! It was indeed #{@game.code.join}!"
       elsif @game.over?(@turn)
-        puts "I'm afraid you're out of guesses. The answer was #{@game.code.join}!"
-          .center(@width, " ")
+        say "I'm afraid you're out of guesses. The answer was #{@game.code.join}!"
       end
+    end
+  end
+
+  def player_guess
+    until @game.valid?(@guess)
+      print_errors if @errors.any?
+      @guess = gets.chomp
+      @errors << invalid_input unless @game.valid?(@guess)
     end
   end
 
@@ -136,7 +139,7 @@ class MasterMind
     until @game.valid?(@game.code)
       print_errors if @errors.any?
       puts
-      puts "What sequence of numbers will you set?".center(@width, " ")
+      say "What sequence of numbers will you set?"
       @game.assign gets.chomp
     end
   end
@@ -149,10 +152,10 @@ class MasterMind
 
   def reset
     puts
-    puts "Would you like to play again? (y/n)".center(@width, " ")
+    say "Would you like to play again? (y/n)"
     puts
     response = gets.chomp.downcase
-    return puts "Farewell! Do come again when you're feeling brainy!" if response != "y"
+    return say "Farewell! Do come again when you're feeling brainy!" if response != "y"
 
     @game = Game.new
     @guess = nil
@@ -162,18 +165,23 @@ class MasterMind
 
   def invalid_input
     "#{@game.spaces} numbers exactly from 1 to #{@game.digits}, please"
-      .center(@width, " ")
   end
 
   def print_errors
     puts
     @errors.each do |error|
-      puts error
+      say error
     end
     puts
     @errors.clear
   end
+
+  private
+
+    def say(message)
+      puts message.center(@width, " ")
+    end
 end
 
-# game = MasterMind.new
-# game.start
+game = MasterMind.new
+game.start
