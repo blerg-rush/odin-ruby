@@ -80,6 +80,11 @@ class MasterMindTest < Minitest::Test
       assert_equal "PMM", @game.try("2464")
       assert_equal "", @game.try("1111")
     end
+
+    it "returns another correct number of perfect and misplaced digits" do
+      @game.code = %w[4 4 1 3]
+      assert_equal "PPP", @game.try("4213")
+    end
   end
 
   describe "win?" do
