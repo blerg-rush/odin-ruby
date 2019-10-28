@@ -104,24 +104,25 @@ class MasterMind
 
   def play_guesser
     @game.randomize
-    guess = @guess
     puts "I've chosen my sequence of numbers!".center(@width, " ")
-    until @game.win?(guess) || @game.over?(@turn)
+    until @game.win?(@guess) || @game.over?(@turn)
       @turn += 1
       puts "This is your last shot!".center(@width, " ") if @turn == @game.turns
       puts
       puts "What is your #{ORDINAL[@turn - 1]} guess?".center(@width, " ")
       puts
-      guess = gets.chomp
-      if @game.valid?(guess)
-        puts
-        answer = @game.try(guess)
-        puts "Not a single correct number. No hint for you!".center(@width, " ") if answer == ""
-        puts "Here is your hint: #{answer}".center(@width, " ") if answer != ""
-        puts
-      else invalid
+      @guess = ""
+      until @game.valid?(@guess)
+        print_errors if @errors.any?
+        @guess = gets.chomp
+        @errors << invalid_input unless @game.valid?(@guess)
       end
-      if @game.win?(guess)
+      answer = @game.try(@guess)
+      puts
+      puts "Not a single correct number. No hint for you!".center(@width, " ") if answer == ""
+      puts "Here is your hint: #{answer}".center(@width, " ") if answer != ""
+      puts
+      if @game.win?(@guess)
         puts "Good lord, you've got it! It was indeed #{@game.code.join}!"
       elsif @game.over?(@turn)
         puts "I'm afraid you're out of guesses. The answer was #{@game.code.join}!"
@@ -159,15 +160,16 @@ class MasterMind
   end
 
   def invalid_input
-    @turn -= 1
     "#{@game.spaces} numbers exactly from 1 to #{@game.digits}, please"
       .center(@width, " ")
   end
 
   def print_errors
+    puts
     @errors.each do |error|
       puts error
     end
+    puts
     @errors.clear
   end
 end
