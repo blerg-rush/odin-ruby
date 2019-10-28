@@ -78,6 +78,7 @@ class MasterMind
     @guess = nil
     @turn = 0
     @quit = false
+    @errors = []
   end
 
   def introduction
@@ -132,6 +133,7 @@ class MasterMind
   def play_picker
     until @game.valid?(@game.code)
       puts "What sequence of numbers will you set?".center(@width, " ")
+      @game.assign gets.chomp
     end
   end
 
