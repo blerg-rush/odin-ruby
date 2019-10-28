@@ -132,6 +132,8 @@ class MasterMind
 
   def play_picker
     until @game.valid?(@game.code)
+      print_errors if @errors.any?
+      puts
       puts "What sequence of numbers will you set?".center(@width, " ")
       @game.assign gets.chomp
     end
