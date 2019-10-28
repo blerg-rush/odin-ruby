@@ -87,6 +87,11 @@ class AI
     end
   end
 
+  # Records the player's response to a guess (string)
+  def record(response)
+    @guesses[@guesses.keys.last] = response
+  end
+
   private
 
     # Only makes sure to not repeat guesses
