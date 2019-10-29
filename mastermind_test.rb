@@ -30,7 +30,7 @@ class MasterMindTest < Minitest::Test
 
   describe "pefect digits" do
     before do
-      @game = Game.new
+      @game = Game.new(6, 4)
     end
 
     it "returns the correct number of perfect digits" do
@@ -42,7 +42,7 @@ class MasterMindTest < Minitest::Test
 
   describe "misplaced digits" do
     before do
-      @game = Game.new
+      @game = Game.new(6, 4)
     end
 
     it "returns the correct number of misplaced digits" do
@@ -54,7 +54,7 @@ class MasterMindTest < Minitest::Test
 
   describe "guess" do
     before do
-      @game = Game.new
+      @game = Game.new(6, 4)
     end
 
     it "returns the correct number of perfect digits" do
@@ -89,7 +89,7 @@ class MasterMindTest < Minitest::Test
 
   describe "win?" do
     before do
-      @game = Game.new
+      @game = Game.new(6, 4)
     end
 
     it "returns true if guess is correct" do
@@ -120,6 +120,24 @@ class MasterMindTest < Minitest::Test
       @game.turns = 12
       turn = 11
       refute @game.over?(turn)
+    end
+  end
+
+  describe "educated guess" do
+    before do
+      @game = Game.new(6, 4)
+      @ai = AI.new(@game, :educated)
+    end
+
+    it "guesses with at least as many returning digits as the last's hits" do
+      @guesses = { '1234' => 'PM' }
+      next_guess = @ai.guess
+      last_guess = @guesses.keys.last.dup
+      overlap = next_guess.chars.inject(0) do |count, digit|
+        count += 1 if last_guess.sub!(digit,'')
+        count
+      end
+      assert overlap >= @guesses.values.last.length
     end
   end
 end
