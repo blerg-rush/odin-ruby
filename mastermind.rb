@@ -109,14 +109,39 @@ class AI
       guess
     end
 
-    # Tries numbers that could be perfect digits
-    def educated_guess; end
+    # Incorporates the last guess
+    def educated_guess
+      return basic_guess if @guesses.empty?
 
-    # Incorporates imperfect digits
+      new_guess = ''
+      # Grab the previous guess
+      last_guess = @guesses.keys.last
+      # Grab the number of Ps and Ms from the last response
+      pseudo_hits = @guesses.values.last.length
+      # Throw that many numbers from the previous guess at a dartboard
+      new_guess += last_guess.split('').sample(pseudo_hits).join('')
+      # Get the set of numbers that weren't used last time
+      unpicked_numbers = (1..@game.digits).to_a - last_guess.split('')
+      # Throw *them* at a dartboard until the number is full
+      (@game.spaces - pseudo_hits).times do
+        new_guess += unpicked_numbers.sample.to_s
+      end
+      # Profit
+      guess = new_guess.split('').shuffle.join('')
+      @guesses[guess] = nil
+      guess
+    end
+
+    # Incorporates every guess
     def intelligent_guess; end
 
     # Uses perfect strategy
     def perfect_guess; end
+
+    def selective_shuffle(sequence, locks)
+      locked.indices = Array.new(locks) { true }
+      
+    end
 end
 
 # Game interface
@@ -228,7 +253,7 @@ class MasterMind
   end
 
   def start_ai
-    @ai = AI.new(@game)
+    @ai = AI.new(@game, :educated)
     play_picker
   end
 
