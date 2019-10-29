@@ -1,3 +1,5 @@
+require 'pry'
+
 # Internal game logic
 class Game
   attr_accessor :spaces, :digits, :turns, :code
@@ -110,26 +112,65 @@ class AI
     end
 
     # Incorporates the last guess
+    # def educated_guess
+    #   return basic_guess if @guesses.empty?
+
+    #   new_guess = ''
+    #   # Grab the previous guess
+    #   last_guess = @guesses.keys.last
+    #   # Grab the number of Ps and Ms from the last response
+    #   total_hits = @guesses.values.last.length
+    #   perfect_hits = @guesses.values.last.count('P')
+    #   # Throw that many numbers from the previous guess at a dartboard
+    #   new_guess += last_guess.split('').sample(total_hits).join('')
+    #   # Get the set of numbers that weren't used last time
+    #   unpicked_numbers = (1..@game.digits).to_a.map(&:to_s) - last_guess.split('')
+    #   # Throw *them* at a dartboard until the number is full
+    #   (@game.spaces - total_hits).times do
+    #     new_guess += unpicked_numbers.sample.to_s
+    #   end
+    #   # Profit
+    #   guess = selective_shuffle(new_guess.split(''), perfect_hits).join('')
+    #   @guesses[guess] = nil
+    #   guess
+    # end
+
     def educated_guess
       return basic_guess if @guesses.empty?
 
-      new_guess = ''
+      spaces = @game.spaces
+      new_sequence = Array.new(spaces)
       # Grab the previous guess
-      last_guess = @guesses.keys.last
-      # Grab the number of Ps and Ms from the last response
-      pseudo_hits = @guesses.values.last.length
-      # Throw that many numbers from the previous guess at a dartboard
-      new_guess += last_guess.split('').sample(pseudo_hits).join('')
-      # Get the set of numbers that weren't used last time
-      unpicked_numbers = (1..@game.digits).to_a - last_guess.split('')
-      # Throw *them* at a dartboard until the number is full
-      (@game.spaces - pseudo_hits).times do
-        new_guess += unpicked_numbers.sample.to_s
+      last_guess = @guesses.keys.last.split('')
+      # Grab the locks and rerolls
+      last_hint = @guesses.values.last
+      locks = last_hint.count('P')
+      rerolls = spaces - last_hint.length
+      # Randomize locks
+      locked_indices = Array.new(locks) { true }
+      locked_indices.fill(false, locks, spaces - locks)
+      locked_indices.shuffle!
+      last_guess.each_with_index do |digit, index|
+        if locked_indices[index]
+          new_sequence[index] = digit
+          last_guess[index] = nil
+        end
       end
-      # Profit
-      guess = new_guess.split('').shuffle.join('')
-      @guesses[guess] = nil
-      guess
+      # Create a list of digits that the comlete misses could be
+      # These could be same number as a P, but _not_ an M
+      replacements = (1..@game.digits).to_a.map(&:to_s) - last_guess
+      # Reroll a digit as many times as complete misses
+      last_guess.shuffle!.compact!
+      rerolls.times do |index|
+        last_guess[index] = replacements.sample
+      end
+      last_guess.shuffle!
+      # Insert the new digit guesses randomly into the new sequence
+      new_sequence.each_with_index do |digit, index|
+        new_sequence[index] = last_guess.shift if digit.nil?
+      end
+      @guesses[new_sequence.join] = nil
+      new_sequence.join
     end
 
     # Incorporates every guess
@@ -138,10 +179,26 @@ class AI
     # Uses perfect strategy
     def perfect_guess; end
 
-    def selective_shuffle(sequence, locks)
-      locked.indices = Array.new(locks) { true }
-      
-    end
+    # Expects an array and a number of digits to lock
+    # def selective_shuffle(sequence, locks)
+    #   locked_indices = Array.new(locks) { true }
+    #   locked_indices.fill(false, locks, @game.spaces - locks)
+    #   locked_indices.shuffle!
+
+    #   shuffled_digits = []
+
+    #   sequence.each_with_index do |digit, index|
+    #     shuffled_digits << digit && sequence[index] = nil unless locked_indices[index]
+    #   end
+
+    #   shuffled_digits.shuffle!
+
+    #   sequence.each_with_index do |digit, index|
+    #     sequence[index] = shuffled_digits.pop if digit.nil?
+    #   end
+    #   binding.pry
+    #   sequence
+    # end
 end
 
 # Game interface
