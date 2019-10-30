@@ -13,7 +13,7 @@ def clean_phone(phone_number)
   phone_number = nil if length > 11 || length < 10
 
   if length == 11
-    phone_number = phone_number[0..9] if phone_number[0] == '1'
+    phone_number = phone_number[1..10] if phone_number[0] == '1'
     phone_number = nil if phone_number[0] != '1'
   end
 
