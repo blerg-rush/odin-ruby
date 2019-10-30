@@ -16,6 +16,7 @@
     <% if legislators.kind_of? Array %>
       <th>Name</th><th>Website</th>
       <% legislators.each do |legislator| %>
+        <% legislator.urls = ['N/A'] if legislator.urls.nil? %>
         <tr>
           <td><%= "#{legislator.name}" %></td>
           <td><%= "#{legislator.urls.join}" %></td>
