@@ -60,8 +60,8 @@ class Hangman
     saves = []
     3.times do
       saves << { 'created' => '',
-                 'hint' => '',
-                 'misses' => '',
+                 'hint' => [],
+                 'misses' => [],
                  'data' => nil }
     end
     write_savefile(saves)
@@ -82,8 +82,8 @@ class Hangman
   def display_saves(saves)
     saves.each_with_index do |save, index|
       puts "#{index + 1}) Created: #{save['created']}"
-      puts "   Hint: #{save['hint']}"
-      puts "   Misses: #{save['misses']}"
+      puts "   Hint: #{save['hint'].join(' ')}"
+      puts "   Misses: #{save['misses'].join(' ')}"
       puts
     end
   end
@@ -145,6 +145,3 @@ class Hangman
     play
   end
 end
-
-hangman = Hangman.new
-hangman.start
