@@ -58,7 +58,7 @@ class Display
   # Minimum width for 12-letter word: 33
   def initialize(failures = 0)
     @noose = File.open('noose.txt', 'r', &:read).split("\n")
-    @width = 34
+    @width = 60
     @failures = failures
   end
 
@@ -80,12 +80,29 @@ class Display
     end
   end
 
-  def hint(hint_array)
-    align(hint_array)
+  def align_left(string)
+    string.ljust(12)
   end
 
-  def align(string)
-    ' ' + string.ljust(@width - 10)
+  def hint(hint_array)
+    hint_array.join(' ')
+  end
+
+  def misses(bad_letters)
+    "Misses: #{bad_letters.join(' ')}"
+  end
+
+  # Options: :hint_array, :bad_letters, :message
+  def draw(opts = {})
+    lines = []
+    message = opts[:message] || ''
+    lines[0] = align_left(@noose[0]) + hint(opts[:hint_array])
+    lines[1] = align_left(@noose[1]) + misses(opts[:bad_letters])
+    lines[2] = @noose[2]
+    lines[3] = @noose[3]
+    lines[4] = @noose[4]
+    lines[5] = align_left(@noose[5]) + message
+    puts lines
   end
 end
 
