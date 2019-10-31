@@ -17,13 +17,17 @@ class Game
   # Expects a single letter, returns the current hint
   def guess(letter)
     letter = letter.upcase
+    response = 'miss'
     return false if @letters_guessed.include? letter
 
     @letters_guessed << letter
 
-    update_hint(letter) if @word.include? letter
+    if @word.include? letter
+      update_hint(letter)
+      response = 'hit'
+    end
 
-    @hint
+    response
   end
 
   def update_hint(letter)
@@ -42,6 +46,10 @@ class Game
 
   def over?
     misses >= @guesses
+  end
+
+  def win?
+    !@hint.include? '_'
   end
 end
 
@@ -122,23 +130,40 @@ class Display
 end
 
 class Hangman
-  @display = Display.new
-  @game = Game.new
-  @message = 'Guess a letter!'
+  def initialize
+    @display = Display.new
+    @game = Game.new
+    @message = 'Guess a letter!'
+  end
 
-  until @game.over?
-    system 'clear'
-    @display.draw(hints: @game.hint,
-                  misses: @game.bad_letters,
-                  message: @message)
-    puts
-    letter = gets.chomp
-    unless letter.match(/^[a-zA-Z]$/)
-      @message = "That doesn't look right. Try again."
-      next
+  def try(letter)
+    case @game.guess(letter)
+    when false
+      @message = 'You guessed that already! Try again.'
+    when 'hit'
+      @message = 'Whew! Keep going!'
+    when 'miss'
+      @display.add_part
+      @message = "Ohhhh, I don't like this."
     end
-    @game.guess(letter)
+  end
+
+  def play
+    until @game.over? || @game.win?
+      system 'clear'
+      @display.draw(hints: @game.hint,
+                    misses: @game.bad_letters,
+                    message: @message)
+      puts
+      letter = gets.chomp
+      unless letter.match(/^[a-zA-Z]$/)
+        @message = "That doesn't look right. Try again."
+        next
+      end
+      try(letter)
+    end
   end
 end
 
 hangman = Hangman.new
+hangman.play
