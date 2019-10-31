@@ -260,10 +260,11 @@ class Hangman
                  "Thank you! You've saved me!"
                else
                  "The word was #{@game.word}...\nYou jerk! Now I'm dead!"
-               end
+               end + "\n(Type 'save' to save game)"
     @display.draw(hints: @game.hint,
                   misses: @game.bad_letters,
                   message: @message)
+    puts
   end
 
   def start
