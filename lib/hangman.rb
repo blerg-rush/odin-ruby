@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
 require 'pry'
+require 'facets/string/word_wrap'
 
 class Game
   WORDS = File.open('5desk.txt', 'r', &:read).split("\r\n")
@@ -92,16 +91,23 @@ class Display
     "Misses: #{bad_letters.join(' ')}"
   end
 
+  def wrap_message(message)
+    lines = message.word_wrap(@width - 12).split("\n")
+    lines.unshift(' ') until lines.size >= 3
+    lines[0..2]
+  end
+
   # Options: :hint_array, :bad_letters, :message
+  # :message max length: (@width - 12) * 2
   def draw(opts = {})
     lines = []
-    message = opts[:message] || ''
+    message = wrap_message(opts[:message] || '')
     lines[0] = align_left(@noose[0]) + hint(opts[:hint_array])
     lines[1] = align_left(@noose[1]) + misses(opts[:bad_letters])
     lines[2] = @noose[2]
-    lines[3] = @noose[3]
-    lines[4] = @noose[4]
-    lines[5] = align_left(@noose[5]) + message
+    lines[3] = align_left(@noose[3]) + message[0]
+    lines[4] = align_left(@noose[4]) + message[1]
+    lines[5] = align_left(@noose[5]) + message[2]
     puts lines
   end
 end
