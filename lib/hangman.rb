@@ -159,17 +159,24 @@ class Hangman
                   message: @message)
     puts
     letter = gets.chomp
-    unless letter.match(/^[a-zA-Z]$/)
+    unless letter =~ /^[a-zA-Z]$/
       @message = "That doesn't look right. Try again."
       return
     end
     try(letter)
   end
 
-  def select_slot
-    # Ask which save slot to save/load
+  def select_slot(reason)
+    until slot&.between?(0, 2)
+      system 'clear'
+      display_saves
+      puts
+      puts "Invalid entry\n" if slot
+      puts "Which file would you like to #{reason}?"
+      slot = gets.chomp.to_i
+    end
 
-    # Return index of desired slot
+    slot
   end
 
   def retrieve_saves
@@ -224,6 +231,8 @@ class Hangman
     # Select save slot
 
     # Load saved @game object
+
+    # Update display
   end
 
   def play
