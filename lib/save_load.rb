@@ -1,3 +1,4 @@
+# Methods for serialization and IO
 module SaveLoad
   def select_slot(saves, reason)
     slot = nil
