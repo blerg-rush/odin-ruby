@@ -1,6 +1,7 @@
 require 'pry'
 require 'facets/string/word_wrap'
 
+# Handles internal game logic and state
 class Game
   attr_reader :hint, :word
 
@@ -53,6 +54,7 @@ class Game
   end
 end
 
+# Renders visualization of game state
 class Display
   HEAD_PART = 'O'
   TORSO_PART = '|'
@@ -129,6 +131,7 @@ class Display
   end
 end
 
+# Handles game flow
 class Hangman
   def initialize
     @display = Display.new
