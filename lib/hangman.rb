@@ -83,6 +83,10 @@ class Display
     string.ljust(12)
   end
 
+  def align_center(string)
+    string.center(@width - 12)
+  end
+
   def hint(hint_array)
     hint_array.join(' ')
   end
@@ -102,8 +106,8 @@ class Display
   def draw(opts = {})
     lines = []
     message = wrap_message(opts[:message] || '')
-    lines[0] = align_left(@noose[0]) + hint(opts[:hint_array])
-    lines[1] = align_left(@noose[1]) + misses(opts[:bad_letters])
+    lines[0] = align_left(@noose[0]) + align_center(hint(opts[:hint_array]))
+    lines[1] = align_left(@noose[1]) + align_center(misses(opts[:bad_letters]))
     lines[2] = @noose[2]
     lines[3] = align_left(@noose[3]) + message[0]
     lines[4] = align_left(@noose[4]) + message[1]
