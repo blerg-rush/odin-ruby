@@ -1,5 +1,6 @@
 require 'pry'
 require 'facets/string/word_wrap'
+require 'msgpack'
 
 # Handles internal game logic and state
 class Game
@@ -131,7 +132,7 @@ class Display
   end
 end
 
-# Handles game flow
+# Handles user interaction with game flow
 class Hangman
   def initialize
     @display = Display.new
@@ -163,6 +164,66 @@ class Hangman
       return
     end
     try(letter)
+  end
+
+  def select_slot
+    # Ask which save slot to save/load
+
+    # Return index of desired slot
+  end
+
+  def retrieve_saves
+    # Deserialize save file
+
+    # Return hash of save files {:slot, :DateTime, :hint, :misses, :data}
+  end
+
+  def display_saves
+    # Iterate over and puts :slot, :DateTime, :hint, :misses of each save file
+  end
+
+  def pack_save(slot)
+    # Create save hash {:slot, :DateTime, :hint, :misses}
+
+    # Serialize game data
+
+    # Add game data to save hash (:data)
+
+    # Return save hash
+  end
+
+  def unpack_save(saves, slot)
+    # Assign selected save file from saves hash
+
+    # Deserialize game data from save[:data]
+
+    # Return game data
+  end
+
+  def save
+    # Deserialize save file if one exists
+
+    # Display save slots
+
+    # Select save slot
+
+    # Serialize @game object
+
+    # Add @game object to deserialized save file
+
+    # Serialize and store save file
+
+    # Continue?
+  end
+
+  def load
+    # Deserialize save file if one exists
+
+    # Display save slots
+
+    # Select save slot
+
+    # Load saved @game object
   end
 
   def play
