@@ -172,6 +172,7 @@ class Hangman
   end
 
   def select_slot(saves, reason)
+    slot = nil
     until slot&.between?(0, 2)
       system 'clear'
       display_saves(saves)
@@ -228,7 +229,7 @@ class Hangman
 
   # Expects a save hash with serialized data: @game
   def unpack_save(save)
-    MessagePack.unpack(save[:data])
+    MessagePack.unpack(save[:data]) unless save[:data].nil?
   end
 
   def save
@@ -245,6 +246,8 @@ class Hangman
   def load
     saves = read_savefile
     slot = select_slot(saves, 'load')
+    return if saves[slot][:data].nil?
+
     @game = unpack_save(saves[slot])
     @display = Display.new
     @display.load_parts(@game.misses)
@@ -262,7 +265,14 @@ class Hangman
                   misses: @game.bad_letters,
                   message: @message)
   end
+
+  def start
+    puts 'Would you like to load an existing game?'
+    response = gets
+    load if response =~ /^y/i
+    play
+  end
 end
 
 hangman = Hangman.new
-hangman.play
+hangman.start
