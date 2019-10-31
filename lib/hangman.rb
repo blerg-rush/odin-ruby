@@ -8,14 +8,14 @@ class Game
 
   def initialize(guesses = 6)
     @guesses = guesses
-    @word = WORDS.sample.downcase
+    @word = WORDS.sample.upcase
     @letters_guessed = []
     @hint = @word.gsub(/./, '_').split('')
   end
 
   # Expects a single letter, returns the current hint
   def guess(letter)
-    letter = letter.downcase
+    letter = letter.upcase
     return false if @letters_guessed.include? letter
 
     @letters_guessed << letter
@@ -38,6 +38,10 @@ class Game
   def over?
     misses >= @guesses
   end
+end
+
+class Hangman
+
 end
 
 game = Game.new
