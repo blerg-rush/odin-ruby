@@ -205,7 +205,11 @@ class Hangman
 
   # Expects array of save hashes with serialized data: @game
   def display_saves(saves)
-
+    saves.each_with_index do |save, index|
+      puts "#{index + 1}) Created: #{save[:created]}"
+      puts "   Hint: #{save[:hint]}"
+      puts "   Misses: #{save[:misses]}\n"
+    end
   end
 
   def pack_save
