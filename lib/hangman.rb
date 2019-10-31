@@ -56,17 +56,17 @@ class Game
   end
 
   def data=(savedata)
-    @guesses = savedata[:guesses]
-    @word = savedata[:word]
-    @letters_guessed = savedata[:letters_guessed]
-    @hint = savedata[:hint]
+    @guesses = savedata['guesses']
+    @word = savedata['word']
+    @letters_guessed = savedata['letters_guessed']
+    @hint = savedata['hint']
   end
 
   def data
-    { guesses: @guesses,
-      word: @word,
-      letters_guessed: @letters_guessed,
-      hint: @hint }
+    { 'guesses' => @guesses,
+      'word' => @word,
+      'letters_guessed' => @letters_guessed,
+      'hint' => @hint }
   end
 end
 
