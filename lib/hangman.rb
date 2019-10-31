@@ -69,7 +69,7 @@ class Hangman
 
     def save_game
       saves = read_savefile
-      slot = select_slot(saves, 'save')
+      slot = select_slot(saves, 'save to')
       save = pack_save(@game)
       saves[slot] = save
       write_savefile(saves)
@@ -80,7 +80,7 @@ class Hangman
 
     def load_game
       saves = read_savefile
-      slot = select_slot(saves, 'load')
+      slot = select_slot(saves, 'load from')
       return if saves[slot]['data'].nil?
 
       @game.data = unpack_save(saves[slot])
