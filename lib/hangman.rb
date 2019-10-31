@@ -1,6 +1,7 @@
 require 'pry'
 require 'facets/string/word_wrap'
 require 'msgpack'
+require 'date'
 
 # Handles internal game logic and state
 class Game
@@ -52,6 +53,20 @@ class Game
 
   def win?
     !@hint.include? '_'
+  end
+
+  def data=(savedata)
+    @guesses = savedata[:guesses]
+    @word = savedata[:word]
+    @letters_guessed = savedata[:letters_guessed]
+    @hint = savedata[:hint]
+  end
+
+  def data
+    { guesses: @guesses,
+      word: @word,
+      letters_guessed: @letters_guessed,
+      hint: @hint }
   end
 end
 
@@ -155,6 +170,7 @@ class Hangman
       @display.add_part
       @message = "Ohhhh, I don't like this."
     end
+    @message += "\n(type 'save' to save the game)"
   end
 
   def turn
@@ -164,6 +180,7 @@ class Hangman
                   message: @message)
     puts
     letter = gets.chomp
+    save_game if letter =~ /^save/i
     unless letter =~ /^[a-zA-Z]$/
       @message = "That doesn't look right. Try again."
       return
@@ -190,10 +207,10 @@ class Hangman
 
     saves = []
     3.times do
-      saves << { created: '',
-                 hint: '',
-                 misses: '',
-                 data: nil }
+      saves << { 'created' => '',
+                 'hint' => '',
+                 'misses' => '',
+                 'data' => nil }
     end
     write_savefile(saves)
   end
@@ -205,34 +222,36 @@ class Hangman
 
   # Returns an array of save hashes with serialized data: @game
   def read_savefile
-    MessagePack.unpack(File.open('savefile', 'r', &:read))
+    file = MessagePack.unpack(File.open('savefile', 'r', &:read))
+    file
   end
 
   # Expects array of save hashes with serialized data: @game
   def display_saves(saves)
     saves.each_with_index do |save, index|
-      puts "#{index + 1}) Created: #{save[:created]}"
-      puts "   Hint: #{save[:hint]}"
-      puts "   Misses: #{save[:misses]}\n"
+      puts "#{index + 1}) Created: #{save['created']}"
+      puts "   Hint: #{save['hint']}"
+      puts "   Misses: #{save['misses']}"
+      puts
     end
   end
 
   def pack_save
-    save = { created: DateTime.now,
-             hint: @game.hint,
-             misses: @game.bad_letters }
+    save = { 'created' => DateTime.now.strftime('%F %H:%M'),
+             'hint' => @game.hint,
+             'misses' => @game.bad_letters }
 
-    save[:data] = @game.to_msgpack
+    save['data'] = @game.data.to_msgpack
 
     save
   end
 
   # Expects a save hash with serialized data: @game
   def unpack_save(save)
-    MessagePack.unpack(save[:data]) unless save[:data].nil?
+    MessagePack.unpack(save['data']) unless save['data'].nil?
   end
 
-  def save
+  def save_game
     saves = read_savefile
     slot = select_slot(saves, 'save')
     save = pack_save
@@ -243,12 +262,12 @@ class Hangman
     exit
   end
 
-  def load
+  def load_game
     saves = read_savefile
     slot = select_slot(saves, 'load')
-    return if saves[slot][:data].nil?
+    return if saves[slot]['data'].nil?
 
-    @game = unpack_save(saves[slot])
+    @game.data = unpack_save(saves[slot])
     @display = Display.new
     @display.load_parts(@game.misses)
   end
@@ -260,7 +279,7 @@ class Hangman
                  "Thank you! You've saved me!"
                else
                  "The word was #{@game.word}...\nYou jerk! Now I'm dead!"
-               end + "\n(Type 'save' to save game)"
+               end
     @display.draw(hints: @game.hint,
                   misses: @game.bad_letters,
                   message: @message)
@@ -270,7 +289,7 @@ class Hangman
   def start
     puts 'Would you like to load an existing game?'
     response = gets
-    load if response =~ /^y/i
+    load_game if response =~ /^y/i
     play
   end
 end
