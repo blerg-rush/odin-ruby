@@ -35,7 +35,9 @@ class Game
     @guesses.count { |guess| !@word.include? guess }
   end
 
-  def game_over; end
+  def over?
+    misses >= @guesses
+  end
 end
 
 game = Game.new
