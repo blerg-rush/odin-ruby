@@ -13,6 +13,7 @@ class Game
     @hint = @word.gsub(/./, '_').split('')
   end
 
+  # Expects a single letter, returns the current hint
   def guess(letter)
     letter = letter.downcase
     return false if @letters_guessed.include? letter
@@ -24,7 +25,11 @@ class Game
     @hint
   end
 
-  def update_hint(letter); end
+  def update_hint(letter)
+    @word.chars.each_with_index do |char, index|
+      @hint[index] = letter if char == letter
+    end
+  end
 
   def misses; end
 
