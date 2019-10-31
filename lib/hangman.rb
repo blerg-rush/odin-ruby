@@ -31,7 +31,9 @@ class Game
     end
   end
 
-  def misses; end
+  def misses
+    @guesses.count { |guess| !@word.include? guess }
+  end
 
   def game_over; end
 end
