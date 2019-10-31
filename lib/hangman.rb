@@ -2,6 +2,8 @@ require 'pry'
 require 'facets/string/word_wrap'
 
 class Game
+  attr_reader :hint
+
   WORDS = File.open('5desk.txt', 'r', &:read).split("\r\n")
               .select { |word| word.length.between?(5, 12) }
 
@@ -31,11 +33,11 @@ class Game
   end
 
   def misses
-    @guesses.count { |guess| !@word.include? guess }
+    @letters_guessed.count { |guess| !@word.include? guess }
   end
 
   def bad_letters
-    @guesses.reject { |guess| word.include? guess }
+    @letters_guessed.reject { |guess| @word.include? guess }
   end
 
   def over?
@@ -44,7 +46,6 @@ class Game
 end
 
 class Display
-  attr_reader :noose
   HEAD_PART = 'O'
   TORSO_PART = '|'
   LEFT_LIMB_PART = '/'
@@ -105,17 +106,17 @@ class Display
     lines[0..2]
   end
 
-  # Options: :hint_array, :bad_letters, :message
+  # Options: :hints, :misses, :message
   # :message max length: (@width - 12) * 2
   def draw(opts = {})
     lines = []
     message = wrap_message(opts[:message] || '')
-    lines[0] = align_left(@noose[0]) + align_center(hint(opts[:hint_array]))
-    lines[1] = align_left(@noose[1]) + align_center(misses(opts[:bad_letters]))
+    lines[0] = align_left(@noose[0]) + align_center(hint(opts[:hints]))
+    lines[1] = align_left(@noose[1]) + align_center(misses(opts[:misses]))
     lines[2] = @noose[2]
-    lines[3] = align_left(@noose[3]) + message[0]
-    lines[4] = align_left(@noose[4]) + message[1]
-    lines[5] = align_left(@noose[5]) + message[2]
+    lines[3] = align_left(@noose[3]) + align_center(message[0])
+    lines[4] = align_left(@noose[4]) + align_center(message[1])
+    lines[5] = align_left(@noose[5]) + align_center(message[2])
     puts lines
   end
 end
@@ -123,8 +124,21 @@ end
 class Hangman
   @display = Display.new
   @game = Game.new
+  @message = 'Guess a letter!'
 
-  binding.pry
+  until @game.over?
+    system 'clear'
+    @display.draw(hints: @game.hint,
+                  misses: @game.bad_letters,
+                  message: @message)
+    puts
+    letter = gets.chomp
+    unless letter.match(/^[a-zA-Z]$/)
+      @message = "That doesn't look right. Try again."
+      next
+    end
+    @game.guess(letter)
+  end
 end
 
 hangman = Hangman.new
