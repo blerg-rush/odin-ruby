@@ -40,9 +40,20 @@ class Game
   end
 end
 
-class Hangman
+class Display
+  HEAD = 'O'
+  TORSO = '|'
+  LEFT_LIMB = '/'
+  RIGHT_LIMB = '\\'
 
+  def initialize
+    @noose = File.open('noose.txt', 'r', &:read).split("\n")
+    @failures = 0
+  end
 end
 
-game = Game.new
-binding.pry
+class Hangman
+  @display = Display.new
+  @game = Game.new
+end
+
