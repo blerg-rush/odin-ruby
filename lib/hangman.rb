@@ -34,6 +34,10 @@ class Game
     @guesses.count { |guess| !@word.include? guess }
   end
 
+  def bad_letters
+    @guesses.reject { |guess| word.include? guess }
+  end
+
   def over?
     misses >= @guesses
   end
