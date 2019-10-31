@@ -7,22 +7,21 @@ class Game
               .select { |word| word.length.between?(5, 12) }
 
   def initialize(guesses = 6)
+    @guesses = guesses
     @word = WORDS.sample.downcase
     @letters_guessed = []
-    @guesses = guesses
     @hint = @word.gsub(/./, '_').split('')
   end
 
   def guess(letter)
-    # downcase letter
-    # Return false if letter already guessed
+    letter = letter.downcase
+    return false if @letters_guessed.include? letter
 
-    # Add letter to letters guessed
+    @letters_guessed << letter
 
-    # Check letter against word
-    #  If correct, update hint
+    update_hint(letter) if @word.include? letter
 
-    # Return hint
+    @hint
   end
 
   def update_hint(letter); end
