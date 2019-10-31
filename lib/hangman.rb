@@ -55,9 +55,10 @@ class Display
   LEFT_LEG = { row: 4, col: 1 }.freeze
   RIGHT_LEG = { row: 4, col: 3 }.freeze
 
+  # Minimum width for 12-letter word: 33
   def initialize(failures = 0)
     @noose = File.open('noose.txt', 'r', &:read).split("\n")
-    @width = 24
+    @width = 34
     @failures = failures
   end
 
@@ -79,7 +80,13 @@ class Display
     end
   end
 
-  def hint; end
+  def hint(hint_array)
+    align(hint_array)
+  end
+
+  def align(string)
+    ' ' + string.ljust(@width - 10)
+  end
 end
 
 class Hangman
