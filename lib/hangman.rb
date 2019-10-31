@@ -138,6 +138,7 @@ class Hangman
     @display = Display.new
     @game = Game.new
     @message = 'Guess a letter!'
+    create_savefile
   end
 
   def try(letter)
@@ -179,18 +180,36 @@ class Hangman
     slot
   end
 
-  def retrieve_saves
-    # Deserialize save file
+  def create_savefile
+    return if File.exist?('savefile')
 
-    # Return hash of save files {:slot, :DateTime, :hint, :misses, :data}
+    saves = []
+    3.times do
+      saves << { created: '',
+                 hint: '',
+                 misses: '',
+                 data: nil }
+    end
+    write_savefile(saves)
   end
 
-  def display_saves
-    # Iterate over and puts :slot, :DateTime, :hint, :misses of each save file
+  # Expects array of save hashes with serialized data: @game
+  def write_savefile(saves)
+    File.open('savefile', 'w') { |f| f.write saves.to_msgpack }
   end
 
-  def pack_save(slot)
-    # Create save hash {:slot, :DateTime, :hint, :misses}
+  # Returns an array of save hashes with serialized data: @game
+  def read_savefile
+    MessagePack.unpack(File.open('savefile', 'r', &:read))
+  end
+
+  # Expects array of save hashes with serialized data: @game
+  def display_saves(saves)
+
+  end
+
+  def pack_save
+    # Create save hash {:created, :hint, :misses}
 
     # Serialize game data
 
