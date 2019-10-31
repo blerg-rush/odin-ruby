@@ -2,9 +2,6 @@
 class Game
   attr_reader :hint, :word
 
-  WORDS = File.open('5desk.txt', 'r', &:read).split("\r\n")
-              .select { |word| word.length.between?(5, 12) }
-
   def initialize(guesses = 6)
     @guesses = guesses
     @word = WORDS.sample.upcase
@@ -26,12 +23,6 @@ class Game
     end
 
     response
-  end
-
-  def update_hint(letter)
-    @word.chars.each_with_index do |char, index|
-      @hint[index] = letter if char == letter
-    end
   end
 
   def misses
@@ -63,4 +54,15 @@ class Game
       'letters_guessed' => @letters_guessed,
       'hint' => @hint }
   end
+
+  private
+
+    WORDS = File.open('5desk.txt', 'r', &:read).split("\r\n")
+                .select { |word| word.length.between?(5, 12) }
+
+    def update_hint(letter)
+      @word.chars.each_with_index do |char, index|
+        @hint[index] = letter if char == letter
+      end
+    end
 end

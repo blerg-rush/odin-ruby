@@ -38,16 +38,6 @@ module SaveLoad
     file
   end
 
-  # Expects array of save hashes with serialized data: @game
-  def display_saves(saves)
-    saves.each_with_index do |save, index|
-      puts "#{index + 1}) Created: #{save['created']}"
-      puts "   Hint: #{save['hint'].join(' ')}"
-      puts "   Misses: #{save['misses'].join(' ')}"
-      puts
-    end
-  end
-
   def pack_save(game)
     save = { 'created' => DateTime.now.strftime('%F %H:%M'),
              'hint' => game.hint,
@@ -62,4 +52,16 @@ module SaveLoad
   def unpack_save(save)
     MessagePack.unpack(save['data']) unless save['data'].nil?
   end
+
+  private
+
+    # Expects array of save hashes with serialized data: @game
+    def display_saves(saves)
+      saves.each_with_index do |save, index|
+        puts "#{index + 1}) Created: #{save['created']}"
+        puts "   Hint: #{save['hint'].join(' ')}"
+        puts "   Misses: #{save['misses'].join(' ')}"
+        puts
+      end
+    end
 end
