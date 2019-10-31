@@ -95,6 +95,10 @@ class Display
     end
   end
 
+  def load_parts(number)
+    number.times { add_part }
+  end
+
   def align_left(string)
     string.ljust(12)
   end
@@ -167,14 +171,14 @@ class Hangman
     try(letter)
   end
 
-  def select_slot(reason)
+  def select_slot(saves, reason)
     until slot&.between?(0, 2)
       system 'clear'
-      display_saves
+      display_saves(saves)
       puts
       puts "Invalid entry\n" if slot
       puts "Which file would you like to #{reason}?"
-      slot = gets.chomp.to_i
+      slot = gets.to_i - 1
     end
 
     slot
@@ -213,49 +217,37 @@ class Hangman
   end
 
   def pack_save
-    # Create save hash {:created, :hint, :misses}
+    save = { created: DateTime.now,
+             hint: @game.hint,
+             misses: @game.bad_letters }
 
-    # Serialize game data
+    save[:data] = @game.to_msgpack
 
-    # Add game data to save hash (:data)
-
-    # Return save hash
+    save
   end
 
-  def unpack_save(saves, slot)
-    # Assign selected save file from saves hash
-
-    # Deserialize game data from save[:data]
-
-    # Return game data
+  # Expects a save hash with serialized data: @game
+  def unpack_save(save)
+    MessagePack.unpack(save[:data])
   end
 
   def save
-    # Deserialize save file if one exists
-
-    # Display save slots
-
-    # Select save slot
-
-    # Serialize @game object
-
-    # Add @game object to deserialized save file
-
-    # Serialize and store save file
-
+    saves = read_savefile
+    slot = select_slot(saves, 'save')
+    save = pack_save
+    saves[slot] = save
+    write_savefile(saves)
     # Continue?
+    puts 'Saved successfully. Exiting game...'
+    exit
   end
 
   def load
-    # Deserialize save file if one exists
-
-    # Display save slots
-
-    # Select save slot
-
-    # Load saved @game object
-
-    # Update display
+    saves = read_savefile
+    slot = select_slot(saves, 'load')
+    @game = unpack_save(saves[slot])
+    @display = Display.new
+    @display.load_parts(@game.misses)
   end
 
   def play
