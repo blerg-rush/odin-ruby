@@ -1,6 +1,9 @@
 require 'csv'
 require 'google/apis/civicinfo_v2'
 require 'erb'
+require 'pry'
+
+WEEKDAYS = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday].freeze
 
 def clean_zip(zipcode)
   zipcode.to_s.rjust(5, '0')[0..4]
@@ -45,6 +48,19 @@ def save_thank_you_letters(id, form_letter)
   end
 end
 
+def peak_registration(source_file, type = :hours)
+  source_file.rewind
+  set = {}
+  source_file.each do |row|
+    date = DateTime.strptime(row[:regdate], '%m/%d/%y %k:%M')
+    key = (date.hour if type == :hours) ||
+          (WEEKDAYS[date.wday] if type == :weekdays)
+    set[key] ||= 0
+    set[key] += 1
+  end
+  set
+end
+
 contents = CSV.open 'event_attendees.csv', headers: true,
                                            header_converters: :symbol
 
@@ -61,3 +77,6 @@ contents.each do |row|
 
   save_thank_you_letters(id, form_letter)
 end
+
+puts peak_registration(contents, :hours)
+puts peak_registration(contents, :weekdays)
