@@ -2,7 +2,7 @@ require 'pry'
 require 'facets/string/word_wrap'
 
 class Game
-  attr_reader :hint
+  attr_reader :hint, :word
 
   WORDS = File.open('5desk.txt', 'r', &:read).split("\r\n")
               .select { |word| word.length.between?(5, 12) }
@@ -148,20 +148,31 @@ class Hangman
     end
   end
 
-  def play
-    until @game.over? || @game.win?
-      system 'clear'
-      @display.draw(hints: @game.hint,
-                    misses: @game.bad_letters,
-                    message: @message)
-      puts
-      letter = gets.chomp
-      unless letter.match(/^[a-zA-Z]$/)
-        @message = "That doesn't look right. Try again."
-        next
-      end
-      try(letter)
+  def turn
+    system 'clear'
+    @display.draw(hints: @game.hint,
+                  misses: @game.bad_letters,
+                  message: @message)
+    puts
+    letter = gets.chomp
+    unless letter.match(/^[a-zA-Z]$/)
+      @message = "That doesn't look right. Try again."
+      return
     end
+    try(letter)
+  end
+
+  def play
+    turn until @game.over? || @game.win?
+    system 'clear'
+    @message = if @game.win?
+                 "Thank you! You've saved me!"
+               else
+                 "The word was #{@game.word}...\nYou jerk! Now I'm dead!"
+               end
+    @display.draw(hints: @game.hint,
+                  misses: @game.bad_letters,
+                  message: @message)
   end
 end
 
