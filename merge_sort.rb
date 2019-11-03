@@ -7,9 +7,7 @@ def merge(one, two)
   until one.empty? && two.empty?
     if one.empty?
       merged_array << two.shift
-    elsif two.empty?
-      merged_array << one.shift
-    elsif one.first < two.first
+    elsif two.empty? || one.first < two.first
       merged_array << one.shift
     else
       merge_array << two.shift
