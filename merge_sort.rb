@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-require 'pry'
-
 def merge_sort(array)
   return array if array.size < 2
 
@@ -14,7 +10,7 @@ end
 def merge(one, two)
   merged_array = []
   until one.empty? && two.empty?
-    merged_array << if one.empty?
+    merged_array << if one.empty? || two.first < one.first
                       two.shift
                     elsif two.empty? || one.first < two.first
                       one.shift
@@ -24,7 +20,3 @@ def merge(one, two)
   end
   merged_array
 end
-
-p merge_sort [1, 6, 3, 12, 5, 300, 12, 2, 6, 8, 103]
-
-# Split the array (until size < 2)
