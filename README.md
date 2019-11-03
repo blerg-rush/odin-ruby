@@ -1,0 +1,1 @@
+Implementing merge sort in Ruby. From [The Odin Project](https://www.theodinproject.com/lessons/recursion)'s curriculum.
