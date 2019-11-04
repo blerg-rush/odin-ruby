@@ -35,8 +35,8 @@ class Tree
       node = Node.new(array[node_index])
       return node if node_index.zero?
 
-      node.left_child = build_branch(array[0..node_index - 1])
-      node.right_child = build_branch(array[node_index + 1..-1])
+      node.left = build_branch(array[0..node_index - 1])
+      node.right = build_branch(array[node_index + 1..-1])
       node
     end
 
@@ -44,43 +44,53 @@ class Tree
       return false if new_node == parent
 
       if new_node < parent
-        return parent.left_child = new_node if parent.left_child.nil?
+        return parent.left = new_node if parent.left.nil?
 
-        insert_at(new_node, parent.left_child)
+        insert_at(new_node, parent.left)
       else
-        return parent.right_child = new_node if parent.right_child.nil?
+        return parent.right = new_node if parent.right.nil?
 
-        insert_at(new_node, parent.right_child)
+        insert_at(new_node, parent.right)
       end
     end
 
     def delete_at(value, parent)
       if value < parent.data
-        return false if parent.left_child.nil?
-        return parent.left_child = nil if parent.left_child.data == value
+        return false if parent.left.nil?
+        return parent.left = nil if parent.left.data == value
 
-        delete_at(value, parent.left_child)
+        delete_at(value, parent.left)
       else
-        return false if parent.right_child.nil?
-        return parent.right_child = nil if parent.right_child.data == value
+        return false if parent.right.nil?
+        return parent.right = nil if parent.right.data == value
 
-        delete_at(value, parent.right_child)
+        delete_at(value, parent.right)
       end
     end
 end
 
 class Node
   include Comparable
-  attr_accessor :data, :left_child, :right_child
+  attr_accessor :data, :left, :right
 
   def initialize(data = nil)
     @data = data
-    @left_child = nil
-    @right_child = nil
+    @left = nil
+    @right = nil
   end
 
   def <=>(other)
     data <=> other.data
+  end
+
+  def insert(value)
+    return false if value == @data
+
+    if value < @data
+      @left.nil? ? @left = Node.new(value) : @left.insert(value)
+    else
+      @right.nil? ? @right = Node.new(value) : @right.insert(value)
+    end
   end
 end
 
