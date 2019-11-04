@@ -122,8 +122,7 @@ class LinkedList
   end
 
   def remove_at(index)
-    return false if index > size - 1
-    return false if @head.nil?
+    return false if index > size - 1 || @head.nil?
     return @head = @head.next_node if index.zero?
 
     previous_node = at(index - 1)
@@ -140,31 +139,3 @@ class Node
     @next_node = nil
   end
 end
-
-# list = LinkedList.new
-
-# p list.to_s
-
-# node1 = Node.new
-# node1.value = 1
-# list.prepend node1
-
-# node2 = Node.new
-# node2.value = 2
-# list.append node2
-
-# node3 = Node.new
-# node3.value = 3
-# list.append node3
-
-# p list.to_s
-
-# node4 = Node.new
-# node4.value = 4
-# list.insert_at(node4, 3)
-
-# p list.to_s
-
-# list.remove_at(3)
-
-# p list.to_s
