@@ -32,6 +32,15 @@ class LinkedList
     end
     number_of_nodes
   end
+
+  def tail
+    return nil if @head.nil?
+
+    current_node = @head
+    current_node = current_node.next_node until current_node.next_node.nil?
+
+    current_node
+  end
 end
 
 class Node
@@ -64,3 +73,4 @@ end
 # puts list.size
 # p list.head
 # p list.head.next_node
+# puts list.tail.value
