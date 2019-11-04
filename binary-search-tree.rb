@@ -1,5 +1,9 @@
 class Tree
+  attr_reader :root
 
+  def initialize(root = nil)
+    @root = root
+  end
 end
 
 class Node
