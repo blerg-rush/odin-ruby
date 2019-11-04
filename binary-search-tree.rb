@@ -13,7 +13,10 @@ class Tree
   end
 
   def insert(value)
-    current_node = @root
+    new_node = Node.new(value)
+    @root = new_node if @root.nil?
+
+    insert_at(new_node, @root)
   end
 
   private
@@ -62,3 +65,7 @@ end
 
 p empty_tree = Tree.new
 p tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+p tree.insert(7)
+p tree.insert(100)
+p tree.insert(100)
+
