@@ -13,6 +13,8 @@ class Tree
   private
 
     def build_branch(array)
+      return nil if array.size.zero?
+
       node_index = array.size / 2
       node = Node.new(array[node_index])
       return node if node_index.zero?
@@ -39,5 +41,4 @@ class Node
 end
 
 tree = Tree.new
-tree.build_tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-p tree.root
+p tree.build_tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
