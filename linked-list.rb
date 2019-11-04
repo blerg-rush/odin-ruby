@@ -1,5 +1,3 @@
-require 'pry'
-
 class LinkedList
   attr_accessor :head
 
@@ -106,6 +104,22 @@ class LinkedList
     end
     string + "( #{current_node.value} ) -> nil"
   end
+
+  def insert_at(node, index)
+    return false if index > size
+
+    if index.zero?
+      node.next_node = @head
+      @head = node
+      return true
+    end
+
+    previous_node = at(index - 1)
+    node.next_node = previous_node.next_node
+    previous_node.next_node = node
+
+    true
+  end
 end
 
 class Node
@@ -133,8 +147,10 @@ end
 # node3.value = 3
 # list.append node3
 
+# p list.to_s
+
 # node4 = Node.new
 # node4.value = 4
-# list.prepend node4
+# list.insert_at(node4, 3)
 
 # p list.to_s
