@@ -15,6 +15,11 @@ class LinkedList
 
     current_node.next_node = node
   end
+
+  def prepend(node)
+    node.next_node = @head
+    @head = node
+  end
 end
 
 class Node
@@ -29,7 +34,7 @@ end
 # list = LinkedList.new
 # node1 = Node.new
 # node1.value = 1
-# list.append node1
+# list.prepend node1
 # node2 = Node.new
 # node2.value = 2
 # list.append node2
@@ -37,4 +42,9 @@ end
 # node3.value = 3
 # list.append node3
 # p list.head
-# p node1.next_node
+# p list.head.next_node
+# node4 = Node.new
+# node4.value = 4
+# list.prepend node4
+# p list.head
+# p list.head.next_node
