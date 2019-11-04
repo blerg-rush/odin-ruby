@@ -77,6 +77,29 @@ class Node
       @right.nil? ? @right = Node.new(value) : @right.insert(value)
     end
   end
+
+  def delete(value)
+    return false if @left.nil? && @right.nil?
+
+    if value < @data
+      return @left = replace(@left) if value == @left.data
+
+      @left.nil? ? false : @left.delete(value)
+    else
+      return @right = replace(@right) if value == @right.data
+
+      @right.nil? ? false : @right.delete(value)
+    end
+  end
+
+  # Returns the new node that will take its reference
+  def replace(node)
+    return nil if node.left.nil? && node.right.nil?
+    return node.left if node.right.nil?
+    return node.right if node.left.nil?
+
+    # new_node = min_greater
+  end
 end
 
 p empty_tree = Tree.new
