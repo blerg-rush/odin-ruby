@@ -20,6 +20,18 @@ class LinkedList
     node.next_node = @head
     @head = node
   end
+
+  def size
+    return 0 if @head.nil?
+
+    current_node = @head
+    number_of_nodes = 1
+    until current_node.next_node.nil?
+      number_of_nodes += 1
+      current_node = current_node.next_node
+    end
+    number_of_nodes
+  end
 end
 
 class Node
@@ -35,16 +47,20 @@ end
 # node1 = Node.new
 # node1.value = 1
 # list.prepend node1
+# puts list.size
 # node2 = Node.new
 # node2.value = 2
 # list.append node2
+# puts list.size
 # node3 = Node.new
 # node3.value = 3
 # list.append node3
+# puts list.size
 # p list.head
 # p list.head.next_node
 # node4 = Node.new
 # node4.value = 4
 # list.prepend node4
+# puts list.size
 # p list.head
 # p list.head.next_node
