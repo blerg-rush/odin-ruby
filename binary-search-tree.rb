@@ -12,6 +12,10 @@ class Tree
     @root = build_branch(sorted_array)
   end
 
+  def insert(value)
+    current_node = @root
+  end
+
   private
 
     def build_branch(array)
@@ -24,6 +28,20 @@ class Tree
       node.left_child = build_branch(array[0..node_index - 1])
       node.right_child = build_branch(array[node_index + 1..-1])
       node
+    end
+
+    def insert_at(new_node, parent)
+      return false if new_node == parent
+
+      if new_node < parent
+        return parent.left_child = new_node if parent.left_child.nil?
+
+        insert_at(new_node, parent.left_child)
+      else
+        return parent.right_child = new_node if parent.right_child.nil?
+
+        insert_at(new_node, parent.right_child)
+      end
     end
 end
 
