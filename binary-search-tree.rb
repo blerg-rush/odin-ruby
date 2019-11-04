@@ -13,10 +13,9 @@ class Tree
   end
 
   def insert(value)
-    new_node = Node.new(value)
-    @root = new_node if @root.nil?
+    return @root = Node.new(value) if @root.nil?
 
-    insert_at(new_node, @root)
+    @root.insert(value)
   end
 
   def delete(value)
@@ -38,20 +37,6 @@ class Tree
       node.left = build_branch(array[0..node_index - 1])
       node.right = build_branch(array[node_index + 1..-1])
       node
-    end
-
-    def insert_at(new_node, parent)
-      return false if new_node == parent
-
-      if new_node < parent
-        return parent.left = new_node if parent.left.nil?
-
-        insert_at(new_node, parent.left)
-      else
-        return parent.right = new_node if parent.right.nil?
-
-        insert_at(new_node, parent.right)
-      end
     end
 
     def delete_at(value, parent)
