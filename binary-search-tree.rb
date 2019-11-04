@@ -1,11 +1,13 @@
 class Tree
   attr_reader :root
 
-  def initialize(root = nil)
-    @root = root
+  def initialize(array = nil)
+    @root = build_tree(array)
   end
 
   def build_tree(array)
+    return @root = nil if array.nil?
+
     sorted_array = array.sort.uniq
     @root = build_branch(sorted_array)
   end
@@ -40,5 +42,5 @@ class Node
   end
 end
 
-tree = Tree.new
-p tree.build_tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+p empty_tree = Tree.new
+p tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
