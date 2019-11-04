@@ -94,6 +94,18 @@ class LinkedList
 
     nil
   end
+
+  def to_s
+    string = ''
+    return string if @head.nil?
+
+    current_node = @head
+    until current_node.next_node.nil?
+      string += "( #{current_node.value} ) -> "
+      current_node = current_node.next_node
+    end
+    string + "( #{current_node.value} ) -> nil"
+  end
 end
 
 class Node
@@ -106,6 +118,8 @@ class Node
 end
 
 # list = LinkedList.new
+
+# p list.to_s
 
 # node1 = Node.new
 # node1.value = 1
@@ -122,3 +136,5 @@ end
 # node4 = Node.new
 # node4.value = 4
 # list.prepend node4
+
+# p list.to_s
