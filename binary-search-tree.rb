@@ -19,6 +19,13 @@ class Tree
     insert_at(new_node, @root)
   end
 
+  def delete(value)
+    return false if @root.nil?
+    return @root = nil if @root.data == value
+
+    delete_at(value, @root).nil?
+  end
+
   private
 
     def build_branch(array)
@@ -46,6 +53,20 @@ class Tree
         insert_at(new_node, parent.right_child)
       end
     end
+
+    def delete_at(value, parent)
+      if value < parent.data
+        return false if parent.left_child.nil?
+        return parent.left_child = nil if parent.left_child.data == value
+
+        delete_at(value, parent.left_child)
+      else
+        return false if parent.right_child.nil?
+        return parent.right_child = nil if parent.right_child.data == value
+
+        delete_at(value, parent.right_child)
+      end
+    end
 end
 
 class Node
@@ -65,7 +86,7 @@ end
 
 p empty_tree = Tree.new
 p tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-p tree.insert(7)
+p tree.delete(100)
 p tree.insert(100)
-p tree.insert(100)
+p tree.delete(100)
 
