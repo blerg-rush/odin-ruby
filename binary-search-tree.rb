@@ -68,6 +68,18 @@ class Tree
     values
   end
 
+  def inorder(node = @root, &block)
+    return nil if node.nil?
+
+    values ||= []
+    values.push(*inorder(node.left, &block))
+    yield node if block_given?
+    values.push(node.data)
+    values.push(*inorder(node.right, &block))
+
+    values
+  end
+
   private
 
     def build_branch(array)
@@ -146,4 +158,6 @@ p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
 tree.preorder { |node| puts "#{node.data}!" }
 p tree.preorder
+tree.inorder { |node| puts "#{node.data}!" }
+p tree.inorder
 
