@@ -21,7 +21,7 @@ class Tree
   end
 
   def delete(node, value)
-    return node if node.nil?
+    return false if node.nil?
 
     if value < node.data
       node.left = delete(node.left, value)
