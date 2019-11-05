@@ -1,3 +1,5 @@
+require 'pry'
+
 class Tree
   attr_reader :root
 
@@ -20,9 +22,12 @@ class Tree
 
   def delete(value)
     return false if @root.nil?
-    return @root = nil if @root.data == value
 
-    delete_at(value, @root).nil?
+    if @root.data == value
+      @root = @root.replace(@root)
+    else
+      @root.delete(value)
+    end
   end
 
   private
@@ -82,29 +87,69 @@ class Node
     return false if @left.nil? && @right.nil?
 
     if value < @data
-      return @left = replace(@left) if value == @left.data
+      return @left = replace(@left, self) if value == @left.data
 
       @left.nil? ? false : @left.delete(value)
     else
-      return @right = replace(@right) if value == @right.data
+      return @right = replace(@right, self) if value == @right.data
 
       @right.nil? ? false : @right.delete(value)
     end
   end
 
-  # Returns the new node that will take its reference
-  def replace(node)
+  # Returns the node that will take its reference
+  def replace(node, parent = nil)
     return nil if node.left.nil? && node.right.nil?
     return node.left if node.right.nil?
     return node.right if node.left.nil?
 
-    # new_node = min_greater
+    replacement = inorder_successor(node)
+    parent.left = replacement unless parent.nil?
+    # Something's wrong with this
+    replacement.left = node.left unless node.left == replacement
+    replacement.right = node.right unless node.right == replacement
+
+    replacement
+  end
+
+  def inorder_successor(node)
+    successor = node.right
+    until successor.left.nil?
+      parent = successor
+      successor = successor.left
+    end
+    parent.left = nil unless parent.nil?
+    successor
+  end
+
+  def depth(node)
+    return 0 if node.nil?
+
+    left_depth = depth(node.left)
+    right_depth = depth(node.right)
+
+    [left_depth, right_depth].max + 1
   end
 end
 
 p empty_tree = Tree.new
-p tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-p tree.delete(100)
-p tree.insert(100)
-p tree.delete(100)
+p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
+puts "Deleting 9"
+tree.delete(9)
+puts "Tree without 9"
+p tree
+puts "Deleting 14"
+tree.delete(14)
+puts "Tree without 14"
+p tree
+puts "Deleting 13"
+tree.delete(13)
+puts "Tree without 13"
+p tree
+puts "Deleting 11"
+tree.delete(11)
+puts "Tree without 11"
+p tree
+
+
 
