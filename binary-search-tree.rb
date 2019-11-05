@@ -80,6 +80,18 @@ class Tree
     values
   end
 
+  def postorder(node = @root, &block)
+    return nil if node.nil?
+
+    values ||= []
+    values.push(*postorder(node.left, &block))
+    values.push(*postorder(node.right, &block))
+    yield node if block_given?
+    values.push(node.data)
+
+    values
+  end
+
   private
 
     def build_branch(array)
@@ -160,4 +172,6 @@ tree.preorder { |node| puts "#{node.data}!" }
 p tree.preorder
 tree.inorder { |node| puts "#{node.data}!" }
 p tree.inorder
+tree.postorder { |node| puts "#{node.data}!" }
+p tree.postorder
 
