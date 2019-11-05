@@ -101,6 +101,17 @@ class Tree
     [left_depth, right_depth].max + 1
   end
 
+  def balanced?(node = @root)
+    return true if node.nil?
+
+    difference = depth(node.left) - depth(node.right)
+    if difference.abs <= 1 && balanced?(node.left) && balanced?(node.right)
+      return true
+    end
+
+    false
+  end
+
   private
 
     def build_branch(array)
@@ -173,3 +184,4 @@ p tree.preorder
 p tree.inorder
 p tree.postorder
 puts tree.depth
+puts tree.balanced?
