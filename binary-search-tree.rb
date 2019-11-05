@@ -20,14 +20,24 @@ class Tree
     @root.insert(value)
   end
 
-  def delete(value)
-    return false if @root.nil?
+  def delete(node, value)
+    return node if node.nil?
 
-    if @root.data == value
-      @root = @root.replace(@root)
+    if value < node.data
+      node.left = delete(node.left, value)
+    elsif value > node.data
+      node.right = delete(node.right, value)
     else
-      @root.delete(value)
+      if node.left.nil?
+        return node.right
+      elsif node.right.nil?
+        return node.left
+      end
+
+      node.data = node.right.inorder_successor
+      node.right = delete(node.right, node.data)
     end
+    node
   end
 
   private
@@ -42,20 +52,6 @@ class Tree
       node.left = build_branch(array[0..node_index - 1])
       node.right = build_branch(array[node_index + 1..-1])
       node
-    end
-
-    def delete_at(value, parent)
-      if value < parent.data
-        return false if parent.left.nil?
-        return parent.left = nil if parent.left.data == value
-
-        delete_at(value, parent.left)
-      else
-        return false if parent.right.nil?
-        return parent.right = nil if parent.right.data == value
-
-        delete_at(value, parent.right)
-      end
     end
 end
 
@@ -83,43 +79,14 @@ class Node
     end
   end
 
-  def delete(value)
-    return false if @left.nil? && @right.nil?
-
-    if value < @data
-      return @left = replace(@left, self) if value == @left.data
-
-      @left.nil? ? false : @left.delete(value)
-    else
-      return @right = replace(@right, self) if value == @right.data
-
-      @right.nil? ? false : @right.delete(value)
+  def inorder_successor
+    minimum = @data
+    node = self
+    until node.left.nil?
+      minimum = node.left.data
+      node = node.left
     end
-  end
-
-  # Returns the node that will take its reference
-  def replace(node, parent = nil)
-    return nil if node.left.nil? && node.right.nil?
-    return node.left if node.right.nil?
-    return node.right if node.left.nil?
-
-    replacement = inorder_successor(node)
-    parent.left = replacement unless parent.nil?
-    # Something's wrong with this
-    replacement.left = node.left unless node.left == replacement
-    replacement.right = node.right unless node.right == replacement
-
-    replacement
-  end
-
-  def inorder_successor(node)
-    successor = node.right
-    until successor.left.nil?
-      parent = successor
-      successor = successor.left
-    end
-    parent.left = nil unless parent.nil?
-    successor
+    minimum
   end
 
   def depth(node)
@@ -135,20 +102,20 @@ end
 p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
 puts "Deleting 9"
-tree.delete(9)
+tree.delete(tree.root, 9)
 puts "Tree without 9"
 p tree
-puts "Deleting 14"
-tree.delete(14)
-puts "Tree without 14"
-p tree
-puts "Deleting 13"
-tree.delete(13)
-puts "Tree without 13"
+puts "Deleting 10"
+tree.delete(tree.root, 10)
+puts "Tree without 10"
 p tree
 puts "Deleting 11"
-tree.delete(11)
+tree.delete(tree.root, 11)
 puts "Tree without 11"
+p tree
+puts "Deleting 12"
+tree.delete(tree.root, 12)
+puts "Tree without 12"
 p tree
 
 
