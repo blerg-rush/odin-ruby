@@ -42,13 +42,13 @@ class Tree
   end
 
   def level_order
-    return [] if @root.nil?
+    return nil if @root.nil?
 
     queue = [@root]
     values = []
     until queue.empty?
       node = queue.first
-      yield(node) if block_given?
+      yield node if block_given?
       values << queue.shift.data
       queue << node.left unless node.left.nil?
       queue << node.right unless node.right.nil?
@@ -56,8 +56,16 @@ class Tree
     values
   end
 
-  def rec_level_order
+  def preorder(node = @root, &block)
+    return nil if node.nil?
 
+    values ||= []
+    yield node if block_given?
+    values.push(node.data)
+    values.push(*preorder(node.left, &block))
+    values.push(*preorder(node.right, &block))
+
+    values
   end
 
   private
@@ -136,6 +144,6 @@ end
 
 p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
-tree.level_order {|node| puts "#{node.data}!" }
-
+tree.preorder { |node| puts "#{node.data}!" }
+p tree.preorder
 
