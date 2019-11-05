@@ -112,6 +112,12 @@ class Tree
     false
   end
 
+  def rebalance!
+    return false if balanced?
+
+    @root = build_tree(inorder)
+  end
+
   private
 
     def build_branch(array)
@@ -176,12 +182,3 @@ class Node
     minimum
   end
 end
-
-p empty_tree = Tree.new
-p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
-tree.preorder { |node| puts "#{node.data}!" }
-p tree.preorder
-p tree.inorder
-p tree.postorder
-puts tree.depth
-puts tree.balanced?
