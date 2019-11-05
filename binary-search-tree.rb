@@ -92,6 +92,15 @@ class Tree
     values
   end
 
+  def depth(node = @root)
+    return 0 if node.nil?
+
+    left_depth = depth(node.left)
+    right_depth = depth(node.right)
+
+    [left_depth, right_depth].max + 1
+  end
+
   private
 
     def build_branch(array)
@@ -155,23 +164,12 @@ class Node
     end
     minimum
   end
-
-  def depth(node)
-    return 0 if node.nil?
-
-    left_depth = depth(node.left)
-    right_depth = depth(node.right)
-
-    [left_depth, right_depth].max + 1
-  end
 end
 
 p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
 tree.preorder { |node| puts "#{node.data}!" }
 p tree.preorder
-tree.inorder { |node| puts "#{node.data}!" }
 p tree.inorder
-tree.postorder { |node| puts "#{node.data}!" }
 p tree.postorder
-
+puts tree.depth
