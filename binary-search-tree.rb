@@ -41,6 +41,25 @@ class Tree
     false
   end
 
+  def level_order
+    return [] if @root.nil?
+
+    queue = [@root]
+    values = []
+    until queue.empty?
+      node = queue.first
+      yield(node) if block_given?
+      values << queue.shift.data
+      queue << node.left unless node.left.nil?
+      queue << node.right unless node.right.nil?
+    end
+    values
+  end
+
+  def rec_level_order
+
+  end
+
   private
 
     def build_branch(array)
@@ -117,6 +136,6 @@ end
 
 p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
-
+tree.level_order {|node| puts "#{node.data}!" }
 
 
