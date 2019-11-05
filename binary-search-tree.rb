@@ -29,6 +29,18 @@ class Tree
     @root = @root.delete(value)
   end
 
+  def find(value)
+    return false if @root.nil?
+
+    node = @root
+    until node.nil?
+      return node if value == node.data
+
+      node = value < node.data ? node.left : node.right
+    end
+    false
+  end
+
   private
 
     def build_branch(array)
@@ -105,48 +117,6 @@ end
 
 p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
-puts "Deleting 9"
-tree.delete(9)
-puts "Tree without 9"
-p tree
-puts "Deleting 10"
-tree.delete(10)
-puts "Tree without 10"
-p tree
-puts "Deleting 11"
-tree.delete(11)
-puts "Tree without 11"
-p tree
-puts "Deleting 12"
-tree.delete(12)
-puts "Tree without 12"
-p tree
-puts "Deleting 13"
-tree.delete(13)
-puts "Tree without 13"
-p tree
-puts "Deleting 14"
-tree.delete(14)
-puts "Tree without 14"
-p tree.instance_variables
-puts "Root:"
-p tree.root
-puts "Deleting 15"
-tree.delete(15)
-puts "Tree without 15"
-p tree
-puts "Deleting 16"
-tree.delete(16)
-puts "Tree without 16"
-p tree
-puts "Deleting 17"
-tree.delete(17)
-puts "Tree without 17"
-p tree
-puts "Deleting 17"
-tree.delete(17)
-puts "Tree without 17"
-p tree
 
 
 
