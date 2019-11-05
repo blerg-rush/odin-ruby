@@ -182,3 +182,24 @@ class Node
     minimum
   end
 end
+
+def test_tree
+  tree = Tree.new(Array.new(15) { rand(1..100) })
+  puts tree.balanced?
+  puts "Level order: #{tree.level_order}"
+  puts "Preorder: #{tree.preorder}"
+  puts "Postorder: #{tree.postorder}"
+  puts "Inorder: #{tree.inorder}"
+  puts 'Adding a bunch of numbers greater than 100'
+  20.times { tree.insert(rand(101..1000)) }
+  puts "Balanced? #{tree.balanced?}"
+  puts 'Balancing...'
+  tree.rebalance!
+  puts "Balanced? #{tree.balanced?}"
+  puts "Level order: #{tree.level_order}"
+  puts "Preorder: #{tree.preorder}"
+  puts "Postorder: #{tree.postorder}"
+  puts "Inorder: #{tree.inorder}"
+end
+
+test_tree
