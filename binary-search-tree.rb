@@ -1,5 +1,3 @@
-require 'pry'
-
 class Tree
   attr_reader :root
 
@@ -20,24 +18,15 @@ class Tree
     @root.insert(value)
   end
 
-  def delete(node, value)
-    return false if node.nil?
+  def delete(value)
+    return false if @root.nil?
 
-    if value < node.data
-      node.left = delete(node.left, value)
-    elsif value > node.data
-      node.right = delete(node.right, value)
-    else
-      if node.left.nil?
-        return node.right
-      elsif node.right.nil?
-        return node.left
-      end
-
-      node.data = node.right.inorder_successor
-      node.right = delete(node.right, node.data)
+    if value == @root.data
+      return @root = @root.right if @root.left.nil?
+      return @root = @root.left if @root.right.nil?
     end
-    node
+
+    @root = @root.delete(value)
   end
 
   private
@@ -79,6 +68,21 @@ class Node
     end
   end
 
+  def delete(value)
+    if value < @data
+      @left = @left.delete(value) unless @left.nil?
+    elsif value > @data
+      @right = @right.delete(value) unless @right.nil?
+    else
+      return @right if @left.nil?
+      return @left if @right.nil?
+
+      @data = @right.inorder_successor
+      @right = @right.delete(@data)
+    end
+    self
+  end
+
   def inorder_successor
     minimum = @data
     node = self
@@ -102,20 +106,46 @@ end
 p empty_tree = Tree.new
 p tree = Tree.new([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
 puts "Deleting 9"
-tree.delete(tree.root, 9)
+tree.delete(9)
 puts "Tree without 9"
 p tree
 puts "Deleting 10"
-tree.delete(tree.root, 10)
+tree.delete(10)
 puts "Tree without 10"
 p tree
 puts "Deleting 11"
-tree.delete(tree.root, 11)
+tree.delete(11)
 puts "Tree without 11"
 p tree
 puts "Deleting 12"
-tree.delete(tree.root, 12)
+tree.delete(12)
 puts "Tree without 12"
+p tree
+puts "Deleting 13"
+tree.delete(13)
+puts "Tree without 13"
+p tree
+puts "Deleting 14"
+tree.delete(14)
+puts "Tree without 14"
+p tree.instance_variables
+puts "Root:"
+p tree.root
+puts "Deleting 15"
+tree.delete(15)
+puts "Tree without 15"
+p tree
+puts "Deleting 16"
+tree.delete(16)
+puts "Tree without 16"
+p tree
+puts "Deleting 17"
+tree.delete(17)
+puts "Tree without 17"
+p tree
+puts "Deleting 17"
+tree.delete(17)
+puts "Tree without 17"
 p tree
 
 
