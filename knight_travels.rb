@@ -30,14 +30,15 @@ class Chessboard
   end
 
   def try(pos, move)
-    valid?(pos, move) ? [pos[0] + move[0], pos[1] + move[1]] : nil
+    result = [pos[0] + move[0], pos[1] + move[1]]
+    result.exists? ? result : nil
   end
 
   def knight_moves(start = @start, finish = @finish)
     return nil unless start.exists? && finish.exists?
 
     @knight.moves.each do |move|
-      
+
     end
   end
 end
