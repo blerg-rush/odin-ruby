@@ -14,8 +14,14 @@ class Chessboard
   attr_accessor :start, :finish
 
   def initialize(start, finish)
-    @knight = Knight.new
+    @knight = Knight.new(start)
     @start = start
     @finish = finish
+  end
+
+  def valid?(pos, move)
+    return false unless @knight.moves.include? move
+
+    (pos[0] + move[0]).between?(0, 7) && (pos[1] + move[1]).between?(0, 7)
   end
 end
