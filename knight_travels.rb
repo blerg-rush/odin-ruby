@@ -11,7 +11,7 @@ class Chessboard
     end
   end
 
-  attr_accessor :start, :end
+  attr_accessor :start, :finish
 
   def initialize(start, finish)
     @knight = Knight.new
