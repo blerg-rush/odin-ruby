@@ -24,4 +24,20 @@ class Chessboard
 
     (pos[0] + move[0]).between?(0, 7) && (pos[1] + move[1]).between?(0, 7)
   end
+
+  def exists?(space)
+    space[0].between?(0, 7) && space[1].between?(0, 7)
+  end
+
+  def try(pos, move)
+    valid?(pos, move) ? [pos[0] + move[0], pos[1] + move[1]] : nil
+  end
+
+  def knight_moves(start = @start, finish = @finish)
+    return nil unless start.exists? && finish.exists?
+
+    @knight.moves.each do |move|
+      
+    end
+  end
 end
