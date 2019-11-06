@@ -2,18 +2,18 @@
 
 class Chessboard
   class Knight
-    attr_accessor :pos
-    attr_reader :moves
+    attr_accessor :pos, :moves
     def initialize(pos = nil)
-      @moves = [[-2, 1], [-1, 2], [1, 2], [2, 1],
-                [-2, -1], [-1, -2], [1, -2], [2 - 1]]
       @pos = pos
+      @moves = []
     end
   end
 
   attr_accessor :start, :finish
 
   def initialize(start, finish)
+    @movements = [[-2, 1], [-1, 2], [1, 2], [2, 1],
+                  [-2, -1], [-1, -2], [1, -2], [2 - 1]]
     @knight = Knight.new(start)
     @start = start
     @finish = finish
@@ -32,7 +32,7 @@ class Chessboard
     return nil unless start.valid? && finish.valid?
 
     @knight.moves.each do |move|
-
+      
     end
   end
 end
