@@ -72,7 +72,7 @@ module Enumerable
     number
   end
 
-  def my_map()
+  def my_map
     return self unless block_given?
 
     new_array = []
