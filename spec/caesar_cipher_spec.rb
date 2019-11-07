@@ -24,4 +24,8 @@ RSpec.describe '#cipher' do
   it 'ignores spaces' do
     expect(cipher('foo bar', -19)).to eql('mvv ihy')
   end
+
+  it 'ignores non-alphabet characters' do
+    expect(cipher('a!#&*1', 5)).to eql('f!#&*1')
+  end
 end
