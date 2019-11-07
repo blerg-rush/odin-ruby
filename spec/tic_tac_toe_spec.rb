@@ -54,4 +54,27 @@ RSpec.describe Board do
       expect { @board.win?('O') }.to_not raise_error
     end
   end
+
+  describe '#full?' do
+    it 'returns true if the board is full' do
+      assign_state([%w[X O X],
+                    %w[O X X],
+                    %w[O X X]])
+      expect(@board.full?).to be true
+    end
+
+    it 'returns false if the board is not full' do
+      assign_state([['X', 'O', 'O'],
+                    ['O', 'O', 'O'],
+                    ['X', 'X', ' ']])
+      expect(@board.full?).to be false
+    end
+
+    it 'returns false if the board is empty' do
+      assign_state([[' ', ' ', ' '],
+                    [' ', ' ', ' '],
+                    [' ', ' ', ' ']])
+      expect(@board.full?).to be false
+    end
+  end
 end
