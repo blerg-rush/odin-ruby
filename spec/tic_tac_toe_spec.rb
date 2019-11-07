@@ -18,5 +18,12 @@ RSpec.describe Board do
                     %w[O X O]])
       expect(@board.win?('O')).to be true
     end
+
+    it 'checks if the given glyph has won horizontally' do
+      assign_state([%w[O O X],
+                    %w[X X X],
+                    %w[O X O]])
+      expect(@board.win?('X')).to be true
+    end
   end
 end
