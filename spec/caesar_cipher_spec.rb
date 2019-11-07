@@ -16,4 +16,8 @@ RSpec.describe '#cipher' do
   it 'wraps from a to z' do
     expect(cipher('a', -1)).to eql('z')
   end
+
+  it 'shifts an entire word' do
+    expect(cipher('foo', 5)).to eql('ktt')
+  end
 end
