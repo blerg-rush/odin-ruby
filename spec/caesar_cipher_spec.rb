@@ -28,4 +28,8 @@ RSpec.describe '#cipher' do
   it 'ignores non-alphabet characters' do
     expect(cipher('a!#&*1', 5)).to eql('f!#&*1')
   end
+
+  it 'accepts both uppercase and lowercase letters' do
+    expect(cipher('AbCdE', 10)).to eql('KlMnO')
+  end
 end
