@@ -9,5 +9,9 @@ RSpec.describe Enumerable do
     it 'returns an array of values that evaluate to true' do
       expect([1, 2, 3].my_select { |num| num.odd? }).to eql([1, 3])
     end
+
+    it 'allows a symbol to be passed instead of a block' do
+      expect([1, 2, 3].my_select(&:odd?)).to eql([1, 3])
+    end
   end
 end
