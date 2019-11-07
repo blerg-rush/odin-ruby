@@ -1,0 +1,6 @@
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
