@@ -12,4 +12,8 @@ RSpec.describe '#cipher' do
   it 'wraps from z to a' do
     expect(cipher('z', 1)).to eql('a')
   end
+
+  it 'wraps from a to z' do
+    expect(cipher('a', -1)).to eql('z')
+  end
 end
