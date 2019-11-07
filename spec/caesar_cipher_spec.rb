@@ -20,4 +20,8 @@ RSpec.describe '#cipher' do
   it 'shifts an entire word' do
     expect(cipher('foo', 5)).to eql('ktt')
   end
+
+  it 'ignores spaces' do
+    expect(cipher('foo bar', -19)).to eql('mvv ihy')
+  end
 end
