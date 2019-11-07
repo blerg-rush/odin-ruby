@@ -32,4 +32,9 @@ RSpec.describe '#cipher' do
   it 'accepts both uppercase and lowercase letters' do
     expect(cipher('AbCdE', 10)).to eql('KlMnO')
   end
+
+  it 'accepts an offset greater than 26' do
+    expect(cipher("It's over nine thousand!", 9001))
+      .to eql("Ny'x tajw snsj ymtzxfsi!")
+  end
 end
