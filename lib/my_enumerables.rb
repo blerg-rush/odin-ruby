@@ -68,7 +68,6 @@ module Enumerable
     new_array
   end
 
-  # This is ugly. Fix it later.
   def my_inject(initial = nil)
     number = 0
     my_each_with_index do |value, i|
