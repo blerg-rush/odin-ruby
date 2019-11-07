@@ -19,8 +19,3 @@ def cipher( string, offset )
   end
   return encrypted_string
 end
-
-puts "This is a test string: " + cipher( "This is a test string", 6 )
-puts "Negative numbers: " + cipher( "Negative numbers", -16 )
-puts "Easy mode: " + cipher( "Easy Mode", 1 )
-puts "Fooled you: " + cipher( "Fooled you", 0 )

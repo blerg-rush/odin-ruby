@@ -13,5 +13,3 @@ def profit_calculator(prices)
     prices[index..-1].max - price
   end
 end
-
-p stock_picker([17,3,6,9,15,8,6,1,10])

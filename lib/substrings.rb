@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-dictionary = %w[below down go going horn how howdy it i low own part partner sit]
-
 def substrings(string, dictionary)
   # initialize the counters object with default value 0
   substring_counts = Hash.new(0)
@@ -17,6 +15,3 @@ def substrings(string, dictionary)
   # return the contents of the counters object
   substring_counts
 end
-
-p substrings("below", dictionary)
-p substrings("Howdy partner, sit down! How's it going?", dictionary)

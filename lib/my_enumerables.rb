@@ -60,7 +60,7 @@ module Enumerable
     number
   end
 
-  def my_map
+  def my_map()
     new_array = []
     my_each do |value|
       new_array << yield(value)
