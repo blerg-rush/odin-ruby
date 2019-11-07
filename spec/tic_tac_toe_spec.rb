@@ -32,5 +32,12 @@ RSpec.describe Board do
                     %w[O X O]])
       expect(@board.win?('O')).to be true
     end
+
+    it 'returns false if no glyph has won' do
+      assign_state([%w[X O X],
+                    %w[O X X],
+                    %w[O X O]])
+      expect(@board.win?('O')).to be false
+    end
   end
 end
