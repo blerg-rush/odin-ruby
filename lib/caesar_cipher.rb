@@ -2,8 +2,8 @@ def cipher( string, offset )
   alphabet = ("a".."z").to_a
   encrypted_string = ""
   string.each_char do |character|
-    if character == " "
-      encrypted_string << " "
+    unless character =~ /[a-zA-Z]/
+      encrypted_string << character
       next
     end
 
