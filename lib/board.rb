@@ -25,4 +25,25 @@ class Board
     end
     true
   end
+
+  def line?(row, column)
+  end
+
+  private
+
+    def horizontal_line?(row, column)
+      left_matches(row, column) + right_matches(row, column) >= 3
+    end
+
+    def left_matches(row, column)
+      line = @grid[row][0..column]
+      matching_value = @grid[row][column]
+      matches = -1
+      line.reverse.each_index do |space|
+        break unless space == matching_value
+
+        matches += 1
+      end
+      matches
+    end
 end
