@@ -8,3 +8,6 @@ Style/BlockComments:
 Metrics/BlockLength:
   Exclude:
     - 'spec/*'
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
