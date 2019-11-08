@@ -75,6 +75,22 @@ class Board
       matches
     end
 
+    def diagonal_left_line?(row, column)
+      shifted_column = column + @height - 1 - row
+      shifted_grid = skew_left
+      shifted_line = shifted_grid.transpose[shifted_column]
+      left_matches(shifted_column, row, shifted_line) +
+        right_matches(shifted_column, row, shifted_line) >= 3
+    end
+
+    def diagonal_right_line?(row, column)
+      shifted_column = column + row
+      shifted_grid = skew_right
+      shifted_line = shifted_grid.transpose[shifted_column]
+      left_matches(shifted_column, row, shifted_line) +
+        right_matches(shifted_column, row, shifted_line) >= 3
+    end
+
     def skew_left
       @grid.map.with_index do |row, index|
         shifted_row = row.dup
