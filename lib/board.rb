@@ -27,12 +27,27 @@ class Board
   end
 
   def line?(row, column)
+    horizontal_line?(row, column) || vertical_line?(row, column)
   end
 
   private
 
     def horizontal_line?(row, column)
       left_matches(row, column) + right_matches(row, column) >= 3
+    end
+
+    def vertical_line?(row, column)
+      false if row < 3
+
+      line = @grid.transpose[column][0..row]
+      matching_value = @grid[row][column]
+      matches = 0
+      line.reverse.each do |space|
+        break unless space == matching_value
+
+        matches += 1
+      end
+      matches >= 4
     end
 
     def left_matches(row, column)
