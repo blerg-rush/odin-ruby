@@ -3,6 +3,19 @@ require './lib/board'
 RSpec.describe Board do
   before(:each) do
     @board = Board.new
+    empty_line = Array.new(7)
+    @horizontal_win = [[1, 1, 1, 1, 2, 2, 2],
+                        empty_line,
+                        empty_line,
+                        empty_line,
+                        empty_line,
+                        empty_line]
+    @full_no_win = [[1, 2, 1, 1, 1, 2, 1],
+                    [2, 1, 2, 2, 2, 1, 2],
+                    [1, 2, 2, 1, 2, 2, 1],
+                    [1, 2, 1, 1, 1, 2, 1],
+                    [2, 1, 1, 2, 2, 1, 1],
+                    [2, 2, 2, 1, 2, 2, 2]]
   end
 
   describe '#add(column, player)' do
@@ -37,8 +50,7 @@ RSpec.describe Board do
 
   describe '#full?' do
     it 'returns true if the top row is full' do
-      puts "Board: #{@board.instance_variables}"
-      @board.instance_variable_set(:@grid, Array.new(6) { Array.new(7, 1) })
+      @board.instance_variable_set(:@grid, @full_no_win)
       expect(@board.full?).to be true
     end
 
@@ -51,12 +63,18 @@ RSpec.describe Board do
 
   describe 'line?(row, column)' do
     it 'returns true if a winning line goes left from given space' do
+      @board.instance_variable_set(:@grid, @horizontal_win)
+      expect(@board.line?(0, 3)).to be true
     end
 
     it 'returns true if a winning line goes right from given space' do
+      @board.instance_variable_set(:@grid, @horizontal_win)
+      expect(@board.line?(0, 0)).to be true
     end
 
     it 'returns true if given space is inside a horizontal winning line' do
+      @board.instance_variable_set(:@grid, @horizontal_win)
+      expect(@board.line?(0, 2)).to be true
     end
 
     it 'returns true if a winning line does down from given space' do
