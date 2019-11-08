@@ -74,4 +74,20 @@ class Board
       end
       matches
     end
+
+    def skew_left
+      @grid.map.with_index do |row, index|
+        shifted_row = row.dup
+        (@height - 1 - index).times { shifted_row.unshift(nil) }
+        shifted_row + Array.new(index, nil)
+      end
+    end
+
+    def skew_right
+      @grid.map.with_index do |row, index|
+        shifted_row = row.dup
+        index.times { shifted_row.unshift(nil) }
+        shifted_row + Array.new(@height - 1 - index, nil)
+      end
+    end
 end
