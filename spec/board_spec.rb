@@ -83,12 +83,12 @@ RSpec.describe Board do
       expect(@board.line?(0, 2)).to be true
     end
 
-    it 'returns true if a winning line does down from given space' do
+    it 'returns true if a winning line goes down from given space' do
       @board.instance_variable_set(:@grid, @vertical_win)
       expect(@board.line?(3, 3)).to be true
     end
 
-    it 'retuns true if a winning line goes diagonal left from given space' do
+    it 'returns true if a winning line goes diagonal left from given space' do
     end
 
     it 'returns true if a winning line goes diagonal right from given space' do
