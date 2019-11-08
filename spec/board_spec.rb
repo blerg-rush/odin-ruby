@@ -98,6 +98,8 @@ RSpec.describe Board do
     end
 
     it 'returns false if no winning paths start from given space' do
+      @board.instance_variable_set(:@grid, @full_no_win)
+      expect(@board.line?(5, 3)).to be false
     end
   end
 end
