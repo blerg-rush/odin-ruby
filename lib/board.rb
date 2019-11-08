@@ -39,7 +39,19 @@ class Board
       line = @grid[row][0..column]
       matching_value = @grid[row][column]
       matches = -1
-      line.reverse.each_index do |space|
+      line.reverse.each do |space|
+        break unless space == matching_value
+
+        matches += 1
+      end
+      matches
+    end
+
+    def right_matches(row, column)
+      line = @grid[row][column..-1]
+      matching_value = @grid[row][column]
+      matches = -1
+      line.each do |space|
         break unless space == matching_value
 
         matches += 1
