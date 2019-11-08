@@ -7,14 +7,14 @@ class Board
     @grid = Array.new(6) { Array.new(7) }
   end
 
-  def add(row, player)
-    return nil unless row.between?(0, 7)
+  def add(column, player)
+    return nil unless column.between?(0, 6)
 
-    @grid[row].each do |column|
-      if column.nil?
-        @grid[row][column] = player
-        return [row, column]
-      end
+    @grid.each_index do |row|
+      next unless @grid[row][column].nil?
+
+      @grid[row][column] = player
+      return [row, column]
     end
     nil
   end
