@@ -28,7 +28,8 @@ class Board
   end
 
   def line?(row, column)
-    horizontal_line?(row, column) || vertical_line?(row, column)
+    horizontal_line?(row, column) || vertical_line?(row, column) ||
+      diagonal_left_line?(row, column) || diagonal_right_line?(row, column)
   end
 
   private
