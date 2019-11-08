@@ -5,11 +5,17 @@ RSpec.describe Board do
     @board = Board.new
     empty_line = Array.new(7)
     @horizontal_win = [[1, 1, 1, 1, 2, 2, 2],
-                        empty_line,
-                        empty_line,
-                        empty_line,
-                        empty_line,
-                        empty_line]
+                       empty_line,
+                       empty_line,
+                       empty_line,
+                       empty_line,
+                       empty_line]
+    @vertical_win = [[1, 2, 1, 1, 1, 2, 1],
+                     [2, 1, 2, 1, 2, 1, 2],
+                     [1, 2, 2, 1, 2, 2, 1],
+                     [1, 2, 1, 1, 1, 2, 1],
+                     empty_line,
+                     empty_line]
     @full_no_win = [[1, 2, 1, 1, 1, 2, 1],
                     [2, 1, 2, 2, 2, 1, 2],
                     [1, 2, 2, 1, 2, 2, 1],
@@ -78,6 +84,8 @@ RSpec.describe Board do
     end
 
     it 'returns true if a winning line does down from given space' do
+      @board.instance_variable_set(:@grid, @vertical_win)
+      expect(@board.line?(3, 3)).to be true
     end
 
     it 'retuns true if a winning line goes diagonal left from given space' do
