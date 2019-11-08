@@ -4,6 +4,6 @@ class Board
 
   def initialize
     # Columns nested inside rows
-    @grid = Array.new(7) { Array.new(6) }
+    @grid = Array.new(6) { Array.new(7) }
   end
 end
