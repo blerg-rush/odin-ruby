@@ -89,12 +89,36 @@ RSpec.describe Board do
     end
 
     it 'returns true if a winning line goes diagonal left from given space' do
+      @board.instance_variable_set(@grid,
+                                   [[1, 2, 1, 1, 1, 2, 1],
+                                    [2, 1, 2, 2, 2, 1, 2],
+                                    [1, 2, 2, 1, 2, 2, 1],
+                                    [1, 1, 1, 1, 1, 2, 1],
+                                    [2, 1, 1, 2, 2, 1, 1],
+                                    [2, 2, 2, 1, 2, 2, 2]])
+      expect(@board.line?(5, 3)).to be true
     end
 
     it 'returns true if a winning line goes diagonal right from given space' do
+      @board.instance_variable_set(@grid,
+                                   [[1, 2, 1, 1, 1, 2, 1],
+                                    [2, 1, 2, 2, 2, 1, 2],
+                                    [1, 2, 2, 1, 2, 2, 2],
+                                    [1, 1, 1, 1, 1, 2, 1],
+                                    [2, 1, 2, 2, 2, 1, 1],
+                                    [2, 2, 1, 2, 1, 2, 2]])
+      expect(@board.line?(5, 3)).to be true
     end
 
     it 'returns true if given space is inside a diagonal winning line' do
+      @board.instance_variable_set(@grid,
+                                   [[1, 2, 1, 1, 1, 2, 1],
+                                    [2, 1, 2, 2, 2, 1, 2],
+                                    [1, 2, 2, 1, 2, 2, 1],
+                                    [1, 1, 1, 1, 1, 2, 1],
+                                    [2, nil, 1, 2, 2, 1, 1],
+                                    [2, nil, 2, 1, 2, 2, 2]])
+      expect(@board.line?(3, 1)).to be true
     end
 
     it 'returns true for lines longer than 4 spaces' do
