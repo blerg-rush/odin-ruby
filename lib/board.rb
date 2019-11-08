@@ -18,4 +18,11 @@ class Board
     end
     nil
   end
+
+  def full?
+    @grid[5].each do |column|
+      return false if column.nil?
+    end
+    true
+  end
 end
