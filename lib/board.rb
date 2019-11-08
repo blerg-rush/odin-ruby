@@ -3,8 +3,9 @@ class Board
   attr_reader :grid
 
   def initialize
-    # Columns nested inside rows
-    @grid = Array.new(6) { Array.new(7) }
+    @width = 7
+    @height = 6
+    @grid = Array.new(@height) { Array.new(@width) }
   end
 
   def add(column, player)
