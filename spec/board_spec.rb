@@ -48,4 +48,30 @@ RSpec.describe Board do
       expect(@board.full?).to be false
     end
   end
+
+  describe 'line?(row, column)' do
+    it 'returns true if a winning line goes left from given space' do
+    end
+
+    it 'returns true if a winning line goes right from given space' do
+    end
+
+    it 'returns true if given space is inside a horizontal winning line' do
+    end
+
+    it 'returns true if a winning line does down from given space' do
+    end
+
+    it 'retuns true if a winning line goes diagonal left from given space' do
+    end
+
+    it 'returns true if a winning line goes diagonal right from given space' do
+    end
+
+    it 'returns true if given space is inside a diagonal winning line' do
+    end
+
+    it 'returns false if no winning paths start from given space' do
+    end
+  end
 end
