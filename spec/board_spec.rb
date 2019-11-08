@@ -97,6 +97,12 @@ RSpec.describe Board do
     it 'returns true if given space is inside a diagonal winning line' do
     end
 
+    it 'returns true for lines longer than 4 spaces' do
+      @board.instance_variable_set(:@grid,
+                                   Array.new(6) { Array.new(7, 1) })
+      expect(@board.line?(5, 0)).to be true
+    end
+
     it 'returns false if no winning paths start from given space' do
       @board.instance_variable_set(:@grid, @full_no_win)
       expect(@board.line?(5, 3)).to be false
