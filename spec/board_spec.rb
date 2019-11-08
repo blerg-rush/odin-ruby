@@ -89,7 +89,7 @@ RSpec.describe Board do
     end
 
     it 'returns true if a winning line goes diagonal left from given space' do
-      @board.instance_variable_set(@grid,
+      @board.instance_variable_set(:@grid,
                                    [[1, 2, 1, 1, 1, 2, 1],
                                     [2, 1, 2, 2, 2, 1, 2],
                                     [1, 2, 2, 1, 2, 2, 1],
@@ -100,7 +100,7 @@ RSpec.describe Board do
     end
 
     it 'returns true if a winning line goes diagonal right from given space' do
-      @board.instance_variable_set(@grid,
+      @board.instance_variable_set(:@grid,
                                    [[1, 2, 1, 1, 1, 2, 1],
                                     [2, 1, 2, 2, 2, 1, 2],
                                     [1, 2, 2, 1, 2, 2, 2],
@@ -111,7 +111,7 @@ RSpec.describe Board do
     end
 
     it 'returns true if given space is inside a diagonal winning line' do
-      @board.instance_variable_set(@grid,
+      @board.instance_variable_set(:@grid,
                                    [[1, 2, 1, 1, 1, 2, 1],
                                     [2, 1, 2, 2, 2, 1, 2],
                                     [1, 2, 2, 1, 2, 2, 1],
