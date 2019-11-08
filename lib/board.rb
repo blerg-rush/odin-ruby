@@ -9,7 +9,7 @@ class Board
   end
 
   def add(column, player)
-    return nil unless column.between?(0, 6)
+    return nil unless column.between?(0, @width - 1)
 
     @grid.each_index do |row|
       next unless @grid[row][column].nil?
@@ -21,7 +21,7 @@ class Board
   end
 
   def full?
-    @grid[5].each do |column|
+    @grid[@height - 1].each do |column|
       return false if column.nil?
     end
     true
@@ -51,9 +51,9 @@ class Board
       matches >= 4
     end
 
-    def left_matches(row, column)
-      line = @grid[row][0..column]
-      matching_value = @grid[row][column]
+    def left_matches(row, column, line = nil)
+      line = line.nil? ? @grid[row][0..column] : line[0..column]
+      matching_value = line.last
       matches = -1
       line.reverse.each do |space|
         break unless space == matching_value
@@ -63,9 +63,9 @@ class Board
       matches
     end
 
-    def right_matches(row, column)
-      line = @grid[row][column..-1]
-      matching_value = @grid[row][column]
+    def right_matches(row, column, line = nil)
+      line = line.nil? ? @grid[row][column..-1] : line[column..-1]
+      matching_value = line.first
       matches = -1
       line.each do |space|
         break unless space == matching_value
