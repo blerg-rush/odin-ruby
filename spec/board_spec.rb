@@ -37,12 +37,14 @@ RSpec.describe Board do
 
   describe '#full?' do
     it 'returns true if the top row is full' do
-      @board.instance_variable_set(@grid[5], Array.new(7, 1))
+      puts "Board: #{@board.instance_variables}"
+      @board.instance_variable_set(:@grid, Array.new(6) { Array.new(7, 1) })
       expect(@board.full?).to be true
     end
 
     it 'returns false if the top row is not full' do
-      @board.instance_variable_set(@grid[5], [1, 1, nil, 0, 2, 2, 1])
+      @board.instance_variable_set(:@grid,
+                                   Array.new(6) { [1, 1, nil, 1, 2, 2, 1] })
       expect(@board.full?).to be false
     end
   end
