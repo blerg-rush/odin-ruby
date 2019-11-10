@@ -19,14 +19,14 @@ class Game
     player[0]
   end
 
-  # Add piece
-  #   Repeat if piece can't be placed
-  # Check win
-  #   Current player wins if true
-  # Switch current player
+  def play_piece(column)
+    player = @current_player == @player1 ? 1 : 2
+    space = @board.add(column, player)
+    return nil if space.nil?
 
-  # Check if there's a win at given space
-  #  True if yes
+    return true if @board.line?(*space)
 
-  # Check if board is full
+    @current_player = @current_player == @player1 ? @player2 : @player1
+    false
+  end
 end
