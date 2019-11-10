@@ -6,8 +6,8 @@ class Game
   attr_reader :board, :player1, :player2, :current_player
 
   def initialize(player1, player2, first_player = nil)
-    @player1 = Player.new(player1)
-    @player2 = Player.new(player2)
+    @player1 = Player.new(player1, 1)
+    @player2 = Player.new(player2, 2)
     @current_player = find_player(first_player)
     @board = Board.new
   end
@@ -28,6 +28,10 @@ class Game
 
     @current_player = @current_player == @player1 ? @player2 : @player1
     false
+  end
+
+  def check_space(row, column)
+    @board.grid[row][column]
   end
 
   def over?
