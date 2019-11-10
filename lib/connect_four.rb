@@ -27,3 +27,84 @@ end
 end
     grid
   end
+
+  private
+
+    def piece(player)
+      return '  ' if player.nil?
+
+      player == 1 ? "\u1F534".encode('utf-8') : "\u1F7E1".encode('utf-8')
+    end
+
+    def draw_line(row)
+      if row.zero?
+        top_line
+      elsif row == 12
+        bottom_line
+      elsif (row % 2).zero?
+        middle_line
+      else
+        grid_line(row)
+      end
+    end
+
+    def grid_line(row)
+      line = []
+      15.times do |index|
+        line << if (index % 2).zero?
+                  VERTI
+                else
+                  piece(@game.board.grid[6 - row][index / 2])
+                end
+      end
+      line
+    end
+
+    def top_line
+      line = []
+      15.times do |index|
+        line << if index.zero?
+                  TOPLT
+                elsif index == 14
+                  TOPRT
+                elsif (index % 2).zero?
+                  TOPMD
+                else
+                  HORIZ
+                end
+      end
+      line
+    end
+
+    def bottom_line
+      line = []
+      15.times do |index|
+        line << if index.zero?
+                  BOTLT
+                elsif index == 14
+                  BOTRT
+                elsif (index % 2).zero?
+                  BOTMD
+                else
+                  HORIZ
+                end
+      end
+      line
+    end
+
+    def middle_line
+      line = []
+      15.times do |index|
+        line << if index.zero?
+                  MIDLT
+                elsif index == 14
+                  MIDRT
+                elsif (index % 2).zero?
+                  MIDMD
+                else
+                  HORIZ
+                end
+      end
+      line
+    end
+end
