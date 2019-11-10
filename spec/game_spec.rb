@@ -5,10 +5,17 @@ RSpec.describe Game do
     @game = Game.new('Foo', 'Bar')
   end
 
-  describe '#pick_first_player' do
-    it 'assigns one of player1 or player2 to current_player' do
-      @game.pick_first_player
-      expect([@game.player1, @game.player2]).to include(@game.first_player)
+  describe '#find_player' do
+    it 'return any one of player1 or player2 if passed nil' do
+      @game.find_player(nil)
+      expect([@game.player1, @game.player2]).to include(@game.current_player)
+    end
+
+    it 'returns a specific named player if a name is passed in' do
+      @game.instance_variable_set(:@current_player, @game.player1)
+      expect(@game.find_player('Bar').name).to eql('Bar')
+    end
+  end
     end
 
     it 'returns a Player object' do
