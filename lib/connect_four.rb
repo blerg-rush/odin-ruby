@@ -3,6 +3,8 @@ require 'pry'
 
 # Presents game to users
 class ConnectFour
+  attr_reader :game
+
   HORIZ = "\u2550\u2550".encode('utf-8')
   VERTI = "\u2551".encode('utf-8')
   TOPLT = "\u2554".encode('utf-8')
@@ -15,16 +17,22 @@ class ConnectFour
   BOTMD = "\u2569".encode('utf-8')
   BOTRT = "\u255D".encode('utf-8')
 
-  def initialize
-    @game = Game.new('Foo', 'Bar')
+  def initialize(player1, player2)
+    @game = Game.new(player1, player2)
     @display = draw_display
   end
 
   def render_display
-    draw_display
+    @display = draw_display
     @display.each do |line|
       puts line.join
     end
+  end
+
+  def piece(player)
+    return '  ' if player.nil?
+
+    player == 1 ? '🔴 ' : '🟡 '
   end
 
   private
@@ -35,12 +43,6 @@ class ConnectFour
         grid << draw_line(index)
       end
       grid
-    end
-
-    def piece(player)
-      return '  ' if player.nil?
-
-      player == 1 ? "\u1F534".encode('utf-8') : "\u1F7E1".encode('utf-8')
     end
 
     def draw_line(row)
@@ -61,7 +63,8 @@ class ConnectFour
         line << if (index % 2).zero?
                   VERTI
                 else
-                  piece(@game.board.grid[6 - row][index / 2])
+                  space = @game.check_space(5 - (row / 2), (index / 2))
+                  piece(space)
                 end
       end
       line
@@ -114,4 +117,26 @@ class ConnectFour
       end
       line
     end
+end
+
+puts "What is player 1's name?"
+player1 = gets.chomp
+puts "what is player 2's name?"
+player2 = gets.chomp
+cf = ConnectFour.new(player1, player2)
+
+until cf.game.over?
+  system 'clear'
+  cf.render_display
+  puts
+  puts "#{cf.game.current_player.name}'s turn."
+  puts
+  puts "Place your #{cf.piece(cf.game.current_player.id)} in which column?"
+  column = gets.to_i - 1
+  if cf.game.play_piece(column)
+    system 'clear'
+    cf.render_display
+    return puts "#{cf.game.current_player.name} wins!"
+  end
+  puts 'The board is full. Nobody wins. =(' if cf.game.over?
 end
