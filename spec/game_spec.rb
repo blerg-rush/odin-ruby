@@ -16,11 +16,31 @@ RSpec.describe Game do
       expect(@game.find_player('Bar').name).to eql('Bar')
     end
   end
+
+  describe '#play_piece(column)' do
+    before(:each) do
+      grid = [[1, 2, 1, 1, 1, 2, 1],
+              [2, 1, 2, 1, 2, 1, 2],
+              [1, 2, 2, 1, 2, 2, 1],
+              [1, 2, 1, 1, 1, 2, 1],
+              [nil, nil, nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil, nil, nil]]
+      @game.board.instance_variable_set(:@grid, grid)
     end
 
-    it 'returns a Player object' do
-      @game = Game.new('Foo', 'Bar', 'Foo')
-      expect(@game.pick_first_player).to be_instance_of Player
+    it "returns false if piece doesn't create winning line" do
+      expect(@game.play_piece(0)).to be false
+    end
+
+    it "switches current player if piece doesn't create winning line" do
+      last_player = @game.current_player
+      @game.play_piece(0)
+      expect(@game.current_player).to_not eql(last_player)
+    end
+
+    it 'returns true if piece creates winning line' do
+      @game.instance_variable_set(:@current_player, @game.player1)
+      expect(@game.play_piece(3)).to be true
     end
   end
 end
