@@ -1,5 +1,5 @@
 require_relative 'game'
-require 'pry'
+require 'colorize'
 
 # Presents game to users
 class ConnectFour
@@ -32,7 +32,8 @@ class ConnectFour
   def piece(player)
     return '  ' if player.nil?
 
-    player == 1 ? '🔴 ' : '🟡 '
+    blank = '⬤ '
+    player == 1 ? blank.colorize(:red) : blank.colorize(:yellow)
   end
 
   private
