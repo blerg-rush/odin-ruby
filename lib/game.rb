@@ -29,4 +29,8 @@ class Game
     @current_player = @current_player == @player1 ? @player2 : @player1
     false
   end
+
+  def over?
+    @board.full?
+  end
 end
