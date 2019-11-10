@@ -1,4 +1,5 @@
 require_relative 'game'
+require 'pry'
 
 # Presents game to users
 class ConnectFour
@@ -20,20 +21,21 @@ class ConnectFour
   end
 
   def render_display
+    draw_display
     @display.each do |line|
       puts line.join
-  end
-end
-
-  def draw_display
-    grid = [['  1  2  3  4  5  6  7 ']]
-    13.times do |index|
-      grid << draw_line(index)
-end
-    grid
+    end
   end
 
   private
+
+    def draw_display
+      grid = [['  1  2  3  4  5  6  7 ']]
+      13.times do |index|
+        grid << draw_line(index)
+      end
+      grid
+    end
 
     def piece(player)
       return '  ' if player.nil?
