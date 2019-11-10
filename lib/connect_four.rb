@@ -20,4 +20,10 @@ class ConnectFour
   end
   end
 end
+  def draw_display
+    grid = [['  1  2  3  4  5  6  7 ']]
+    13.times do |index|
+      grid << draw_line(index)
 end
+    grid
+  end
