@@ -18,8 +18,13 @@ class ConnectFour
     @game = Game.new('Foo', 'Bar')
     @display = draw_display
   end
+
+  def render_display
+    @display.each do |line|
+      puts line.join
   end
 end
+
   def draw_display
     grid = [['  1  2  3  4  5  6  7 ']]
     13.times do |index|
