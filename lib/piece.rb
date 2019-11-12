@@ -66,3 +66,24 @@ class Knight < Piece
     moves
   end
 end
+
+# Bishop-specific methods and attributes
+class Bishop < Piece
+  def glyph
+    return "\u2657" if @color == :white
+    return "\u265D" if @color == :black
+  end
+
+  def moves
+    move_list = []
+    7.times do |index|
+      move_list.concat([[-(index + 1), index + 1], [index + 1, index + 1],
+                        [index + 1, -(index + 1)], [-(index + 1), -(index + 1)]])
+    end
+    move_list
+  end
+
+  def captures
+    moves
+  end
+end
