@@ -31,4 +31,12 @@ class Pawn < Piece
     end
     move_list
   end
+
+  def captures
+    if @color == :white
+      [[-1, 1], [1, 1]]
+    else
+      [[-1, -1], [1, -1]]
+    end
+  end
 end
