@@ -131,3 +131,22 @@ class Queen < Piece
     moves
   end
 end
+
+# King-specific methods and attributes
+class King < Piece
+  def glyph
+    return "\u2654" if @color == :white
+    return "\u265A" if @color == :black
+  end
+
+  def moves
+    move_list = [[-1, 0], [-1, 1], [0, 1], [1, 1],
+                 [1, 0], [1, -1], [0, -1], [-1, -1]]
+    move_list.concat([[-2, 0], [2, 0]]) unless moved?
+    move_list
+  end
+
+  def captures
+    moves
+  end
+end
