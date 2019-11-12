@@ -20,4 +20,15 @@ class Pawn < Piece
     return "\u2659" if @color == :white
     return "\u265F" if @color == :black
   end
+
+  def moves
+    if @color == :white
+      move_list = [[0, 1]]
+      move_list << [0, 2] unless moved?
+    else
+      move_list = [[0, -1]]
+      move_list << [0, -2] unless moved?
+    end
+    move_list
+  end
 end
