@@ -45,3 +45,24 @@ class Pawn < Piece
     end
   end
 end
+
+# Knight-specific methods and attributes
+class Knight < Piece
+  def initialize(color, space)
+    super
+    @can_jump = true
+  end
+
+  def glyph
+    return "\u2658" if @color == :white
+    return "\u265E" if @color == :black
+  end
+
+  def moves
+    [[-2, 1], [-1, 2], [1, 2], [2, 1], [-2, -1], [-1, -2], [1, -2], [2, -1]]
+  end
+
+  def captures
+    moves
+  end
+end
