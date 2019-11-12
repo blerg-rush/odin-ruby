@@ -87,3 +87,24 @@ class Bishop < Piece
     moves
   end
 end
+
+# Rook-specific methods and attributes
+class Rook < Piece
+  def glyph
+    return "\u2656" if @color == :white
+    return "\u265C" if @color == :black
+  end
+
+  def moves
+    move_list = []
+    7.times do |index|
+      move_list.concat([[-(index + 1), 0], [0, index + 1],
+                        [index + 1, 0], [0, -(index + 1)]])
+    end
+    move_list
+  end
+
+  def captures
+    moves
+  end
+end
