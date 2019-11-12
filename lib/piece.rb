@@ -108,3 +108,26 @@ class Rook < Piece
     moves
   end
 end
+
+# Queen-specific methods and attributes
+class Queen < Piece
+  def glyph
+    return "\u2655" if @color == :white
+    return "\u265B" if @color == :black
+  end
+
+  def moves
+    move_list = []
+    7.times do |index|
+      move_list.concat([[-(index + 1), 0], [-(index + 1), index + 1],
+                        [0, index + 1], [index + 1, index + 1],
+                        [index + 1, 0], [index + 1, -(index + 1)],
+                        [0, -(index + 1)], [-(index + 1), -(index + 1)]])
+    end
+    move_list
+  end
+
+  def captures
+    moves
+  end
+end
