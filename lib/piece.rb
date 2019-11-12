@@ -7,6 +7,11 @@ class Piece
     @color = color.to_sym
     @space = space
     @moved = false
+    @can_jump = false
+  end
+
+  def can_jump?
+    @can_jump
   end
 
   def moved?
