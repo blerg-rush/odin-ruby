@@ -18,13 +18,13 @@ class Board
         row.each_with_index do |piece, col_index|
           next if piece.nil?
 
-          return can_attack?(piece, [row_index, col_index], position)
+          return can_capture?(piece, [row_index, col_index], position)
         end
       end
       false
     end
 
-    def can_attack?(piece, position, target_space)
+    def can_capture?(piece, position, target_space)
       target_piece = @board[target_space[0]][target_space[1]]
       unless target_piece.nil? ||
              target_piece.color != piece.color ||
