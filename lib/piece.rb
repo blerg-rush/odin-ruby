@@ -1,11 +1,10 @@
 # Methods and attributes common to all pieces
 class Piece
-  attr_accessor :moved, :space
+  attr_accessor :moved
   attr_reader :color
 
-  def initialize(color, space)
+  def initialize(color)
     @color = color.to_sym
-    @space = space
     @moved = false
     @can_jump = false
   end
@@ -48,7 +47,7 @@ end
 
 # Knight-specific methods and attributes
 class Knight < Piece
-  def initialize(color, space)
+  def initialize(color)
     super
     @can_jump = true
   end
