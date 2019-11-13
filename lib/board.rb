@@ -24,6 +24,17 @@ class Board
       false
     end
 
+    def can_attack?(piece, position, target_space)
+      target_piece = @board[target_space[0]][target_space[1]]
+      unless target_piece.nil? ||
+             target_piece.color != piece.color ||
+             piece.captures.include?(target_space - position)
+        return path_open?(piece, position, target_space)
+      end
+
+      false
+    end
+
     def add_pieces
       add_kings
       add_queens
