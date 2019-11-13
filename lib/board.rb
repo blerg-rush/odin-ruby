@@ -36,21 +36,38 @@ class Board
     end
 
     def path_open?(piece, position, target_space)
-      return true if %i[pawn knight king].include? piece.type
+      return true if piece.can_jump?
 
-      if %i[queen rook].include? piece.type
-        return true if cardinal_path?(position, target_space)
+      next_position = position.dup
+      step = one_step(position, target_space)
+      step_count = move_between(position, target_space).max - 1
+
+      step_count.times do
+        next_position = move_by(next_position, step)
+        return false unless piece_at(next_position).nil?
       end
 
-      if %i[queen bishop].include? piece.type
-        return true if diagonal_path?(position, target_space)
-      end
+      true
+    end
 
-      false
+    def one_step(position, target_space)
+      move = [0, 0]
+      2.times do |index|
+        if (target_space[index] - position[index]).positive?
+          move[index] = 1
+        elsif (target_space[index] - position[index]).negative?
+          move[index] = -1
+        end
+      end
+      move
     end
 
     def move_between(position, target_space)
       [target_space[0] - position[0], target_space[1] - position[1]]
+    end
+
+    def move_by(position, move)
+      [position[0] + move[0], position[1] + move[1]]
     end
 
     def add_pieces
