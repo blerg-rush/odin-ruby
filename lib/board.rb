@@ -18,7 +18,7 @@ class Board
         row.each_with_index do |piece, col_index|
           next if piece.nil?
 
-          return true if can_attack?(piece, [row_index, col_index], position)
+          return can_attack?(piece, [row_index, col_index], position)
         end
       end
       false
