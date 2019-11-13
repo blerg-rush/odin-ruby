@@ -36,7 +36,7 @@ class Board
     end
 
     def path_open?(piece, position, target_space)
-      return true if %i[pawn king].include? piece.type
+      return true if %i[pawn knight king].include? piece.type
 
       if %i[queen rook].include? piece.type
         return true if cardinal_path?(position, target_space)
