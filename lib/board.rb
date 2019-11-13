@@ -11,6 +11,10 @@ class Board
     add_pieces
   end
 
+  def piece_at(position)
+    @board[position[0]][position[1]]
+  end
+
   private
 
     def check?(position)
@@ -25,7 +29,7 @@ class Board
     end
 
     def can_capture?(piece, position, target_space)
-      target_piece = @board[target_space[0]][target_space[1]]
+      target_piece = piece_at(target_space)
       unless target_piece.nil? ||
              target_piece.color != piece.color ||
              piece.captures.include?(move_between(position, target_space))
