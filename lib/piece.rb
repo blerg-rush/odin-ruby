@@ -20,9 +20,9 @@ end
 
 # Pawn-specific methods and attributes
 class Pawn < Piece
-  def glyph
-    return "\u2659" if @color == :white
-    return "\u265F" if @color == :black
+  def glyph(type)
+    return "\u2659" if type == :transparent
+    return "\u265F" if type == :solid
   end
 
   def moves
@@ -52,9 +52,9 @@ class Knight < Piece
     @can_jump = true
   end
 
-  def glyph
-    return "\u2658" if @color == :white
-    return "\u265E" if @color == :black
+  def glyph(type)
+    return "\u2658" if type == :transparent
+    return "\u265E" if type == :solid
   end
 
   def moves
@@ -68,9 +68,9 @@ end
 
 # Bishop-specific methods and attributes
 class Bishop < Piece
-  def glyph
-    return "\u2657" if @color == :white
-    return "\u265D" if @color == :black
+  def glyph(type)
+    return "\u2657" if type == :transparent
+    return "\u265D" if type == :solid
   end
 
   def moves
@@ -89,9 +89,9 @@ end
 
 # Rook-specific methods and attributes
 class Rook < Piece
-  def glyph
-    return "\u2656" if @color == :white
-    return "\u265C" if @color == :black
+  def glyph(type)
+    return "\u2656" if type == :transparent
+    return "\u265C" if type == :solid
   end
 
   def moves
@@ -110,9 +110,9 @@ end
 
 # Queen-specific methods and attributes
 class Queen < Piece
-  def glyph
-    return "\u2655" if @color == :white
-    return "\u265B" if @color == :black
+  def glyph(type)
+    return "\u2655" if type == :transparent
+    return "\u265B" if type == :solid
   end
 
   def moves
@@ -133,9 +133,9 @@ end
 
 # King-specific methods and attributes
 class King < Piece
-  def glyph
-    return "\u2654" if @color == :white
-    return "\u265A" if @color == :black
+  def glyph(type)
+    return "\u2654" if type == :transparent
+    return "\u265A" if type == :solid
   end
 
   def moves
