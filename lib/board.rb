@@ -28,7 +28,7 @@ class Board
       target_piece = @board[target_space[0]][target_space[1]]
       unless target_piece.nil? ||
              target_piece.color != piece.color ||
-             piece.captures.include?(target_space - position)
+             piece.captures.include?(move_between(position, target_space))
         return piece.can_jump? || path_open?(piece, position, target_space)
       end
 
@@ -47,6 +47,10 @@ class Board
       end
 
       false
+    end
+
+    def move_between(position, target_space)
+      [target_space[0] - position[0], target_space[1] - position[1]]
     end
 
     def add_pieces
