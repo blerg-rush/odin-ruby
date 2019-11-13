@@ -17,6 +17,16 @@ class Board
 
   private
 
+    def king_position(color)
+      @board.each_with_index do |row, row_index|
+        row.each_with_index do |piece, col_index|
+          if piece.is_a?(King) && piece.color == color
+            return [row_index, col_index]
+          end
+        end
+      end
+    end
+
     def check?(position)
       @board.each_with_index do |row, row_index|
         row.each_with_index do |piece, col_index|
