@@ -10,12 +10,33 @@ class Game
     @message = ''
   end
 
-  def render_display
-    @display.render
+  def play
+    render_display
   end
 
   private
 
+    def turn
+      pick_piece
+      pick_move
+      take_move
+      switch_players
+    end
+
+    def pick_piece
+      @message = "#{@current_player.capitalize}'s turn. Pick a piece."
+      valid = false
+      while valid.nil?
+        render_display
+        file_rank = gets.chomp
+        position = convert_to_index(file_rank)
+        if position.nil? || !mine?(position)
+          @message = "'#{file_rank}' is not a valid space. Try again."
+        else
+          valid = true
+        end
+      end
+    end
 
     def convert_to_index(file_rank)
       file = file_rank[0].upcase
@@ -35,9 +56,10 @@ class Game
     def mine?(position)
       piece = @chessboard.piece_at(position)
       return false if piece.nil?
+
       piece.color == @current_player
     end
 end
 
 game = Game.new
-game.render_display
+game.play
