@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Display
   def initialize(board)
     @board = board
