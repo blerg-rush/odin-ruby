@@ -45,7 +45,8 @@ class Board
       out_of_range?(position) ||
         out_of_range?(target_space) ||
         piece.color == target_piece.color ||
-        (piece.is_a?(King) && check?(target_space))
+        (piece.is_a?(King) && check?(target_space)) ||
+        !path_open?(piece, position, target_piece)
     end
 
     def out_of_range?(position)
