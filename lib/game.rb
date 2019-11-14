@@ -22,6 +22,10 @@ class Game
       switch_players
     end
 
+    def over?
+      false
+    end
+
     def pick_piece
       @message = "#{@current_player.capitalize}'s turn. Pick a piece."
       valid = false
@@ -55,6 +59,10 @@ class Game
           valid = true
         end
       end
+    end
+
+    def switch_players
+      @current_player = @current_player == :white ? :black : :white
     end
 
     def convert_to_index(file_rank)
