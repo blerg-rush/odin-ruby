@@ -15,12 +15,12 @@ class Board
 
   def move_piece(position, target_space)
     piece = piece_at(position)
-    return nil if piece.is_a?(King) && check?(target_space)
+    return nil if illegal_move?(position, target_space)
 
     target_piece = piece_at(target_space)
     move = move_between(position, target_space)
 
-    if (piece.captures.include?(move) && target_piece.color != piece.color) ||
+    if (piece.captures.include?(move) && !target_piece.nil?) ||
        (piece.moves.inlude?(move) && target_piece.nil?)
       return move_capture(position, target_space)
     end
@@ -37,6 +37,20 @@ class Board
   end
 
   private
+
+    def illegal_move?(position, target_space)
+      piece = piece_at(position)
+      target_piece = piece_at(position)
+
+      out_of_range?(position) ||
+        out_of_range?(target_space) ||
+        piece.color == target_piece.color ||
+        (piece.is_a?(King) && check?(target_space))
+    end
+
+    def out_of_range?(position)
+      !(0..7).include?(position[0]) || !(0..7).include?(position[1])
+    end
 
     def move_capture(position, target_space)
       target_piece = piece_at(target_space)
