@@ -1,7 +1,7 @@
 require_relative 'piece'
 
 # Methods and attributes regarding the state of the chessboard
-class Board
+class Chessboard
   attr_reader :board, :last_move, :captured_pieces
 
   EMPTY_BOARD = Array.new(8) { Array.new(8, nil) }
