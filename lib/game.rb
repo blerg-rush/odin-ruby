@@ -17,21 +17,40 @@ class Game
   private
 
     def turn
-      pick_piece
-      pick_move
-      take_move
+      position = pick_piece
+      move_from(position)
       switch_players
     end
 
     def pick_piece
       @message = "#{@current_player.capitalize}'s turn. Pick a piece."
       valid = false
-      while valid.nil?
+      until valid
         render_display
         file_rank = gets.chomp
         position = convert_to_index(file_rank)
         if position.nil? || !mine?(position)
-          @message = "'#{file_rank}' is not a valid space. Try again."
+          @message = "'#{file_rank}' is not a valid piece. Try again."
+        else
+          valid = true
+        end
+      end
+      position
+    end
+
+    def move_from(position)
+      piece = @chessboard.piece_at(position)
+      display_position = convert_to_file_rank(position)
+      @message = "Move #{@current_player} #{piece} at "\
+                 "#{display_position} to which space?"
+      valid = false
+      until valid
+        render_display
+        file_rank = gets.chomp
+        target = convert_to_index(file_rank)
+        if target.nil? || @chessboard.move_piece(position, target).nil?
+          @message = "Can't move #{@current_player} #{piece} at "\
+                     "#{display_position} to #{file_rank}. Try again."
         else
           valid = true
         end
@@ -47,6 +66,13 @@ class Game
       row = file_rank[1] - 1
 
       [row, col]
+    end
+
+    def convert_to_file_rank(position)
+      rank = position[0] + 1
+      file = %w[A B C D E F G H][position[1]]
+
+      [file, rank]
     end
 
     def render_display
