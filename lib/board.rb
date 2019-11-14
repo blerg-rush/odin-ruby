@@ -2,12 +2,14 @@ require_relative 'piece'
 
 # Methods and attributes regarding the state of the chessboard
 class Board
+  attr_reader :board, :last_move, :captured_pieces
+
   EMPTY_BOARD = Array.new(8) { Array.new(8, nil) }
 
   def initialize
     @board = EMPTY_BOARD.dup
     @last_move = {}
-    @captured_pieces = {}
+    @captured_pieces = []
     add_pieces
   end
 
@@ -38,6 +40,9 @@ class Board
       @board[target_space[0]][target_space[1]] = piece_at(position)
       @board[position[0]][position[1]] = nil
       piece_at(target_space).moved = true
+      @last_move = { piece: piece_at(target_space),
+                     from: position,
+                     to: target_space }
       target_space
     end
 
