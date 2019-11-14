@@ -18,10 +18,9 @@ class Board
     target_piece = piece_at(target_space)
     move = move_between(position, target_space)
 
-    if piece.captures.include?(move) && target_piece.color != piece.color
-      return capture_to(position, target_space)
-    elsif piece.moves.inlude?(move) && target_piece.nil?
-      return move_to(position, target_space)
+    if (piece.captures.include?(move) && target_piece.color != piece.color) ||
+       (piece.moves.inlude?(move) && target_piece.nil?)
+      return move_capture(position, target_space)
     end
 
     nil
@@ -33,15 +32,9 @@ class Board
 
   private
 
-    def capture_to(position, target_space)
-      @captured_pieces << piece_at(target_space)
-      @board[target_space[0]][target_space[1]] = piece_at(position)
-      @board[position[0]][position[1]] = nil
-      piece_at(target_space).moved = true
-      target_space
-    end
-
-    def move_to(position, target_space)
+    def move_capture(position, target_space)
+      target_piece = piece_at(target_space)
+      @captured_pieces << target_piece unless target_piece.nil?
       @board[target_space[0]][target_space[1]] = piece_at(position)
       @board[position[0]][position[1]] = nil
       piece_at(target_space).moved = true
