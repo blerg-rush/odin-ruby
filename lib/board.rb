@@ -32,6 +32,10 @@ class Board
     @board[position[0]][position[1]]
   end
 
+  def in_check?(color)
+    check?(king_position(color))
+  end
+
   private
 
     def move_capture(position, target_space)
