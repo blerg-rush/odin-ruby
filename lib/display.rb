@@ -1,53 +1,53 @@
 require 'colorize'
 
 # Standard tiles
-BORDER = '  '.colorize.on_light_blue
-FILE_A = ' A'.colorize.black.on_light_blue
-FILE_B = ' B'.colorize.black.on_light_blue
-FILE_C = ' C'.colorize.black.on_light_blue
-FILE_D = ' D'.colorize.black.on_light_blue
-FILE_E = ' E'.colorize.black.on_light_blue
-FILE_F = ' F'.colorize.black.on_light_blue
-FILE_G = ' G'.colorize.black.on_light_blue
-FILE_H = ' H'.colorize.black.on_light_blue
-RANK_1 = '1 '.colorize.black.on_light_blue
-RANK_2 = '2 '.colorize.black.on_light_blue
-RANK_3 = '3 '.colorize.black.on_light_blue
-RANK_4 = '4 '.colorize.black.on_light_blue
-RANK_5 = '5 '.colorize.black.on_light_blue
-RANK_6 = '6 '.colorize.black.on_light_blue
-RANK_7 = '7 '.colorize.black.on_light_blue
-RANK_8 = '8 '.colorize.black.on_light_blue
-WHT_TL = '  '.colorize.on_white
-BLK_TL = '  '.colorize.on_black
+BORDER = '  '.on_light_blue
+FILE = [' A'.black.on_light_blue,
+        ' B'.black.on_light_blue,
+        ' C'.black.on_light_blue,
+        ' D'.black.on_light_blue,
+        ' E'.black.on_light_blue,
+        ' F'.black.on_light_blue,
+        ' G'.black.on_light_blue,
+        ' H'.black.on_light_blue].freeze
+RANK = ['8 '.black.on_light_blue,
+        '7 '.black.on_light_blue,
+        '6 '.black.on_light_blue,
+        '5 '.black.on_light_blue,
+        '4 '.black.on_light_blue,
+        '3 '.black.on_light_blue,
+        '2 '.black.on_light_blue,
+        '1 '.black.on_light_blue].freeze
+WHT_TL = '  '.on_white
+BLK_TL = '  '.on_black
 
-# Outlined pieces (Pawn, kNight, Bishop, Rook, Queen, King)
-OBLK_P = "\u2659 ".colorize.white.on_black
-OBLK_N = "\u2658 ".colorize.white.on_black
-OBLK_B = "\u2657 ".colorize.white.on_black
-OBLK_R = "\u2656 ".colorize.white.on_black
-OBLK_Q = "\u2655 ".colorize.white.on_black
-OBLK_K = "\u2654 ".colorize.white.on_black
-OWHT_P = "\u2659 ".colorize.black.on_white
-OWHT_N = "\u2658 ".colorize.black.on_white
-OWHT_B = "\u2657 ".colorize.black.on_white
-OWHT_R = "\u2656 ".colorize.black.on_white
-OWHT_Q = "\u2655 ".colorize.black.on_white
-OWHT_K = "\u2654 ".colorize.black.on_white
+# Outlined pieces
+O_BLK = { pawn: "\u2659 ".white.on_black,
+          knight: "\u2658 ".white.on_black,
+          bishop: "\u2657 ".white.on_black,
+          rook: "\u2656 ".white.on_black,
+          queen: "\u2655 ".white.on_black,
+          king: "\u2654 ".white.on_black }.freeze
+O_WHT = { pawn: "\u2659 ".black.on_white,
+          knight: "\u2658 ".black.on_white,
+          bishop: "\u2657 ".black.on_white,
+          rook: "\u2656 ".black.on_white,
+          queen: "\u2655 ".black.on_white,
+          king: "\u2654 ".black.on_white }.freeze
 
-# Solid pieces (Pawn, kNight, Bishop, Rook, Queen, King)
-SBLK_P = "u\265F ".colorize.black.on_white
-SBLK_N = "u\265E ".colorize.black.on_white
-SBLK_B = "u\265D ".colorize.black.on_white
-SBLK_R = "u\265C ".colorize.black.on_white
-SBLK_Q = "u\265B ".colorize.black.on_white
-SBLK_K = "u\265A ".colorize.black.on_white
-SWHT_P = "u\265F ".colorize.white.on_black
-SWHT_N = "u\265E ".colorize.white.on_black
-SWHT_B = "u\265D ".colorize.white.on_black
-SWHT_R = "u\265C ".colorize.white.on_black
-SWHT_Q = "u\265B ".colorize.white.on_black
-SWHT_K = "u\265A ".colorize.white.on_black
+# Solid pieces
+S_BLK = { pawn: "\u265F ".black.on_white,
+          knight: "\u265E ".black.on_white,
+          bishop: "\u265D ".black.on_white,
+          rook: "\u265C ".black.on_white,
+          queen: "\u265B ".black.on_white,
+          king: "\u265A ".black.on_white }.freeze
+S_WHT = { pawn: "\u265F ".white.on_black,
+          knight: "\u265E ".white.on_black,
+          bishop: "\u265D ".white.on_black,
+          rook: "\u265C ".white.on_black,
+          queen: "\u265B ".white.on_black,
+          king: "\u265A ".white.on_black }.freeze
 
 # Handles visual elements
 class Display
