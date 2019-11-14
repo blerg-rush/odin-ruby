@@ -54,4 +54,31 @@ class Display
   def initialize(board)
     @board = board
   end
+
+  def render
+    Gem.win_platform? ? (system 'cls') : (system 'clear')
+    puts BORDER + FILE.join + BORDER
+    @board.reverse.each_with_index do |row, row_index|
+      line = [RANK[row_index]]
+      row.each_with_index do |piece, col_index|
+        line << if row_index.odd? == col_index.odd?
+                  (piece.nil? ? BLK_TL : paint(piece, :black))
+                else
+                  (piece.nil? ? WHT_TL : paint(piece, :white))
+                end
+      end
+      puts line.join + BORDER
+    end
+    puts BORDER * 10
+  end
+
+  private
+
+    def paint(piece, background)
+      if background == :black
+        piece.color == :black ? O_BLK[piece.type] : S_WHT[piece.type]
+      else
+        piece.color == :black ? S_BLK[piece.type] : O_WHT[piece.type]
+      end
+    end
 end
