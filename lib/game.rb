@@ -18,9 +18,9 @@ class Game
 
 
     def convert_to_index(file_rank)
-      unless ('A'..'H').include?(file_rank[0]) && (1..8).include?(file_rank[1])
-        return nil
-      end
+      file = file_rank[0].upcase
+      rank = file_rank[1]
+      return nil unless ('A'..'H').include?(file) && (1..8).include?(rank)
 
       col = %w[A B C D E F G H].index(file_rank[0].upcase)
       row = file_rank[1] - 1
