@@ -33,7 +33,9 @@ class Game
     end
 
     def mine?(position)
-      @chessboard.piece_at(position).color == @current_player
+      piece = @chessboard.piece_at(position)
+      return false if piece.nil?
+      piece.color == @current_player
     end
 end
 
