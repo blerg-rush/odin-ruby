@@ -7,6 +7,7 @@ class Game
     @chessboard = Chessboard.new
     @display = Display.new(@chessboard.board)
     @current_player = :white
+    @message = ''
   end
 
   def render_display
@@ -14,6 +15,11 @@ class Game
   end
 
   private
+
+
+    def render_display
+      @display.render(@message)
+    end
 
     def mine?(position)
       @chessboard.piece_at(position).color == @current_player

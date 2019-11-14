@@ -55,7 +55,7 @@ class Display
     @board = board
   end
 
-  def render
+  def render(message = '')
     Gem.win_platform? ? (system 'cls') : (system 'clear')
     puts BORDER + FILE.join + BORDER
     @board.reverse.each_with_index do |row, row_index|
@@ -69,7 +69,7 @@ class Display
       end
       puts line.join + BORDER
     end
-    puts BORDER * 10
+    puts BORDER * 10 + message.center(50)
   end
 
   private
