@@ -19,9 +19,9 @@ class Board
     move = move_between(position, target_space)
 
     if piece.captures.include?(move) && target_piece.color != piece.color
-      capture_to(position, target_space)
+      return capture_to(position, target_space)
     elsif piece.moves.inlude?(move) && target_piece.nil?
-      move_to(position, target_space)
+      return move_to(position, target_space)
     end
 
     nil
@@ -32,6 +32,13 @@ class Board
   end
 
   private
+
+    def capture_to(position, target_space)
+      @captured_pieces << piece_at(target_space)
+      @board[target_space[0]][target_space[1]] = piece_at(position)
+      @board[position[0]][position[1]] = nil
+      target_space
+    end
 
     def king_position(color)
       @board.each_with_index do |row, row_index|
