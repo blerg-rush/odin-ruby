@@ -11,6 +11,22 @@ class Board
     add_pieces
   end
 
+  def move_piece(position, target_space)
+    piece = piece_at(position)
+    return nil if piece.is_a?(King) && check?(target_space)
+
+    target_piece = piece_at(target_space)
+    move = move_between(position, target_space)
+
+    if piece.captures.include?(move) && target_piece.color != piece.color
+      capture_to(position, target_space)
+    elsif piece.moves.inlude?(move) && target_piece.nil?
+      move_to(position, target_space)
+    end
+
+    nil
+  end
+
   def piece_at(position)
     @board[position[0]][position[1]]
   end
