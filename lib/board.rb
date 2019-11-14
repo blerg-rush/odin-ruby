@@ -37,6 +37,14 @@ class Board
       @captured_pieces << piece_at(target_space)
       @board[target_space[0]][target_space[1]] = piece_at(position)
       @board[position[0]][position[1]] = nil
+      piece_at(target_space).moved = true
+      target_space
+    end
+
+    def move_to(position, target_space)
+      @board[target_space[0]][target_space[1]] = piece_at(position)
+      @board[position[0]][position[1]] = nil
+      piece_at(target_space).moved = true
       target_space
     end
 
