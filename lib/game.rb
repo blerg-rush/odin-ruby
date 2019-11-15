@@ -34,7 +34,8 @@ class Game
         file_rank = gets.chomp.upcase
         position = convert_to_index(file_rank)
         if position.nil? || !mine?(position)
-          @message = "'#{file_rank}' is not a valid piece. Try again."
+          @message = "'#{file_rank}' is not a valid #{@current_player} piece. "\
+                     'Try again.'
         elsif !@chessboard.can_move?(position)
           @message = "#{@current_player.capitalize} "\
                      "#{@chessboard.piece_at(position).type} "\
@@ -54,7 +55,7 @@ class Game
       valid = false
       until valid
         render_display
-        file_rank = gets.chomp
+        file_rank = gets.chomp.upcase
         target = convert_to_index(file_rank)
         if target.nil? || @chessboard.move_piece(position, target).nil?
           @message = "Can't move #{@current_player} #{piece.type} at "\
@@ -88,8 +89,17 @@ class Game
       [file, rank].join
     end
 
+    def game_status
+      check = in_check?
+      mate = checkmate?
+      { check: check,
+        checkmate: mate,
+        captured_pieces: @chessboard.captured_pieces }
+    end
+
     def render_display
-      @display.render(@message)
+      game_status
+      @display.render(@message, game_status)
     end
 
     def mine?(position)
