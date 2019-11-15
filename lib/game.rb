@@ -11,7 +11,7 @@ class Game
   end
 
   def play
-    render_display
+    turn until over?
   end
 
   private
