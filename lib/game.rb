@@ -71,12 +71,13 @@ class Game
 
     def convert_to_index(file_rank)
       file = file_rank[0].upcase
-      rank = file_rank[1]
+      rank = file_rank[1].to_i
       return nil unless ('A'..'H').include?(file) && (1..8).include?(rank)
 
-      col = %w[A B C D E F G H].index(file_rank[0].upcase)
-      row = file_rank[1] - 1
+      col = %w[A B C D E F G H].index(file.upcase)
+      row = rank - 1
 
+      # binding.pry
       [row, col]
     end
 
@@ -84,7 +85,7 @@ class Game
       rank = position[0] + 1
       file = %w[A B C D E F G H][position[1]]
 
-      [file, rank]
+      [file, rank].join
     end
 
     def render_display
