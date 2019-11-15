@@ -1,23 +1,23 @@
 require 'colorize'
 
 # Standard tiles
-BORDER = '  '.on_light_blue
-FILE = [' A'.black.on_light_blue,
-        ' B'.black.on_light_blue,
-        ' C'.black.on_light_blue,
-        ' D'.black.on_light_blue,
-        ' E'.black.on_light_blue,
-        ' F'.black.on_light_blue,
-        ' G'.black.on_light_blue,
-        ' H'.black.on_light_blue].freeze
-RANK = ['8 '.black.on_light_blue,
-        '7 '.black.on_light_blue,
-        '6 '.black.on_light_blue,
-        '5 '.black.on_light_blue,
-        '4 '.black.on_light_blue,
-        '3 '.black.on_light_blue,
-        '2 '.black.on_light_blue,
-        '1 '.black.on_light_blue].freeze
+BORDER = ' '.on_light_blue
+FILE = ['A'.black.on_light_blue,
+        'B'.black.on_light_blue,
+        'C'.black.on_light_blue,
+        'D'.black.on_light_blue,
+        'E'.black.on_light_blue,
+        'F'.black.on_light_blue,
+        'G'.black.on_light_blue,
+        'H'.black.on_light_blue].freeze
+RANK = ['8'.black.on_light_blue,
+        '7'.black.on_light_blue,
+        '6'.black.on_light_blue,
+        '5'.black.on_light_blue,
+        '4'.black.on_light_blue,
+        '3'.black.on_light_blue,
+        '2'.black.on_light_blue,
+        '1'.black.on_light_blue].freeze
 WHT_TL = '  '.on_white
 BLK_TL = '  '.on_black
 
@@ -57,9 +57,9 @@ class Display
 
   def render(message = '')
     Gem.win_platform? ? (system 'cls') : (system 'clear')
-    puts BORDER + FILE.join + BORDER
+    puts BORDER * 2 + FILE.join(BORDER) + BORDER * 3
     @board.reverse.each_with_index do |row, row_index|
-      line = [RANK[row_index]]
+      line = [RANK[row_index] + BORDER]
       row.each_with_index do |piece, col_index|
         line << if row_index.odd? == col_index.odd?
                   (piece.nil? ? BLK_TL : paint(piece, :black))
@@ -67,9 +67,10 @@ class Display
                   (piece.nil? ? WHT_TL : paint(piece, :white))
                 end
       end
-      puts line.join + BORDER
+      puts line.join + BORDER + RANK[row_index]
     end
-    puts BORDER * 10 + message.center(50)
+    puts BORDER * 2 + FILE.join(BORDER) + BORDER * 3 + message.center(50)
+    puts
   end
 
   private
