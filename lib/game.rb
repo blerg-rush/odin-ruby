@@ -49,7 +49,7 @@ class Game
     def move_from(position)
       piece = @chessboard.piece_at(position)
       display_position = convert_to_file_rank(position)
-      @message = "Move #{@current_player} #{piece} at "\
+      @message = "Move #{@current_player} #{piece.type} at "\
                  "#{display_position} to which space?"
       valid = false
       until valid
@@ -57,7 +57,7 @@ class Game
         file_rank = gets.chomp
         target = convert_to_index(file_rank)
         if target.nil? || @chessboard.move_piece(position, target).nil?
-          @message = "Can't move #{@current_player} #{piece} at "\
+          @message = "Can't move #{@current_player} #{piece.type} at "\
                      "#{display_position} to #{file_rank}. Try again."
         else
           valid = true
