@@ -40,13 +40,14 @@ class Chessboard
 
     def illegal_move?(position, target_space)
       piece = piece_at(position)
-      target_piece = piece_at(position)
+      target_piece = piece_at(target_space)
+      target_color = target_piece.nil? ? nil : target_piece.color
 
       out_of_range?(position) ||
         out_of_range?(target_space) ||
-        piece.color == target_piece.color ||
+        piece.color == target_color ||
         (piece.is_a?(King) && check?(target_space)) ||
-        !path_open?(piece, position, target_piece)
+        !path_open?(piece, position, target_space)
     end
 
     def out_of_range?(position)
