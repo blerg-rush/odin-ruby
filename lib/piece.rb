@@ -26,20 +26,20 @@ class Pawn < Piece
 
   def moves
     if @color == :white
-      move_list = [[0, 1]]
-      move_list << [0, 2] unless moved?
+      move_list = [[1, 0]]
+      move_list << [2, 0] unless moved?
     else
-      move_list = [[0, -1]]
-      move_list << [0, -2] unless moved?
+      move_list = [[-1, 0]]
+      move_list << [-2, 0] unless moved?
     end
     move_list
   end
 
   def captures
     if @color == :white
-      [[-1, 1], [1, 1]]
+      [[1, -1], [1, 1]]
     else
-      [[-1, -1], [1, -1]]
+      [[-1, -1], [-1, 1]]
     end
   end
 end
