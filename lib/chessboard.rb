@@ -21,7 +21,7 @@ class Chessboard
     move = move_between(position, target_space)
 
     if (piece.captures.include?(move) && !target_piece.nil?) ||
-       (piece.moves.inlude?(move) && target_piece.nil?)
+       (piece.moves.include?(move) && target_piece.nil?)
       return move_capture(position, target_space)
     end
 
