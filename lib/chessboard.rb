@@ -183,7 +183,7 @@ class Chessboard
     end
 
     def add_pawns
-      @board[1] = Array.new(8, Pawn.new(:white))
-      @board[6] = Array.new(8, Pawn.new(:black))
+      @board[1] = Array.new(8) { Pawn.new(:white) }
+      @board[6] = Array.new(8) { Pawn.new(:black) }
     end
 end
