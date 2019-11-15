@@ -102,11 +102,11 @@ class Chessboard
       return true if piece.can_jump?
 
       next_position = position.dup
-      step = one_step(position, target_space)
-      step_count = move_between(position, target_space).max - 1
+      advance = one_step(position, target_space)
+      step_count = move_between(position, target_space).map(&:abs).max - 1
 
       step_count.times do
-        next_position = move_by(next_position, step)
+        next_position = move_by(next_position, advance)
         return false unless piece_at(next_position).nil?
       end
 
