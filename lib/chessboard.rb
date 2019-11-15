@@ -36,6 +36,15 @@ class Chessboard
     check?(king_position(color))
   end
 
+  def can_move?(position)
+    piece = piece_at(position)
+    piece.moves.each do |move|
+      target = move_by(position, move)
+      return true unless illegal_move?(position, target)
+    end
+    false
+  end
+
   private
 
     def illegal_move?(position, target_space)
