@@ -31,10 +31,14 @@ class Game
       valid = false
       until valid
         render_display
-        file_rank = gets.chomp
+        file_rank = gets.chomp.upcase
         position = convert_to_index(file_rank)
         if position.nil? || !mine?(position)
           @message = "'#{file_rank}' is not a valid piece. Try again."
+        elsif !@chessboard.can_move?(position)
+          @message = "#{@current_player.capitalize} "\
+                     "#{@chessboard.piece_at(position).type} "\
+                     "at #{file_rank} can't move. Choose another."
         else
           valid = true
         end
