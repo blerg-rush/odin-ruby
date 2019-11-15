@@ -90,8 +90,10 @@ class Game
     end
 
     def game_status
-      check = in_check?
-      mate = checkmate?
+      other_player = @current_player == :white ? :black : :white
+      check = @chessboard.in_check?(@current_player)
+      # TODO: Add a proper checkmate method to catch this a turn earlier
+      mate = @chessboard.in_check?(other_player)
       { check: check,
         checkmate: mate,
         captured_pieces: @chessboard.captured_pieces }
