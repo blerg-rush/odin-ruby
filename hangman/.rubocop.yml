@@ -1,0 +1,35 @@
+
+#################### Layout ###########################
+
+Layout/IndentationConsistency:
+  Enabled: true
+  EnforcedStyle: indented_internal_methods
+
+#################### Metrics ###############################
+
+Metrics/BlockLength:
+  Enabled: true
+  CountComments: false  # count full line comments?
+  Max: 25
+  ExcludedMethods:
+    - refine
+    - describe
+  Exclude:
+    - '**/*.gemspec'
+
+#################### Style ###############################
+
+Style/ClassAndModuleChildren:
+  SafeAutoCorrect: false
+  AutoCorrect: false
+  Enabled: false
+  EnforcedStyle: nested
+
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
