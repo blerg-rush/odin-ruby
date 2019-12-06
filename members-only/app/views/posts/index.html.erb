@@ -1,0 +1,11 @@
+<% provide(:title, "Posts") %>
+<h1>Posts</h1>
+<%= "<p><em>Bet you wish you knew who wrote these...</em></p>".html_safe unless logged_in? %>
+<% @posts.includes(:user).each do |post| %>
+  <h5><%= post.title %></h5>
+  <% if logged_in? %>
+    <strong>Author:</strong>
+    <%= post.user.name %>
+  <% end %>
+  <p><%= post.body %></p>
+<% end %>
