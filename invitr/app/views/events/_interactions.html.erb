@@ -1,0 +1,24 @@
+    <% if @event.past? %>
+      <span class="badge badge-secondary">This event is over</span>
+    <% elsif @event.host?(@current_user) %>
+      <%= button_to "Invite somebody!", invitations_new_path(@event.id), method: :get, class: "btn btn-outline-primary" %>
+    <% elsif @event.not_invited?(@current_user) %>
+      <%= form_with model: @invitation, url: invitations_path, method: :post, local: true do |f| %>
+        <%= f.hidden_field :attendee_id, value: @current_user.id %>
+        <%= f.hidden_field :event_id, value: @event.id %>
+        <%= f.hidden_field :status, value: "accepted" %>
+        <%= f.submit "Attend this event!", class: "btn btn-outline-success" %>
+      <% end %>
+    <% elsif @event.invitation_pending?(@current_user) %>
+      <span class="badge badge-info">You've been invited!</span><br>
+      <div class="btn-group">
+        <%= button_to "I'm going!", invitations_accept_path(@invitation), class: "btn btn-outline-success" %>
+        <%= button_to "I'm not going", invitations_decline_path(@invitation), class: "btn btn-outline-danger" %>
+      </div>
+    <% elsif @event.invitation_declined?(@current_user) %>
+      <span class="badge badge-danger">You've declined</span><br>
+      <%= button_to "I changed my mind!", invitations_accept_path(@invitation), class: "btn btn-outline-success" %>
+    <% elsif @event.invitation_accepted?(@current_user) %>
+      <span class="badge badge-success">You're going!</span>
+      <%= button_to "I changed my mind...", invitations_decline_path(@invitation), class: "btn btn-outline-danger" %>
+    <% end %>

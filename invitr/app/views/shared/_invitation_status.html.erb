@@ -1,0 +1,8 @@
+<% case invitation.status %>
+<% when "pending" %>
+  <span class="badge badge-secondary"><%= invitation.status %></span>
+<% when "accepted" %>
+  <span class="badge badge-success"><%= invitation.status %></span>
+<% when "declined" %>
+  <span class="badge badge-danger"><%= invitation.status %></span>
+<% end %>

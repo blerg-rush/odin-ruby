@@ -1,0 +1,7 @@
+<% provide(:title, "New Invitation") %>
+<h1>Invite to <%= @event.title %></h1>
+<%= form_with model: @invitation, local: true do |f| %>
+  <%= f.hidden_field :event_id, value: @event.id %>
+  <%= f.select :attendee_id, options_from_collection_for_select(@users, "id", "name") %>
+  <%= f.submit "Send invitation", class: "btn btn-primary" %>
+<% end %>
