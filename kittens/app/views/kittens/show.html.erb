@@ -1,0 +1,12 @@
+<h1><%= @kitten.name %></h1>
+<h2>🐈</h2>
+<p>Age: <%= @kitten.age %></p>
+<p>Cuteness: <%= @kitten.cuteness %></p>
+<p>Softness: <%= @kitten.softness %></p>
+<%= link_to 'edit', edit_kitten_path(@kitten) %> |
+<%= link_to 'destroy', kitten_path(@kitten), method: :delete,
+                        data: { confirm: 'Really? 😢'} %>
+<br><br>
+<%= link_to root_path do %>
+  <%= button_tag 'Back to kittens!', type: 'button' %>
+<% end %>
