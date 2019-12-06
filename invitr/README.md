@@ -2,6 +2,8 @@
 
 This is an event-sharing app to demonstrate basic Active Record associations.
 
+Live demo version: https://invitr-alpha.herokuapp.com/
+
 ## To run this app locally
 
 1. Install gem dependencies
